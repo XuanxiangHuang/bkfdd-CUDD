@@ -1,0 +1,513 @@
+# Benchmark "s420.1.blif" written by ABC on Sat Jul 20 14:16:28 2019
+.model s420.1.blif
+.inputs P_0 C_16 C_15 C_14 C_13 C_12 C_11 C_10 C_9 C_8 C_7 C_6 C_5 C_4 C_3 \
+ C_2 C_1 C_0 X_4 X_3 X_2 X_1 X_8 X_7 X_6 X_5 X_12 X_11 X_10 X_9 X_16 X_15 \
+ X_14 X_13
+.outputs I13 I15 I111 I113 I209 I211 I309 Z I12 I110 I208 I306 I307 I14 \
+ I112 I210 I308
+.names I73_3 I73_4 I13
+1- 1
+-1 1
+.names I88_3 I88_4 I15
+1- 1
+-1 1
+.names I171_3 I171_4 I111
+1- 1
+-1 1
+.names I186_3 I186_4 I113
+1- 1
+-1 1
+.names I269_3 I269_4 I209
+1- 1
+-1 1
+.names I284_3 I284_4 I211
+1- 1
+-1 1
+.names I378_3 I378_4 I309
+1- 1
+-1 1
+.names I534_4 I534_5 Z
+1- 1
+-1 1
+.names I70_1 I62 I12
+0- 1
+-0 1
+.names I168_1 I160 I110
+0- 1
+-0 1
+.names I266_1 I258 I208
+0- 1
+-0 1
+.names I363_1 I355 I306
+0- 1
+-0 1
+.names I366_1 I357 I307
+0- 1
+-0 1
+.names I7_3 I7_4 I14
+00 1
+.names I105_3 I105_4 I112
+00 1
+.names I203_3 I203_4 I210
+00 1
+.names I301_3 I301_4 I308
+00 1
+.names I64 I48 I69
+00 1
+.names I69 I73_1
+0 1
+.names X_3 I73_2
+0 1
+.names X_1 P_0 I66
+0- 1
+-0 1
+.names I66 I7_1
+0 1
+.names X_2 I7_2
+0 1
+.names X_1 I88_1
+0 1
+.names P_0 I88_2
+0 1
+.names P_0 I48
+0 1
+.names X_4 I49
+0 1
+.names X_3 I50
+0 1
+.names I69 I68
+0 1
+.names I162 I146 I167
+00 1
+.names I167 I171_1
+0 1
+.names X_7 I171_2
+0 1
+.names X_5 I1_2 I164
+0- 1
+-0 1
+.names I164 I105_1
+0 1
+.names X_6 I105_2
+0 1
+.names X_5 I186_1
+0 1
+.names I2_1 P_0 I1_2
+11 1
+.names I1_2 I186_2
+0 1
+.names I1_2 I146
+0 1
+.names X_8 I147
+0 1
+.names X_7 I148
+0 1
+.names I167 I166
+0 1
+.names I260 I244 I265
+00 1
+.names I265 I269_1
+0 1
+.names X_11 I269_2
+0 1
+.names X_9 I1_3 I262
+0- 1
+-0 1
+.names I262 I203_1
+0 1
+.names X_10 I203_2
+0 1
+.names X_9 I284_1
+0 1
+.names I2_2 I1_2 I1_3
+11 1
+.names I1_3 I284_2
+0 1
+.names I1_3 I244
+0 1
+.names X_12 I245
+0 1
+.names X_11 I246
+0 1
+.names I265 I264
+0 1
+.names X_13 I1_4 I359
+0- 1
+-0 1
+.names I359 I301_1
+0 1
+.names X_14 I301_2
+0 1
+.names X_13 I378_1
+0 1
+.names I2_3 I1_3 I1_4
+11 1
+.names I1_4 I378_2
+0 1
+.names X_15 I344
+0 1
+.names X_14 I345
+0 1
+.names I344 I387_1 I358
+00 1
+.names I358 I357
+0 1
+.names I359 I360
+0 1
+.names P_0 I410
+0 1
+.names X_1 I411
+0 1
+.names X_2 I412
+0 1
+.names X_3 I413
+0 1
+.names X_4 I414
+0 1
+.names I411 P_0 I422
+0- 1
+-0 1
+.names I422 I423
+0 1
+.names P_0 I438
+0 1
+.names X_5 I439
+0 1
+.names X_6 I440
+0 1
+.names X_7 I441
+0 1
+.names X_8 I442
+0 1
+.names I439 P_0 I450
+0- 1
+-0 1
+.names I450 I451
+0 1
+.names P_0 I466
+0 1
+.names X_9 I467
+0 1
+.names X_10 I468
+0 1
+.names X_11 I469
+0 1
+.names X_12 I470
+0 1
+.names I467 P_0 I478
+0- 1
+-0 1
+.names I478 I479
+0 1
+.names P_0 I494
+0 1
+.names X_13 I495
+0 1
+.names X_14 I496
+0 1
+.names X_15 I497
+0 1
+.names X_16 I498
+0 1
+.names I495 P_0 I505
+0- 1
+-0 1
+.names I505 I506
+0 1
+.names I412 I422 P_2
+00 1
+.names P_2 I546
+0 1
+.names I413 I420 P_3
+00 1
+.names P_3 I547
+0 1
+.names C_2 I550
+0 1
+.names C_3 I551
+0 1
+.names I407_1 I404_2 P_6
+11 1
+.names P_6 I570
+0 1
+.names I407_1 I405_2 P_7
+11 1
+.names P_7 I571
+0 1
+.names C_6 I574
+0 1
+.names C_7 I575
+0 1
+.names I408_2 I404_3 P_10
+11 1
+.names P_10 I594
+0 1
+.names I408_2 I405_3 P_11
+11 1
+.names P_11 I595
+0 1
+.names C_10 I598
+0 1
+.names C_11 I599
+0 1
+.names I408_3 I404_4 P_14
+11 1
+.names P_14 I618
+0 1
+.names I408_3 I405_4 P_15
+11 1
+.names P_15 I619
+0 1
+.names C_14 I622
+0 1
+.names C_15 I623
+0 1
+.names I69 I73_2 I73_3
+11 1
+.names X_3 I73_1 I73_4
+11 1
+.names I66 I7_2 I7_3
+11 1
+.names X_2 I7_1 I7_4
+11 1
+.names X_1 I88_2 I88_3
+11 1
+.names P_0 I88_1 I88_4
+11 1
+.names I167 I171_2 I171_3
+11 1
+.names X_7 I171_1 I171_4
+11 1
+.names I164 I105_2 I105_3
+11 1
+.names X_6 I105_1 I105_4
+11 1
+.names X_5 I186_2 I186_3
+11 1
+.names I1_2 I186_1 I186_4
+11 1
+.names I265 I269_2 I269_3
+11 1
+.names X_11 I269_1 I269_4
+11 1
+.names I262 I203_2 I203_3
+11 1
+.names X_10 I203_1 I203_4
+11 1
+.names X_9 I284_2 I284_3
+11 1
+.names I1_3 I284_1 I284_4
+11 1
+.names I359 I301_2 I301_3
+11 1
+.names X_14 I301_1 I301_4
+11 1
+.names X_13 I378_2 I378_3
+11 1
+.names I1_4 I378_1 I378_4
+11 1
+.names I360 X_14 I387_1
+11 1
+.names I64 I49 I50 I2_1
+000 1
+.names I162 I147 I148 I2_2
+000 1
+.names I260 I245 I246 I2_3
+000 1
+.names X_4 X_2 X_3 X_1 I407_1
+0000 1
+.names X_8 X_6 X_7 X_5 I407_2
+0000 1
+.names I407_1 I407_2 I408_2
+11 1
+.names X_12 X_10 X_11 X_9 I407_3
+0000 1
+.names I408_2 I407_3 I408_3
+11 1
+.names I438 I439 I403_2
+00 1
+.names I407_1 I403_2 P_5
+11 1
+.names I440 I450 I404_2
+00 1
+.names I441 I448 I405_2
+00 1
+.names X_7 I448 I442 I406_2
+000 1
+.names I407_1 I406_2 P_8
+11 1
+.names I466 I467 I403_3
+00 1
+.names I408_2 I403_3 P_9
+11 1
+.names I468 I478 I404_3
+00 1
+.names I469 I476 I405_3
+00 1
+.names X_11 I476 I470 I406_3
+000 1
+.names I408_2 I406_3 P_12
+11 1
+.names I494 I495 I403_4
+00 1
+.names I408_3 I403_4 P_13
+11 1
+.names I496 I505 I404_4
+00 1
+.names I497 I503 I405_4
+00 1
+.names X_15 I503 I498 I406_4
+000 1
+.names I408_3 I406_4 P_16
+11 1
+.names I410 I411 P_1
+00 1
+.names P_1 C_1 I559_1
+11 1
+.names P_0 C_0 I559_2
+11 1
+.names P_5 C_5 I583_1
+11 1
+.names X_3 I420 I414 P_4
+000 1
+.names P_4 C_4 I583_2
+11 1
+.names P_9 C_9 I607_1
+11 1
+.names P_8 C_8 I607_2
+11 1
+.names P_13 C_13 I631_1
+11 1
+.names P_12 C_12 I631_2
+11 1
+.names P_16 C_16 I534_5
+11 1
+.names I68 X_4 I50 I70_1
+1-- 1
+-1- 1
+--1 1
+.names X_1 X_2 I64
+0- 1
+-0 1
+.names I64 I50 I48 I95_1
+1-- 1
+-1- 1
+--1 1
+.names I166 X_8 I148 I168_1
+1-- 1
+-1- 1
+--1 1
+.names X_5 X_6 I162
+0- 1
+-0 1
+.names I162 I148 I146 I193_1
+1-- 1
+-1- 1
+--1 1
+.names I264 X_12 I246 I266_1
+1-- 1
+-1- 1
+--1 1
+.names X_9 X_10 I260
+0- 1
+-0 1
+.names I260 I246 I244 I291_1
+1-- 1
+-1- 1
+--1 1
+.names I360 X_14 I361
+0- 1
+-0 1
+.names I361 X_16 I344 I363_1
+1-- 1
+-1- 1
+--1 1
+.names I361 X_15 I366_1
+1- 1
+-1 1
+.names I359 I345 I344 I384_1
+1-- 1
+-1- 1
+--1 1
+.names I547 I551 I555_1
+1- 1
+-1 1
+.names I546 I550 I555_2
+1- 1
+-1 1
+.names I571 I575 I579_1
+1- 1
+-1 1
+.names I570 I574 I579_2
+1- 1
+-1 1
+.names I595 I599 I603_1
+1- 1
+-1 1
+.names I594 I598 I603_2
+1- 1
+-1 1
+.names I619 I623 I627_1
+1- 1
+-1 1
+.names I618 I622 I627_2
+1- 1
+-1 1
+.names I555_1 I555_2 I554 I533_1
+0-- 1
+-0- 1
+--0 1
+.names I579_1 I579_2 I578 I533_2
+0-- 1
+-0- 1
+--0 1
+.names I533_1 I533_2 I534_2
+1- 1
+-1 1
+.names I603_1 I603_2 I602 I533_3
+0-- 1
+-0- 1
+--0 1
+.names I534_2 I533_3 I534_3
+1- 1
+-1 1
+.names I627_1 I627_2 I626 I533_4
+0-- 1
+-0- 1
+--0 1
+.names I534_3 I533_4 I534_4
+1- 1
+-1 1
+.names I95_1 X_4 I62
+0- 1
+-0 1
+.names I193_1 X_8 I160
+0- 1
+-0 1
+.names I291_1 X_12 I258
+0- 1
+-0 1
+.names I384_1 X_16 I355
+0- 1
+-0 1
+.names I423 I412 I420
+0- 1
+-0 1
+.names I451 I440 I448
+0- 1
+-0 1
+.names I479 I468 I476
+0- 1
+-0 1
+.names I506 I496 I503
+0- 1
+-0 1
+.names I559_1 I559_2 I554
+00 1
+.names I583_1 I583_2 I578
+00 1
+.names I607_1 I607_2 I602
+00 1
+.names I631_1 I631_2 I626
+00 1
+.end

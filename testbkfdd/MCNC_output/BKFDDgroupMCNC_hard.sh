@@ -1,0 +1,1 @@
+../.././bkfdds ../../Benchmark/MCNC/C6288.blif -autodyn -automethod bkfdd -choosedav 9800 -choosefail 100 -reordering bkfdd -drop -dumpfile benchmark_output_BKFDD/C6288.blif -dumpblif > SND_BKFDDgroupMCNC_hard.txt

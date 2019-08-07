@@ -1,0 +1,41 @@
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/max.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_EPFL/max.blif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 4001 to ... 747 nodes in 0.01 sec
+BDD reordering with group sifting: from 1495 to ... 750 nodes in 0.01 sec
+BDD reordering with group sifting: from 1501 to ... 880 nodes in 0.01 sec
+BDD reordering with group sifting: from 1761 to ... 974 nodes in 0.01 sec
+BDD reordering with group sifting: from 1949 to ... 1062 nodes in 0.04 sec
+BDD reordering with group sifting: from 2125 to ... 1016 nodes in 0.04 sec
+BDD reordering with group sifting: from 2033 to ... 1032 nodes in 0.04 sec
+BDD reordering with group sifting: from 2065 to ... 1021 nodes in 0.05 sec
+BDD reordering with group sifting: from 2043 to ... 1003 nodes in 0.05 sec
+BDD reordering with group sifting: from 2007 to ... 1039 nodes in 0.06 sec
+BDD reordering with group sifting: from 2079 to ... 1540 nodes in 0.08 sec
+BDD reordering with group sifting: from 3080 to ... 1573 nodes in 0.06 sec
+BDD reordering with group sifting: from 3150 to ... 1969 nodes in 0.07 sec
+BDD reordering with group sifting: from 3942 to ... 2206 nodes in 0.09 sec
+BDD reordering with group sifting: from 4416 to ... 2163 nodes in 0.1 sec
+BDD reordering with group sifting: from 4330 to ... 1963 nodes in 0.12 sec
+BDD reordering with group sifting: from 3929 to ... 2131 nodes in 0.13 sec
+BDD reordering with group sifting: from 4268 to ... 3042 nodes in 0.17 sec
+BDD reordering with group sifting: from 6089 to ... 5563 nodes in 0.21 sec
+BDD reordering with group sifting: from 11132 to ... 8513 nodes in 0.3 sec
+BDD reordering with group sifting: from 17031 to ... 14734 nodes in 0.48 sec
+BDD reordering with group sifting: from 29473 to ... 25721 nodes in 0.91 sec
+BDD reordering with group sifting: from 51447 to ... 20413 nodes in 1.37 sec
+BDD reordering with group sifting: from 51467 to ... 42896 nodes in 1.73 sec
+BDD reordering with group sifting: from 85797 to ... 56216 nodes in 3 sec
+BDD reordering with group sifting: from 112437 to ... 77721 nodes in 4.86 sec
+BDD reordering with group sifting: from 155447 to ... 77830 nodes in 6.27 sec
+BDD reordering with group sifting: from 155665 to ... 79982 nodes in 6.46 sec
+BDD reordering with group sifting: from 159969 to ... 94997 nodes in 8.03 sec
+BDD reordering with group sifting: from 189999 to ... 81315 nodes in 6.49 sec
+BDD reordering with group sifting: from 190019 to ... 173328 nodes in 14.12 sec
+BDD reordering with group sifting: from 346661 to ... 201748 nodes in 32.01 sec
+BDD reordering with group sifting: from 403499 to ... 174485 nodes in 30.45 sec
+BDD reordering with group sifting: from 403519 to ... 176280 nodes in 35.9 sec
+BDD reordering with group sifting: from 403539 to ... 281393 nodes in 74.46 sec
+BDD reordering with group sifting: from 562789 to ... 474406 nodes in 302.84 sec
+BDD reordering with group sifting: from 948815 to ... 934406 nodes in 1378.47 sec
+BDD reordering with group sifting: from 1868815 to ... 

@@ -1,0 +1,1527 @@
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/adder.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder.blif -dumpblif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 3953 to ... 560 nodes in 0.04 sec
+Order before final reordering
+b[127] a[127] b[126] a[126] b[125] a[125] b[124] a[124] 
+b[123] a[123] b[122] a[122] b[121] a[121] b[120] a[120] 
+b[119] a[119] b[118] a[118] b[117] a[117] b[116] a[116] 
+b[115] a[115] b[114] a[114] b[113] a[113] b[112] a[112] 
+b[111] a[111] b[110] a[110] b[109] a[109] b[108] a[108] 
+b[107] a[107] b[106] a[106] b[105] a[105] b[104] a[104] 
+b[103] a[103] b[102] a[102] b[101] a[101] b[100] a[100] 
+b[99] a[99] b[98] a[98] b[97] a[97] b[96] a[96] 
+b[95] a[95] b[94] a[94] b[93] a[93] b[92] a[92] 
+b[91] a[91] b[90] a[90] b[89] a[89] b[88] a[88] 
+b[87] a[87] b[86] a[86] b[85] a[85] b[84] a[84] 
+b[83] a[83] b[82] a[82] b[81] a[81] b[80] a[80] 
+b[79] a[79] b[78] a[78] b[77] a[77] b[76] a[76] 
+b[75] a[75] b[74] a[74] b[73] a[73] b[72] a[72] 
+b[71] a[71] b[70] a[70] b[69] a[69] b[68] a[68] 
+b[67] a[67] b[66] a[66] b[65] a[65] b[64] a[64] 
+b[63] a[63] b[62] a[62] b[61] a[61] b[60] a[60] 
+b[59] a[59] b[58] a[58] b[57] a[57] b[56] a[56] 
+b[55] a[55] b[54] a[54] b[53] a[53] b[52] a[52] 
+b[51] a[51] b[50] a[50] b[49] a[49] b[48] a[48] 
+a[47] b[47] a[46] b[46] a[45] b[45] a[44] b[44] 
+a[43] b[43] a[42] b[42] a[41] b[41] a[40] b[40] 
+a[39] b[39] a[38] b[38] a[37] b[37] a[36] b[36] 
+a[35] b[35] a[34] b[34] a[33] b[33] a[32] b[32] 
+a[31] b[31] a[30] b[30] a[29] b[29] a[28] b[28] 
+a[27] b[27] a[26] b[26] a[25] b[25] a[24] b[24] 
+a[23] b[23] a[22] b[22] a[21] b[21] a[20] b[20] 
+a[19] b[19] a[18] b[18] a[17] b[17] a[16] b[16] 
+a[15] b[15] a[14] b[14] a[13] b[13] a[12] b[12] 
+a[11] b[11] a[10] b[10] a[9] b[9] a[8] b[8] 
+a[7] b[7] a[6] b[6] a[5] b[5] a[4] b[4] 
+a[3] b[3] a[2] b[2] a[1] b[1] a[0] b[0] 
+Number of inputs = 256
+BDD reordering with converging linear sifting: from 639 to ... 385 nodes in 0.17 sec
+New order
+a[127] b[127] a[126] b[126] a[125] b[125] a[124] b[124] 
+a[123] b[123] a[122] b[122] a[121] b[121] a[120] b[120] 
+a[119] b[119] a[118] b[118] a[117] b[117] a[116] b[116] 
+a[115] b[115] a[114] b[114] a[113] b[113] a[112] b[112] 
+a[111] b[111] a[110] b[110] a[109] b[109] a[108] b[108] 
+a[107] b[107] a[106] b[106] a[105] b[105] a[104] b[104] 
+a[103] b[103] a[102] b[102] a[101] b[101] a[100] b[100] 
+a[99] b[99] a[98] b[98] a[97] b[97] a[96] b[96] 
+a[95] b[95] a[94] b[94] a[93] b[93] a[92] b[92] 
+a[91] b[91] a[90] b[90] a[89] b[89] a[88] b[88] 
+a[87] b[87] a[86] b[86] a[85] b[85] a[84] b[84] 
+a[83] b[83] a[82] b[82] a[81] b[81] a[80] b[80] 
+a[79] b[79] a[78] b[78] a[77] b[77] a[76] b[76] 
+a[75] b[75] a[74] b[74] a[73] b[73] a[72] b[72] 
+a[71] b[71] a[70] b[70] a[69] b[69] a[68] b[68] 
+a[67] b[67] a[66] b[66] a[65] b[65] a[64] b[64] 
+a[63] b[63] a[62] b[62] a[61] b[61] a[60] b[60] 
+a[59] b[59] a[58] a[57] a[56] a[55] a[54] a[53] 
+a[52] a[51] a[50] a[49] a[48] b[47] b[46] b[45] 
+b[44] b[43] b[42] b[41] b[40] b[39] b[38] b[37] 
+b[36] b[35] b[34] b[33] b[32] b[31] b[30] a[30] 
+b[29] a[29] b[28] a[28] b[27] a[27] b[26] a[26] 
+b[25] a[25] b[24] a[24] b[23] a[23] b[22] a[22] 
+b[21] a[21] b[20] a[20] b[19] a[19] b[18] a[18] 
+b[17] a[17] b[16] a[16] b[15] a[15] b[14] a[14] 
+b[13] a[13] b[12] a[12] b[11] a[11] b[10] a[10] 
+b[9] a[9] b[8] a[8] b[7] a[7] b[6] a[6] 
+b[5] a[5] b[4] a[4] b[3] a[3] b[2] a[2] 
+b[1] a[0] a[1] b[0] a[46] a[45] a[47] a[44] 
+a[43] a[42] a[41] a[40] a[39] a[38] b[48] b[55] 
+b[56] b[57] b[58] a[37] b[49] b[50] b[51] b[52] 
+b[53] b[54] a[31] a[32] a[33] a[34] a[35] a[36] 
+Dumping BDDs to benchmark_output_CUDD/adder.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 1030
+**** CUDD non-modifiable parameters ****
+Memory in use: 12705032
+Peak number of nodes: 238126
+Peak number of live nodes: 4004
+Number of BDD variables: 256
+Number of ZDD variables: 0
+Number of cache entries: 65536
+Number of cache look-ups: 209146
+Number of cache hits: 48906
+Number of cache insertions: 173453
+Number of cache collisions: 99907
+Number of cache deletions: 15414
+Cache used slots = 91.31% (expected 90.75%)
+Soft limit for cache size: 425984
+Number of buckets in unique table: 106496
+Used buckets in unique table: 86.27% (expected 83.60%)
+Number of BDD and ADD nodes: 238047
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 237531
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 255323
+Total number of nodes reclaimed: 1175611
+Garbage collections so far: 2
+Time for garbage collection: 0.00 sec
+Reorderings so far: 2
+Time for reordering: 0.21 sec
+Final size: 385
+total time = 0.26 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.3 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 11912K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 3859
+Swaps = 0
+Input blocks = 0
+Output blocks = 104
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/arbiter.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/arbiter.blif -dumpblif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 4178 to ... 2996 nodes in 0.13 sec
+BDD reordering with group sifting: from 6051 to ... 3538 nodes in 0.12 sec
+BDD reordering with group sifting: from 7148 to ... 3618 nodes in 0.13 sec
+BDD reordering with group sifting: from 7319 to ... 4695 nodes in 0.15 sec
+BDD reordering with group sifting: from 9453 to ... 5069 nodes in 0.18 sec
+BDD reordering with group sifting: from 10181 to ... 8022 nodes in 0.25 sec
+BDD reordering with group sifting: from 16091 to ... 11277 nodes in 0.37 sec
+BDD reordering with group sifting: from 22593 to ... 17910 nodes in 0.58 sec
+Order before final reordering
+req[50] priority[50] req[49] priority[49] req[48] priority[48] req[47] priority[47] 
+req[46] priority[46] req[45] priority[45] req[44] priority[44] req[43] priority[43] 
+req[42] priority[42] req[41] priority[41] req[40] priority[40] req[39] priority[39] 
+req[38] priority[38] req[37] priority[37] req[36] priority[36] req[35] priority[35] 
+req[34] priority[34] req[33] priority[33] req[32] priority[32] req[31] priority[31] 
+req[30] priority[30] req[29] priority[29] req[28] priority[28] req[27] priority[27] 
+req[26] priority[26] req[25] priority[25] req[24] priority[24] req[23] priority[23] 
+req[22] priority[22] req[21] priority[21] req[20] priority[20] req[19] priority[19] 
+req[18] priority[18] req[17] priority[17] req[16] priority[16] req[15] priority[15] 
+req[14] priority[14] req[13] priority[13] req[12] priority[12] req[11] priority[11] 
+req[10] priority[10] req[9] priority[9] req[8] priority[8] req[7] priority[7] 
+req[6] priority[6] req[5] priority[5] req[4] priority[4] req[3] priority[3] 
+req[2] priority[2] req[1] priority[1] req[0] priority[51] req[51] priority[52] 
+req[52] priority[53] req[53] priority[54] req[54] priority[55] req[55] priority[56] 
+req[56] priority[57] req[57] priority[58] req[58] priority[59] req[59] priority[60] 
+req[60] priority[61] req[61] priority[62] req[62] priority[63] req[63] priority[64] 
+req[64] priority[65] req[65] priority[66] req[66] priority[67] priority[114] priority[77] 
+req[76] priority[76] req[75] priority[75] req[74] priority[74] req[73] priority[73] 
+req[79] priority[79] req[77] priority[78] req[78] req[72] priority[72] req[71] 
+priority[71] priority[80] priority[81] req[70] priority[70] req[69] priority[69] req[67] 
+priority[68] req[68] req[80] req[81] priority[82] req[82] priority[83] req[83] 
+priority[84] req[84] priority[85] req[85] priority[86] priority[127] req[86] priority[87] 
+req[87] priority[88] req[88] priority[89] req[89] priority[90] req[90] priority[91] 
+req[91] priority[92] req[92] priority[94] priority[93] req[93] req[94] priority[95] 
+req[95] priority[96] req[96] priority[97] req[97] priority[98] req[98] priority[99] 
+req[99] priority[100] req[100] req[101] priority[102] req[102] priority[109] priority[101] 
+priority[103] priority[106] req[103] priority[104] req[104] priority[105] req[105] req[106] 
+priority[107] req[107] priority[108] req[108] priority[113] req[109] priority[110] req[110] 
+priority[111] req[111] priority[112] req[112] req[113] req[114] priority[0] priority[126] 
+priority[125] priority[124] priority[123] priority[122] priority[121] priority[120] priority[119] priority[118] 
+priority[117] priority[115] req[115] priority[116] req[116] req[117] req[118] req[119] 
+req[120] req[121] req[122] req[123] req[124] req[127] req[126] req[125] 
+Number of inputs = 256
+BDD reordering with converging linear sifting: from 29444 to ... 19892 nodes in 109.71 sec
+New order
+req[50] priority[50] req[49] priority[49] req[48] priority[48] req[47] priority[47] 
+req[46] priority[46] req[45] priority[45] req[44] priority[44] req[43] priority[43] 
+req[42] priority[42] req[41] priority[41] req[40] priority[40] req[39] priority[39] 
+req[38] priority[38] req[37] priority[37] req[36] priority[36] req[35] priority[35] 
+req[34] priority[34] req[33] priority[33] req[32] priority[32] req[31] priority[31] 
+req[30] priority[30] req[29] priority[29] req[28] priority[28] req[27] priority[27] 
+req[26] priority[26] req[25] priority[25] req[24] priority[24] req[23] priority[23] 
+req[22] priority[22] req[21] priority[21] req[20] priority[20] req[19] priority[19] 
+req[18] priority[18] req[17] priority[17] req[16] priority[16] req[15] priority[15] 
+req[14] priority[14] req[13] priority[13] req[12] priority[12] req[11] priority[11] 
+req[10] priority[10] req[9] priority[9] req[8] priority[8] req[7] priority[7] 
+req[6] priority[6] req[5] priority[5] req[4] priority[4] req[3] priority[3] 
+req[2] priority[2] req[1] priority[1] req[0] priority[0] priority[51] req[51] 
+priority[52] req[52] priority[53] req[53] priority[54] req[54] priority[55] req[55] 
+priority[56] req[56] priority[57] req[57] priority[58] req[58] priority[59] req[59] 
+priority[60] req[60] priority[61] req[61] priority[62] req[62] priority[63] req[63] 
+priority[64] req[64] priority[65] req[65] priority[66] req[66] priority[67] req[67] 
+priority[68] req[68] priority[69] req[69] priority[70] req[70] req[127] priority[127] 
+priority[71] req[126] priority[126] req[125] priority[125] req[124] priority[124] req[123] 
+priority[123] req[122] priority[122] req[121] priority[121] req[120] priority[120] req[119] 
+priority[119] req[118] priority[118] req[117] priority[117] req[116] priority[116] req[115] 
+priority[115] req[114] priority[114] req[113] priority[113] req[112] priority[112] req[111] 
+priority[111] req[110] priority[110] req[109] priority[109] req[108] priority[108] req[107] 
+priority[107] req[106] priority[106] req[105] priority[105] req[104] priority[104] req[103] 
+priority[103] req[102] priority[102] req[101] priority[101] req[100] priority[100] req[99] 
+priority[99] req[98] priority[98] req[97] priority[97] req[96] priority[96] req[95] 
+priority[95] req[94] priority[94] req[93] priority[93] req[92] priority[92] req[91] 
+priority[91] req[90] priority[90] req[89] priority[89] req[88] priority[88] req[87] 
+priority[87] req[86] priority[86] req[85] priority[85] req[84] priority[84] req[83] 
+priority[83] req[82] priority[82] req[81] priority[81] req[80] priority[80] req[79] 
+priority[79] req[78] priority[78] req[77] priority[77] req[76] priority[76] req[75] 
+priority[75] priority[72] req[72] req[71] priority[74] priority[73] req[73] req[74] 
+Dumping BDDs to benchmark_output_CUDD/arbiter.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 40252
+**** CUDD non-modifiable parameters ****
+Memory in use: 18507176
+Peak number of nodes: 233016
+Peak number of live nodes: 30018
+Number of BDD variables: 256
+Number of ZDD variables: 0
+Number of cache entries: 262144
+Number of cache look-ups: 1397742
+Number of cache hits: 681259
+Number of cache insertions: 743122
+Number of cache collisions: 178102
+Number of cache deletions: 563106
+Cache used slots = 91.51% (expected 9.66%)
+Soft limit for cache size: 263168
+Number of buckets in unique table: 65792
+Used buckets in unique table: 45.15% (expected 45.10%)
+Number of BDD and ADD nodes: 42355
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 22228
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 682218
+Total number of nodes reclaimed: 2868503
+Garbage collections so far: 9
+Time for garbage collection: 0.01 sec
+Reorderings so far: 9
+Time for reordering: 111.62 sec
+Final size: 19892
+total time = 111.81 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time    111.8 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 21720K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 5803
+Swaps = 0
+Input blocks = 0
+Output blocks = 2072
+Context switch (voluntary) = 0
+Context switch (involuntary) = 112
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/bar.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/bar.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a[77] shift[0] shift[1] a[78] a[80] a[79] shift[2] shift[3] 
+a[73] a[74] a[76] a[75] a[65] a[66] a[68] a[67] 
+a[69] a[70] a[72] a[71] shift[4] shift[5] a[93] a[94] 
+a[96] a[95] a[89] a[90] a[92] a[91] a[81] a[82] 
+a[84] a[83] a[85] a[86] a[88] a[87] a[125] a[126] 
+a[0] a[127] a[121] a[122] a[124] a[123] a[113] a[114] 
+a[116] a[115] a[117] a[118] a[120] a[119] a[109] a[110] 
+a[112] a[111] a[105] a[106] a[108] a[107] a[97] a[98] 
+a[100] a[99] a[101] a[102] a[104] a[103] shift[6] a[13] 
+a[14] a[16] a[15] a[9] a[10] a[12] a[11] a[1] 
+a[2] a[4] a[3] a[5] a[6] a[8] a[7] a[29] 
+a[30] a[32] a[31] a[25] a[26] a[28] a[27] a[17] 
+a[18] a[20] a[19] a[21] a[22] a[24] a[23] a[61] 
+a[62] a[64] a[63] a[57] a[58] a[60] a[59] a[49] 
+a[50] a[52] a[51] a[53] a[54] a[56] a[55] a[45] 
+a[46] a[48] a[47] a[41] a[42] a[44] a[43] a[33] 
+a[34] a[36] a[35] a[40] a[37] a[39] a[38] 
+Number of inputs = 135
+BDD reordering with converging linear sifting: from 2081 to ... 1025 nodes in 0.05 sec
+New order
+shift[4] shift[0] shift[1] shift[6] shift[5] shift[3] shift[2] a[79] 
+a[73] a[74] a[78] a[75] a[65] a[66] a[68] a[67] 
+a[80] a[76] a[72] a[71] a[77] a[69] a[93] a[94] 
+a[96] a[95] a[89] a[90] a[92] a[91] a[81] a[82] 
+a[84] a[70] a[85] a[83] a[88] a[87] a[125] a[126] 
+a[0] a[127] a[121] a[122] a[124] a[123] a[113] a[114] 
+a[116] a[115] a[117] a[118] a[120] a[119] a[109] a[110] 
+a[112] a[111] a[105] a[106] a[108] a[107] a[97] a[98] 
+a[100] a[99] a[101] a[86] a[104] a[103] a[102] a[13] 
+a[14] a[16] a[15] a[9] a[10] a[12] a[11] a[1] 
+a[2] a[4] a[3] a[5] a[6] a[8] a[7] a[29] 
+a[30] a[32] a[31] a[25] a[26] a[28] a[27] a[17] 
+a[18] a[20] a[19] a[21] a[22] a[24] a[23] a[61] 
+a[62] a[64] a[63] a[57] a[58] a[60] a[59] a[49] 
+a[50] a[52] a[51] a[53] a[54] a[56] a[55] a[45] 
+a[46] a[48] a[47] a[41] a[42] a[44] a[43] a[33] 
+a[34] a[36] a[35] a[40] a[37] a[39] a[38] 
+Dumping BDDs to benchmark_output_CUDD/bar.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 2068
+**** CUDD non-modifiable parameters ****
+Memory in use: 5002608
+Peak number of nodes: 16352
+Peak number of live nodes: 3104
+Number of BDD variables: 135
+Number of ZDD variables: 0
+Number of cache entries: 65536
+Number of cache look-ups: 41685
+Number of cache hits: 29819
+Number of cache insertions: 13258
+Number of cache collisions: 2911
+Number of cache deletions: 10030
+Cache used slots = 15.72% (expected 1.84%)
+Soft limit for cache size: 139264
+Number of buckets in unique table: 34816
+Used buckets in unique table: 3.21% (expected 3.20%)
+Number of BDD and ADD nodes: 1363
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 328
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 16582
+Total number of nodes reclaimed: 100875
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.05 sec
+Final size: 1025
+total time = 0.06 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.1 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  5636K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 2142
+Swaps = 0
+Input blocks = 0
+Output blocks = 144
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/cavlc.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/cavlc.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+totalcoeffs[0] trailingones[0] totalcoeffs[3] ctable[1] trailingones[1] totalcoeffs[2] totalcoeffs[1] ctable[0] 
+ctable[2] totalcoeffs[4] 
+Number of inputs = 10
+BDD reordering with converging linear sifting: from 443 to ... 376 nodes in 0 sec
+New order
+ctable[1] ctable[0] totalcoeffs[3] trailingones[1] trailingones[0] totalcoeffs[0] totalcoeffs[1] ctable[2] 
+totalcoeffs[4] totalcoeffs[2] 
+Dumping BDDs to benchmark_output_CUDD/cavlc.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 766
+**** CUDD non-modifiable parameters ****
+Memory in use: 3281400
+Peak number of nodes: 4088
+Peak number of live nodes: 526
+Number of BDD variables: 10
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 5128
+Number of cache hits: 1697
+Number of cache insertions: 3538
+Number of cache collisions: 257
+Number of cache deletions: 3244
+Cache used slots = 10.00% (expected 0.27%)
+Soft limit for cache size: 11264
+Number of buckets in unique table: 2816
+Used buckets in unique table: 12.68% (expected 13.00%)
+Number of BDD and ADD nodes: 418
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 34
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 3481
+Total number of nodes reclaimed: 880
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 376
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4140K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1229
+Swaps = 0
+Input blocks = 0
+Output blocks = 48
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/ctrl.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/ctrl.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+opcode[3] opcode[4] op_ext[0] op_ext[1] opcode[0] opcode[1] opcode[2] 
+Number of inputs = 7
+BDD reordering with converging linear sifting: from 89 to ... 80 nodes in 0 sec
+New order
+opcode[4] opcode[0] op_ext[1] opcode[1] op_ext[0] opcode[2] opcode[3] 
+Dumping BDDs to benchmark_output_CUDD/ctrl.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 176
+**** CUDD non-modifiable parameters ****
+Memory in use: 3183168
+Peak number of nodes: 1022
+Peak number of live nodes: 106
+Number of BDD variables: 7
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 589
+Number of cache hits: 195
+Number of cache insertions: 449
+Number of cache collisions: 50
+Number of cache deletions: 372
+Cache used slots = 1.21% (expected 0.22%)
+Soft limit for cache size: 8192
+Number of buckets in unique table: 2048
+Used buckets in unique table: 5.37% (expected 5.47%)
+Number of BDD and ADD nodes: 118
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 29
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 383
+Total number of nodes reclaimed: 203
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 80
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3976K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1158
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/dec.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/dec.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+count[4] count[5] count[6] count[7] count[0] count[2] count[1] count[3] 
+Number of inputs = 8
+BDD reordering with converging linear sifting: from 510 to ... 510 nodes in 0 sec
+New order
+count[4] count[5] count[6] count[7] count[0] count[2] count[1] count[3] 
+Dumping BDDs to benchmark_output_CUDD/dec.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 1038
+**** CUDD non-modifiable parameters ****
+Memory in use: 3183176
+Peak number of nodes: 1022
+Peak number of live nodes: 523
+Number of BDD variables: 8
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 2567
+Number of cache hits: 2032
+Number of cache insertions: 551
+Number of cache collisions: 3
+Number of cache deletions: 541
+Cache used slots = 1.67% (expected 0.02%)
+Soft limit for cache size: 9216
+Number of buckets in unique table: 2304
+Used buckets in unique table: 17.49% (expected 16.80%)
+Number of BDD and ADD nodes: 520
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 556
+Total number of nodes reclaimed: 8
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 510
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4028K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1177
+Swaps = 0
+Input blocks = 0
+Output blocks = 96
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/i2c.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/i2c.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+pi008 pi021 pi007 pi013 pi014 pi010 pi005 pi022 
+pi018 pi019 pi004 pi016 pi017 pi006 pi012 pi056 
+pi009 pi011 pi054 pi000 pi129 pi003 pi097 pi110 
+pi096 pi029 pi095 pi100 pi058 pi116 pi053 pi027 
+pi085 pi026 pi025 pi051 pi052 pi039 pi001 pi028 
+pi059 pi094 pi037 pi042 pi044 pi038 pi040 pi050 
+pi024 pi049 pi015 pi020 pi002 pi043 pi047 pi041 
+pi046 pi045 pi048 pi082 pi122 pi127 pi069 pi070 
+pi071 pi057 pi060 pi073 pi068 pi062 pi065 pi075 
+pi064 pi063 pi077 pi074 pi072 pi076 pi066 pi132 
+pi133 pi131 pi137 pi136 pi138 pi143 pi146 pi145 
+pi144 pi061 pi118 pi123 pi113 pi115 pi140 pi111 
+pi139 pi112 pi141 pi067 pi099 pi098 pi142 pi093 
+pi092 pi091 pi090 pi089 pi088 pi087 pi086 pi081 
+pi084 pi079 pi078 pi080 pi032 pi125 pi035 pi120 
+pi030 pi023 pi036 pi033 pi034 pi124 pi119 pi031 
+pi109 pi106 pi055 pi117 pi114 pi126 pi128 pi130 
+pi121 pi107 pi105 pi101 pi103 pi102 pi104 pi135 
+pi134 pi083 pi108 
+Number of inputs = 147
+BDD reordering with converging linear sifting: from 2116 to ... 1235 nodes in 0.04 sec
+New order
+pi057 pi085 pi108 pi083 pi104 pi102 pi103 pi101 
+pi105 pi107 pi121 pi130 pi128 pi054 pi118 pi025 
+pi029 pi059 pi028 pi022 pi017 pi005 pi018 pi016 
+pi006 pi011 pi019 pi008 pi009 pi132 pi133 pi126 
+pi131 pi137 pi138 pi120 pi125 pi023 pi124 pi119 
+pi136 pi106 pi093 pi109 pi082 pi111 pi044 pi027 
+pi060 pi096 pi097 pi095 pi100 pi110 pi042 pi040 
+pi038 pi050 pi046 pi041 pi043 pi047 pi048 pi045 
+pi024 pi049 pi015 pi020 pi002 pi067 pi063 pi066 
+pi076 pi072 pi074 pi077 pi075 pi064 pi068 pi065 
+pi062 pi073 pi069 pi070 pi071 pi127 pi116 pi026 
+pi094 pi037 pi053 pi058 pi052 pi039 pi051 pi010 
+pi014 pi021 pi013 pi004 pi007 pi001 pi012 pi055 
+pi061 pi000 pi113 pi056 pi003 pi123 pi117 pi114 
+pi122 pi143 pi146 pi145 pi144 pi140 pi139 pi141 
+pi142 pi134 pi135 pi129 pi080 pi035 pi092 pi090 
+pi081 pi098 pi088 pi086 pi091 pi079 pi112 pi084 
+pi032 pi033 pi078 pi034 pi099 pi115 pi089 pi030 
+pi087 pi031 pi036 
+Dumping BDDs to benchmark_output_CUDD/i2c.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 2636
+**** CUDD non-modifiable parameters ****
+Memory in use: 3779184
+Peak number of nodes: 10220
+Peak number of live nodes: 2172
+Number of BDD variables: 147
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 12497
+Number of cache hits: 2835
+Number of cache insertions: 10949
+Number of cache collisions: 1372
+Number of cache deletions: 5350
+Cache used slots = 27.01% (expected 14.19%)
+Soft limit for cache size: 151552
+Number of buckets in unique table: 37888
+Used buckets in unique table: 20.69% (expected 20.65%)
+Number of BDD and ADD nodes: 9895
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 8576
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 15538
+Total number of nodes reclaimed: 3777
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.04 sec
+Final size: 1235
+total time = 0.04 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4388K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1422
+Swaps = 0
+Input blocks = 0
+Output blocks = 144
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/int2float.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/int2float.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+B[0] B[1] B[4] B[3] B[6] B[5] B[2] B[7] 
+B[8] B[9] B[10] 
+Number of inputs = 11
+BDD reordering with converging linear sifting: from 310 to ... 110 nodes in 0 sec
+New order
+B[10] B[9] B[8] B[7] B[6] B[5] B[4] B[0] 
+B[1] B[2] B[3] 
+Dumping BDDs to benchmark_output_CUDD/int2float.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 230
+**** CUDD non-modifiable parameters ****
+Memory in use: 3237216
+Peak number of nodes: 2044
+Peak number of live nodes: 341
+Number of BDD variables: 11
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 2397
+Number of cache hits: 888
+Number of cache insertions: 1531
+Number of cache collisions: 45
+Number of cache deletions: 1436
+Cache used slots = 4.52% (expected 0.17%)
+Soft limit for cache size: 12288
+Number of buckets in unique table: 3072
+Used buckets in unique table: 4.85% (expected 4.96%)
+Number of BDD and ADD nodes: 158
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 42
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 1634
+Total number of nodes reclaimed: 387
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 110
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3996K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1174
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/mem_ctrl.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/mem_ctrl.blif -dumpblif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 4001 to ... 1664 nodes in 0.02 sec
+BDD reordering with group sifting: from 3329 to ... 1946 nodes in 0.06 sec
+BDD reordering with group sifting: from 3892 to ... 2162 nodes in 0.08 sec
+BDD reordering with group sifting: from 4326 to ... 2371 nodes in 0.06 sec
+BDD reordering with group sifting: from 4744 to ... 3507 nodes in 0.09 sec
+BDD reordering with group sifting: from 7016 to ... 4144 nodes in 0.14 sec
+BDD reordering with group sifting: from 8290 to ... 5493 nodes in 0.2 sec
+BDD reordering with group sifting: from 10987 to ... 7698 nodes in 0.31 sec
+BDD reordering with group sifting: from 15400 to ... 9248 nodes in 0.36 sec
+BDD reordering with group sifting: from 18500 to ... 10182 nodes in 0.41 sec
+BDD reordering with group sifting: from 20349 to ... 14929 nodes in 0.74 sec
+BDD reordering with group sifting: from 29848 to ... 21601 nodes in 1.01 sec
+BDD reordering with group sifting: from 43264 to ... 31828 nodes in 2.3 sec
+BDD reordering with group sifting: from 63618 to ... 39137 nodes in 2.8 sec
+Order before final reordering
+pi0910 pi0911 pi0912 pi0913 pi0894 pi0915 pi0916 pi0917 
+pi0918 pi0892 pi0899 pi0900 pi0903 pi0904 pi1103 pi0750 
+pi0891 pi0624 pi0831 pi0890 pi0889 pi0604 pi0823 pi0888 
+pi0887 pi0884 pi0885 pi0886 pi0983 pi0968 pi0956 pi1085 
+pi1083 pi1046 pi0806 pi0962 pi0953 pi0973 pi1088 pi1066 
+pi1054 pi0780 pi0740 pi0598 pi0797 pi0779 pi0615 pi0882 
+pi0966 pi1061 pi0952 pi1060 pi1038 pi0980 pi0855 pi0784 
+pi0872 pi0811 pi0992 pi0871 pi0809 pi0873 pi0799 pi0850 
+pi0808 pi0866 pi0814 pi0837 pi0981 pi0859 pi0783 pi0876 
+pi0803 pi0881 pi0812 pi0620 pi0635 pi0870 pi0765 pi1111 
+pi1110 pi1109 pi1108 pi1113 pi1112 pi0828 pi1114 pi1115 
+pi1105 pi0798 pi1106 pi1104 pi1102 pi1101 pi0827 pi1107 
+pi1100 pi1119 pi1118 pi1117 pi1116 pi1121 pi1120 pi0826 
+pi1122 pi1123 pi1130 pi1124 pi1126 pi1125 pi1129 pi1128 
+pi0825 pi1127 pi1131 pi0613 pi0632 pi0856 pi0807 pi0874 
+pi0791 pi0747 pi0852 pi0769 pi0611 pi0646 pi0865 pi0794 
+pi0610 pi0631 pi0848 pi0771 pi0857 pi0800 pi0842 pi0845 
+pi0731 pi0858 pi0721 pi0847 pi0813 pi0838 pi0775 pi0732 
+pi0694 pi0776 pi0640 pi0851 pi0854 pi0816 pi0669 pi0645 
+pi0839 pi0853 pi0684 pi0650 pi0636 pi0868 pi0987 pi0880 
+pi0988 pi0651 pi0654 pi0762 pi0697 pi0773 pi0801 pi0657 
+pi0867 pi0652 pi0653 pi0693 pi0795 pi0860 pi0844 pi0945 
+pi0728 pi0656 pi0649 pi0658 pi0744 pi0655 pi0843 pi0478 
+pi0307 pi0920 pi0935 pi0821 pi0815 pi0601 pi0597 pi0600 
+pi0594 pi0595 pi0596 pi0990 pi0599 pi0810 pi0230 pi0281 
+pi0270 pi1139 pi0301 pi0311 pi0237 pi0233 pi0492 pi0491 
+pi0534 pi0497 pi0494 pi0550 pi0239 pi0275 pi0268 pi1152 
+pi1151 pi1150 pi1149 pi0272 pi0263 pi1148 pi0273 pi0608 
+pi0778 pi0253 pi0254 pi1153 pi0625 pi0691 pi0730 pi0699 
+pi0706 pi0695 pi0785 pi0609 pi0612 pi0535 pi0542 pi0551 
+pi0240 pi0536 pi0520 pi0526 pi0499 pi0564 pi0487 pi0546 
+pi0563 pi0246 pi0540 pi0581 pi0512 pi0575 pi0495 pi0531 
+pi0549 pi0235 pi0501 pi0576 pi0565 pi0521 pi0481 pi0554 
+pi0548 pi0248 pi0537 pi0538 pi0578 pi0496 pi0579 pi0528 
+pi0555 pi0482 pi0484 pi0249 pi0523 pi0505 pi0518 pi0511 
+pi0570 pi0485 pi0544 pi0234 pi0557 pi0543 pi0517 pi0498 
+pi0577 pi0529 pi0522 pi0507 pi0238 pi0509 pi0525 pi0514 
+pi0545 pi0580 pi0584 pi0503 pi0568 pi0245 pi0541 pi0585 
+pi0493 pi0513 pi0558 pi0572 pi0566 pi0486 pi0244 pi0267 
+pi1155 pi0660 pi0781 pi1154 pi0618 pi0627 pi0746 pi0789 
+pi0619 pi1159 pi0648 pi0729 pi0788 pi1158 pi0641 pi0626 
+pi0792 pi1156 pi0628 pi0629 pi0735 pi0787 pi0647 pi1157 
+pi0630 pi0790 pi0715 pi1160 pi0644 pi0757 pi0133 pi0125 
+pi0121 pi0080 pi0818 pi0031 pi0951 pi0126 pi0132 pi0130 
+pi0136 pi0135 pi0134 pi1162 pi1163 pi1161 pi0591 pi0590 
+pi0592 pi0402 pi0316 pi0349 pi0348 pi0315 pi0359 pi0322 
+pi0321 pi0347 pi0374 pi0369 pi0370 pi0371 pi0373 pi0375 
+pi0384 pi0442 pi0401 pi0406 pi0403 pi0405 pi0325 pi0326 
+pi0318 pi0409 pi0448 pi0449 pi0433 pi0451 pi0427 pi0445 
+pi0430 pi0428 pi0440 pi0350 pi0426 pi1199 pi0333 pi0391 
+pi0392 pi0393 pi0334 pi0407 pi0463 pi0335 pi0413 pi0324 
+pi0390 pi0404 pi0319 pi0456 pi0412 pi0411 pi0410 pi1198 
+pi0423 pi0454 pi0461 pi0357 pi0356 pi0360 pi0462 pi0352 
+pi0353 pi0354 pi0377 pi0376 pi0439 pi0381 pi0317 pi0385 
+pi0378 pi0382 pi0379 pi0386 pi0337 pi0339 pi0387 pi0380 
+pi0338 pi0388 pi0363 pi0372 pi0459 pi0424 pi0425 pi0432 
+pi0420 pi0421 pi0419 pi0351 pi1197 pi0418 pi0464 pi0397 
+pi0417 pi0346 pi0323 pi0345 pi0438 pi0358 pi0450 pi0327 
+pi0362 pi0343 pi0453 pi0416 pi0437 pi0431 pi0415 pi0344 
+pi1196 pi0328 pi0414 pi0355 pi0435 pi0434 pi0436 pi0444 
+pi0443 pi0396 pi0394 pi0408 pi0446 pi0400 pi0329 pi0395 
+pi0399 pi0398 pi0389 pi0368 pi0447 pi0365 pi0366 pi0364 
+pi0383 pi0336 pi0429 pi0422 pi0441 pi0455 pi0452 pi0458 
+pi0361 pi0460 pi0320 pi0342 pi0367 pi1048 pi0304 pi1065 
+pi1036 pi1053 pi1069 pi1070 pi1062 pi1067 pi1039 pi1040 
+pi1076 pi1079 pi1055 pi1035 pi1081 pi1071 pi1045 pi1068 
+pi1042 pi1086 pi1057 pi1058 pi1074 pi1078 pi1047 pi1080 
+pi1043 pi1087 pi1063 pi1051 pi1044 pi0298 pi1084 pi0305 
+pi1037 pi0308 pi1072 pi0309 pi1059 pi0306 pi1049 pi0303 
+pi0340 pi0588 pi0506 pi0574 pi0500 pi0571 pi0490 pi0562 
+pi0553 pi0559 pi0241 pi1141 pi0749 pi0748 pi0764 pi0763 
+pi0169 pi0148 pi0171 pi0168 pi0170 pi0832 pi1140 pi0202 
+pi0933 pi0940 pi1138 pi0341 pi1137 pi0331 pi0330 pi0205 
+pi0282 pi0243 pi0283 pi1147 pi0271 pi0269 pi0220 pi0280 
+pi0921 pi0508 pi0532 pi0552 pi0516 pi0527 pi0547 pi0502 
+pi0561 pi0247 pi0204 pi0218 pi0878 pi0862 pi0877 pi0869 
+pi0206 pi0861 pi0793 pi0300 pi0312 pi0203 pi0982 pi0201 
+pi0519 pi0539 pi0586 pi0582 pi0560 pi0510 pi0488 pi0573 
+pi0483 pi0524 pi0530 pi0556 pi0489 pi0569 pi0515 pi0937 
+pi0934 pi0922 pi0943 pi0931 pi0805 pi0830 pi0836 pi0936 
+pi0941 pi0925 pi0942 pi0923 pi0926 pi0057 pi0059 pi0062 
+pi0924 pi0056 pi0055 pi0074 pi0054 pi0567 pi0075 pi0092 
+pi0087 pi0100 pi0726 pi0696 pi0687 pi0736 pi0738 pi0705 
+pi0727 pi0703 pi0724 pi0723 pi0734 pi0700 pi0690 pi0725 
+pi0709 pi0701 pi0702 pi0688 pi0737 pi0686 pi0177 pi0192 
+pi0194 pi0191 pi0141 pi0704 pi0742 pi0176 pi0768 pi0188 
+pi0770 pi0739 pi0193 pi0766 pi0175 pi0741 pi0179 pi0774 
+pi0143 pi0217 pi0710 pi0638 pi0637 pi0643 pi0698 pi0639 
+pi0634 pi0038 pi0187 pi0147 pi0167 pi0165 pi0039 pi0593 
+pi0468 pi0119 pi0332 pi0751 pi0767 pi0752 pi0777 pi0753 
+pi0756 pi0761 pi0754 pi0232 pi0156 pi0185 pi0186 pi0154 
+pi0622 pi0623 pi0606 pi0617 pi0607 pi0299 pi0162 pi0164 
+pi0033 pi0954 pi0034 pi0160 pi0159 pi0172 pi0158 pi0184 
+pi0145 pi0150 pi0209 pi0251 pi0261 pi0258 pi0255 pi0260 
+pi0259 pi0256 pi0257 pi0476 pi0292 pi0294 pi0297 pi0290 
+pi0295 pi0291 pi0296 pi0293 pi0897 pi0199 pi0200 pi0208 
+pi0207 pi0213 pi0219 pi0211 pi0214 pi0212 pi0180 pi0182 
+pi0190 pi0181 pi0947 pi0755 pi0743 pi0760 pi0758 pi0759 
+pi0772 pi0745 pi0151 pi0173 pi0144 pi0174 pi0189 pi0142 
+pi0140 pi0149 pi0183 pi0157 pi0178 pi0163 pi0907 pi0603 
+pi0642 pi0616 pi0614 pi0662 pi0681 pi0661 pi0680 pi0665 
+pi0633 pi0621 pi0960 pi0978 pi0970 pi0972 pi0975 pi0963 
+pi0215 pi0221 pi0216 pi0155 pi0961 pi0977 pi0974 pi0971 
+pi0967 pi0587 pi0602 pi0969 pi0223 pi0224 pi0222 pi0914 
+pi1136 pi0938 pi0944 pi0932 pi0927 pi0939 pi0930 pi0929 
+pi0928 pi1144 pi1145 pi0265 pi1133 pi1132 pi0278 pi0279 
+pi0266 pi0948 pi1135 pi1146 pi0274 pi1134 pi1142 pi0277 
+pi0264 pi0262 pi0276 pi0079 pi0118 pi0139 pi0138 pi0196 
+pi0195 pi0228 pi0105 pi0875 pi0879 pi1143 pi0284 pi0846 
+pi0128 pi0533 pi0504 pi0242 pi0161 pi0197 pi0152 pi0166 
+pi0030 pi0146 pi0153 pi0198 pi0210 pi0589 pi0986 pi0137 
+pi0120 pi1092 pi1093 pi0802 pi0976 pi0958 pi0820 pi0796 
+pi0819 pi0659 pi0817 pi1091 pi0833 pi0957 pi0829 pi0123 
+pi0824 pi0950 pi0122 pi0289 pi0285 pi0287 pi0984 pi0286 
+pi0288 pi0250 pi0835 pi0252 pi1001 pi0979 pi0786 pi0129 
+pi0683 pi0043 pi0052 pi0042 pi0114 pi0115 pi0116 pi0113 
+pi0099 pi0041 pi0101 pi0044 pi0127 pi0095 pi0479 pi0072 
+pi0959 pi0901 pi0480 pi0949 pi0032 pi0040 pi1082 pi0096 
+pi0051 pi0035 pi0225 pi0093 pi0090 pi0999 pi0314 pi0841 
+pi0024 pi1050 pi0070 pi0058 pi0091 pi0047 pi0110 pi0109 
+pi0108 pi0094 pi0046 pi0097 pi0086 pi0053 pi0050 pi0060 
+pi0077 pi0107 pi0063 pi0081 pi0088 pi0102 pi0084 pi0067 
+pi0068 pi0071 pi0098 pi0065 pi0064 pi0036 pi0069 pi0111 
+pi0082 pi0073 pi0103 pi0083 pi0066 pi0045 pi0104 pi0049 
+pi0048 pi0089 pi0106 pi0061 pi0076 pi0085 pi0313 pi0231 
+pi0909 pi0908 pi0782 pi0906 pi0905 pi0902 pi0883 pi0898 
+pi0919 pi0896 pi0895 pi1056 pi1077 pi1041 pi1073 pi0989 
+pi0864 pi0863 pi0849 pi0840 pi0457 pi0955 pi0946 pi1005 
+pi1025 pi0996 pi1020 pi1015 pi1034 pi1012 pi1027 pi1030 
+pi0993 pi1024 pi1009 pi1032 pi1016 pi1023 pi1010 pi1021 
+pi0998 pi1018 pi0893 pi0467 pi0078 pi0112 pi1017 pi0666 
+pi0997 pi1003 pi0227 pi0477 pi0834 pi0229 pi0012 pi0011 
+pi1013 pi0675 pi0673 pi1011 pi0009 pi1008 pi1019 pi0676 
+pi0008 pi1031 pi0007 pi1022 pi0667 pi1000 pi1002 pi0006 
+pi0005 pi0583 pi0664 pi1026 pi0004 pi0685 pi1006 pi0003 
+pi0000 pi0002 pi0001 pi0720 pi0013 pi0310 pi0302 pi0475 
+pi0474 pi0124 pi0117 pi0466 pi0473 pi0471 pi0472 pi0714 
+pi0010 pi0470 pi0469 pi0465 pi1028 pi1033 pi0995 pi0994 
+pi0028 pi0027 pi0026 pi0029 pi0015 pi0037 pi0014 pi0021 
+pi0020 pi0023 pi1089 pi0019 pi0025 pi0018 pi0017 pi0016 
+pi1096 pi0722 pi0719 pi0692 pi0717 pi0689 pi0712 pi0733 
+pi0716 pi0711 pi0713 pi0708 pi0707 pi0236 pi0718 pi0678 
+pi0671 pi0682 pi0677 pi0670 pi0663 pi0674 pi0131 pi0679 
+pi0822 pi0226 pi0022 pi0672 pi1090 pi0668 pi0964 pi0965 
+pi0991 pi0985 pi1014 pi1029 pi1004 pi1007 pi1064 pi1075 
+pi1052 pi1095 pi1094 pi1183 pi1187 pi1172 pi1170 pi1177 
+pi1178 pi1203 pi1185 pi1171 pi1192 pi1186 pi1165 pi1164 
+pi1098 pi1169 pi1173 pi1181 pi1193 pi1182 pi1168 pi1175 
+pi1191 pi1099 pi1174 pi1179 pi1202 pi1176 pi1201 pi1188 
+pi1167 pi1189 pi1195 pi1190 pi1180 pi1166 pi1194 pi1097 
+pi1184 pi1200 pi0804 pi0605 
+Number of inputs = 1204
+BDD reordering with converging linear sifting: from 49561 to ... 36963 nodes in 45.3 sec
+New order
+pi0896 pi0902 pi0894 pi0915 pi0916 pi0917 pi0892 pi0899 
+pi0900 pi0903 pi0904 pi0890 pi0913 pi0888 pi0887 pi0884 
+pi0885 pi0911 pi0912 pi0821 pi0891 pi0886 pi0828 pi0827 
+pi0826 pi0825 pi0910 pi0925 pi0311 pi0301 pi0793 pi0882 
+pi0922 pi0941 pi0943 pi0936 pi0931 pi1068 pi1071 pi1086 
+pi1042 pi0921 pi0935 pi0920 pi0861 pi0869 pi0862 pi1141 
+pi1140 pi1139 pi1200 pi1184 pi1097 pi1194 pi1166 pi1180 
+pi1190 pi1195 pi1189 pi1167 pi1188 pi1201 pi1176 pi1202 
+pi1179 pi1174 pi1099 pi1191 pi1175 pi1168 pi1182 pi1193 
+pi1181 pi1173 pi1169 pi1098 pi1164 pi1165 pi1186 pi1192 
+pi1171 pi1185 pi1203 pi1178 pi1177 pi1170 pi1172 pi1187 
+pi1183 pi1094 pi1095 pi1052 pi1075 pi1064 pi1007 pi1004 
+pi1029 pi1014 pi0985 pi0991 pi0965 pi0964 pi0668 pi1090 
+pi0672 pi0022 pi0226 pi0822 pi0679 pi0131 pi0674 pi0663 
+pi0670 pi0677 pi0682 pi0671 pi0678 pi0718 pi0236 pi0707 
+pi0708 pi0713 pi0711 pi0716 pi0733 pi0712 pi0689 pi0717 
+pi0692 pi0719 pi0722 pi1096 pi0016 pi0017 pi0018 pi0025 
+pi0019 pi1089 pi0023 pi0020 pi0021 pi0014 pi0037 pi0015 
+pi0029 pi0026 pi0027 pi0028 pi0994 pi0995 pi1033 pi1028 
+pi0465 pi0469 pi0470 pi0010 pi0714 pi0472 pi0471 pi0473 
+pi0466 pi0117 pi0474 pi0475 pi0302 pi0310 pi0013 pi0720 
+pi0001 pi0002 pi0000 pi0003 pi1006 pi0685 pi0004 pi1026 
+pi0664 pi0583 pi0005 pi0006 pi1002 pi1000 pi0667 pi1022 
+pi0007 pi1031 pi0008 pi0676 pi1019 pi1008 pi0009 pi1011 
+pi0673 pi0675 pi1013 pi0011 pi0012 pi0229 pi0834 pi0477 
+pi0227 pi1003 pi0997 pi0666 pi1017 pi0112 pi0078 pi0467 
+pi1018 pi0998 pi1021 pi1010 pi1023 pi1016 pi1032 pi1009 
+pi1024 pi0993 pi1030 pi1027 pi1012 pi1034 pi1015 pi1020 
+pi0996 pi1025 pi1005 pi0782 pi0982 pi0951 pi1163 pi1161 
+pi1162 pi1137 pi1138 pi1136 pi0945 pi0988 pi0987 pi0765 
+pi0771 pi0775 pi0769 pi0731 pi0807 pi0773 pi0813 pi0721 
+pi0955 pi0801 pi0816 pi0794 pi0795 pi0747 pi0860 pi0868 
+pi0844 pi0867 pi0851 pi0880 pi0865 pi0848 pi0845 pi0870 
+pi0838 pi0854 pi0857 pi0852 pi0853 pi0842 pi0858 pi0847 
+pi0856 pi1135 pi0873 pi0881 pi0876 pi0866 pi0859 pi0874 
+pi0784 pi0814 pi0839 pi0843 pi0809 pi0811 pi0893 pi0799 
+pi0803 pi0812 pi0791 pi0230 pi1147 pi1151 pi1152 pi0270 
+pi0282 pi0281 pi0269 pi0513 pi0514 pi0516 pi0512 pi0488 
+pi0515 pi0559 pi0481 pi0511 pi0579 pi0487 pi0533 pi0506 
+pi0537 pi0509 pi0507 pi0557 pi0536 pi0558 pi0508 pi0538 
+pi0233 pi0582 pi0574 pi0518 pi0578 pi0521 pi0519 pi0581 
+pi0585 pi0522 pi0584 pi0561 pi0235 pi0502 pi0503 pi0541 
+pi0500 pi0499 pi0496 pi0501 pi0505 pi0237 pi0202 pi0204 
+pi0218 pi0220 pi0201 pi0203 pi0206 pi0205 pi0564 pi0562 
+pi0560 pi0482 pi0570 pi0569 pi0531 pi0568 pi0566 pi0532 
+pi0549 pi0550 pi0534 pi0497 pi0494 pi0239 pi0517 pi0548 
+pi0546 pi0547 pi0545 pi0493 pi0495 pi0490 pi0484 pi0544 
+pi0571 pi0530 pi0575 pi0527 pi0563 pi0526 pi0520 pi0246 
+pi0543 pi0554 pi0565 pi0576 pi0248 pi0962 pi0966 pi0872 
+pi0850 pi0871 pi1128 pi0732 pi0776 pi0762 pi0697 pi0640 
+pi0694 pi0653 pi0693 pi0906 pi0898 pi1129 pi1131 pi0744 
+pi0652 pi0952 pi0254 pi0253 pi0267 pi0263 pi0657 pi0728 
+pi0953 pi0973 pi1088 pi1066 pi1054 pi0778 pi0750 pi0651 
+pi1038 pi1060 pi0980 pi1061 pi0608 pi1153 pi0625 pi0706 
+pi0691 pi0785 pi0660 pi1155 pi0781 pi0618 pi0627 pi0789 
+pi0648 pi1159 pi0788 pi0641 pi0626 pi0792 pi0628 pi0629 
+pi0787 pi0630 pi1157 pi0790 pi0644 pi1160 pi0729 pi0746 
+pi0133 pi0125 pi0121 pi0126 pi0132 pi0130 pi0136 pi0135 
+pi0134 pi0169 pi0877 pi0080 pi0591 pi0590 pi0453 pi0437 
+pi0417 pi0418 pi0464 pi0421 pi0429 pi0414 pi0459 pi0422 
+pi0434 pi0436 pi0415 pi0425 pi0326 pi0410 pi0430 pi0444 
+pi0401 pi0406 pi0451 pi0449 pi0448 pi0390 pi0456 pi0402 
+pi0438 pi0405 pi0318 pi0319 pi0404 pi0412 pi0334 pi0463 
+pi0396 pi0413 pi0419 pi0394 pi0328 pi0400 pi0333 pi0393 
+pi0392 pi0325 pi0391 pi0426 pi0445 pi0427 pi0416 pi0420 
+pi0428 pi0395 pi0335 pi0411 pi0435 pi0403 pi0592 pi0321 
+pi0367 pi0380 pi0388 pi0363 pi0322 pi0350 pi0355 pi0292 
+pi0452 pi0442 pi1058 pi0369 pi0315 pi1080 pi0370 pi0347 
+pi1055 pi0386 pi0361 pi0458 pi0338 pi0439 pi0461 pi1057 
+pi1198 pi0384 pi0408 pi0432 pi0359 pi1199 pi0409 pi0433 
+pi0385 pi0360 pi0460 pi1196 pi0358 pi0478 pi0305 pi0424 
+pi0399 pi0375 pi0316 pi1047 pi0423 pi0398 pi0373 pi0348 
+pi1087 pi0349 pi0329 pi0440 pi0454 pi0450 pi0389 pi0376 
+pi0351 pi1079 pi0346 pi0368 pi0327 pi0447 pi0381 pi0356 
+pi1081 pi0323 pi0365 pi1078 pi0344 pi0366 pi0379 pi0354 
+pi1045 pi0293 pi1059 pi0343 pi0364 pi0353 pi0378 pi1062 
+pi1063 pi0362 pi0336 pi0462 pi0377 pi1074 pi1070 pi0320 
+pi0372 pi0290 pi1048 pi0374 pi0298 pi1035 pi0382 pi0357 
+pi1044 pi0446 pi0443 pi0397 pi0324 pi1051 pi0371 pi0309 
+pi0294 pi1072 pi0387 pi0295 pi1053 pi0455 pi0296 pi1037 
+pi0342 pi0291 pi1049 pi0339 pi0383 pi0337 pi0317 pi0352 
+pi1084 pi0441 pi0431 pi0407 pi1197 pi0345 pi0251 pi1067 
+pi1036 pi1065 pi1040 pi1069 pi1039 pi0260 pi0255 pi0258 
+pi0259 pi0261 pi0256 pi0257 pi0897 pi1043 pi1076 pi0330 
+pi0340 pi0331 pi0341 pi0297 pi0476 pi0303 pi0308 pi0304 
+pi0306 pi0307 pi0588 pi0764 pi0749 pi0168 pi0170 pi0730 
+pi0748 pi1106 pi0148 pi0699 pi0763 pi0171 pi0832 pi0656 
+pi0649 pi0658 pi0655 pi0636 pi0650 pi0645 pi0669 pi0635 
+pi0620 pi0632 pi0613 pi0631 pi0611 pi0646 pi0610 pi0695 
+pi0908 pi1122 pi1116 pi1117 pi0918 pi1104 pi0883 pi1107 
+pi0889 pi1103 pi0923 pi1154 pi1112 pi0895 pi1113 pi1111 
+pi0808 pi1121 pi1119 pi1120 pi0810 pi0855 pi0815 pi1127 
+pi1130 pi1126 pi1125 pi1108 pi0942 pi1156 pi0609 pi0268 
+pi1118 pi1123 pi1100 pi1101 pi1150 pi0275 pi1149 pi0272 
+pi1148 pi0283 pi0577 pi0498 pi0529 pi0491 pi0238 pi0535 
+pi0586 pi0539 pi0542 pi0553 pi0552 pi0551 pi0241 pi0247 
+pi0572 pi0525 pi0524 pi0528 pi0523 pi0483 pi0573 pi0492 
+pi0240 pi0504 pi0510 pi0280 pi0933 pi0878 pi0486 pi0580 
+pi0485 pi0555 pi0489 pi0556 pi0242 pi0798 pi1124 pi0919 
+pi1102 pi0909 pi1105 pi1110 pi0800 pi0968 pi0956 pi1046 
+pi1083 pi1085 pi0783 pi1109 pi1114 pi1115 pi0804 pi0300 
+pi0312 pi0940 pi0817 pi0914 pi0818 pi0031 pi0830 pi0836 
+pi0805 pi0059 pi0057 pi0056 pi0924 pi0062 pi0055 pi0983 
+pi0074 pi0054 pi0075 pi0092 pi0087 pi0100 pi0612 pi0634 
+pi0639 pi0643 pi0638 pi0710 pi0637 pi0690 pi0687 pi0696 
+pi0688 pi0724 pi0727 pi0703 pi0704 pi0726 pi0736 pi0686 
+pi0701 pi0705 pi0702 pi0698 pi0737 pi0723 pi0734 pi0725 
+pi0700 pi0709 pi0735 pi0738 pi0194 pi0192 pi0141 pi0191 
+pi0217 pi0757 pi0739 pi0742 pi0768 pi0741 pi0770 pi0774 
+pi0766 pi0177 pi0193 pi0176 pi0179 pi0188 pi0143 pi0175 
+pi0038 pi0147 pi0167 pi0165 pi0567 pi0187 pi0039 pi0999 
+pi0593 pi0540 pi0332 pi0599 pi1073 pi1041 pi1077 pi1056 
+pi0119 pi0124 pi0468 pi0622 pi0617 pi0623 pi0607 pi0606 
+pi0772 pi0760 pi0777 pi0619 pi0758 pi0752 pi0759 pi0751 
+pi0715 pi0745 pi0767 pi0743 pi0761 pi0755 pi0753 pi0756 
+pi0754 pi0232 pi0156 pi0164 pi0154 pi0596 pi0595 pi0597 
+pi0594 pi0806 pi0989 pi0990 pi0600 pi0601 pi0605 pi0186 
+pi0140 pi0145 pi0183 pi0178 pi0184 pi0185 pi0180 pi0181 
+pi0150 pi0163 pi0162 pi0299 pi0926 pi0155 pi0197 pi0157 
+pi0149 pi0213 pi0209 pi0033 pi0219 pi0211 pi0199 pi0200 
+pi1132 pi1133 pi1158 pi0954 pi0313 pi0647 pi0243 pi0034 
+pi0160 pi0159 pi0158 pi0172 pi0182 pi0190 pi0214 pi0212 
+pi0144 pi0174 pi0151 pi0153 pi0173 pi0189 pi0208 pi0207 
+pi0142 pi0947 pi0907 pi0615 pi0797 pi0598 pi0740 pi0604 
+pi0779 pi0823 pi0624 pi0780 pi0831 pi0603 pi0614 pi0616 
+pi0642 pi0661 pi0662 pi0681 pi0680 pi0665 pi0633 pi0621 
+pi0963 pi0960 pi0970 pi0975 pi0972 pi0978 pi0216 pi0934 
+pi0937 pi0273 pi0271 pi0215 pi0221 pi0974 pi0971 pi0961 
+pi0967 pi0969 pi0977 pi0602 pi0587 pi0905 pi0223 pi0224 
+pi0222 pi0939 pi0944 pi0930 pi0932 pi0929 pi0927 pi0938 
+pi0928 pi0118 pi0139 pi0138 pi0196 pi0195 pi1134 pi0654 
+pi0684 pi1146 pi1144 pi1143 pi1142 pi1145 pi0079 pi0262 
+pi0276 pi0802 pi0274 pi0659 pi0249 pi0265 pi0819 pi0264 
+pi0796 pi0277 pi0992 pi0820 pi0279 pi0958 pi0278 pi0976 
+pi0981 pi0837 pi0228 pi0231 pi0030 pi0128 pi0105 pi0245 
+pi0244 pi0846 pi0875 pi0284 pi0879 pi0152 pi0161 pi0266 
+pi0948 pi0166 pi0146 pi0198 pi0210 pi0589 pi0986 pi0120 
+pi0137 pi0946 pi0863 pi0864 pi0840 pi0849 pi1092 pi1093 
+pi1091 pi0123 pi0833 pi0957 pi0829 pi0824 pi0950 pi0984 
+pi0835 pi0122 pi0286 pi0289 pi0285 pi0288 pi0250 pi0252 
+pi0129 pi0683 pi1001 pi0979 pi0024 pi0043 pi0052 pi0042 
+pi0114 pi0115 pi0116 pi0113 pi0099 pi0041 pi0101 pi0044 
+pi0127 pi0901 pi0959 pi0457 pi0287 pi0786 pi0094 pi0480 
+pi0949 pi0234 pi0314 pi1050 pi0479 pi0035 pi0225 pi0841 
+pi0040 pi1082 pi0086 pi0032 pi0088 pi0095 pi0072 pi0108 
+pi0051 pi0110 pi0063 pi0107 pi0077 pi0098 pi0084 pi0067 
+pi0068 pi0071 pi0090 pi0058 pi0065 pi0036 pi0064 pi0069 
+pi0103 pi0046 pi0053 pi0111 pi0082 pi0066 pi0085 pi0083 
+pi0045 pi0104 pi0049 pi0048 pi0089 pi0106 pi0061 pi0076 
+pi0070 pi0047 pi0073 pi0109 pi0097 pi0081 pi0091 pi0102 
+pi0096 pi0060 pi0093 pi0050 
+Dumping BDDs to benchmark_output_CUDD/mem_ctrl.blif
+BDD reordering with group sifting: from 74398 to ... 37502 nodes in 2.7 sec
+BDD reordering with group sifting: from 75523 to ... 39780 nodes in 2.59 sec
+BDD reordering with group sifting: from 80187 to ... 41976 nodes in 2.81 sec
+BDD reordering with group sifting: from 84571 to ... 48271 nodes in 4.14 sec
+BDD reordering with group sifting: from 97167 to ... 42817 nodes in 4.36 sec
+BDD reordering with group sifting: from 97210 to ... 49805 nodes in 23.09 sec
+BDD reordering with group sifting: from 100221 to ... 37835 nodes in 3.74 sec
+BDD reordering with group sifting: from 100235 to ... 38103 nodes in 4.2 sec
+BDD reordering with group sifting: from 100270 to ... 42891 nodes in 4.84 sec
+BDD reordering with group sifting: from 100380 to ... 39891 nodes in 4.85 sec
+BDD reordering with group sifting: from 100436 to ... 40248 nodes in 4.21 sec
+BDD reordering with group sifting: from 100467 to ... 43934 nodes in 9.22 sec
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 100952
+**** CUDD non-modifiable parameters ****
+Memory in use: 163613832
+Peak number of nodes: 2789038
+Peak number of live nodes: 100932
+Number of BDD variables: 1204
+Number of ZDD variables: 0
+Number of cache entries: 2097152
+Number of cache look-ups: 8634001
+Number of cache hits: 2120013
+Number of cache insertions: 6551310
+Number of cache collisions: 877685
+Number of cache deletions: 5430974
+Cache used slots = 92.88% (expected 49.13%)
+Soft limit for cache size: 2379776
+Number of buckets in unique table: 594944
+Used buckets in unique table: 60.28% (expected 60.20%)
+Number of BDD and ADD nodes: 636093
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 599077
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 7515670
+Total number of nodes reclaimed: 1288733
+Garbage collections so far: 29
+Time for garbage collection: 0.18 sec
+Reorderings so far: 27
+Time for reordering: 124.63 sec
+Final size: 36549
+total time = 125.97 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time    125.9 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 180624K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 32788
+Swaps = 0
+Input blocks = 0
+Output blocks = 3784
+Context switch (voluntary) = 0
+Context switch (involuntary) = 72
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/priority.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/priority.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+A[126] A[127] A[125] A[124] A[123] A[122] A[121] A[120] 
+A[119] A[118] A[117] A[116] A[115] A[114] A[113] A[112] 
+A[111] A[110] A[109] A[108] A[107] A[106] A[105] A[104] 
+A[103] A[102] A[101] A[100] A[99] A[98] A[97] A[96] 
+A[95] A[94] A[93] A[92] A[91] A[90] A[89] A[88] 
+A[87] A[86] A[85] A[84] A[83] A[82] A[81] A[80] 
+A[79] A[78] A[77] A[76] A[75] A[74] A[73] A[72] 
+A[71] A[70] A[69] A[68] A[67] A[66] A[65] A[64] 
+A[63] A[62] A[61] A[60] A[59] A[58] A[57] A[56] 
+A[55] A[54] A[53] A[52] A[51] A[50] A[49] A[48] 
+A[47] A[46] A[45] A[44] A[43] A[42] A[41] A[40] 
+A[39] A[38] A[37] A[36] A[35] A[34] A[33] A[32] 
+A[31] A[30] A[29] A[28] A[27] A[26] A[25] A[24] 
+A[23] A[22] A[21] A[20] A[19] A[18] A[17] A[16] 
+A[15] A[14] A[13] A[12] A[11] A[10] A[9] A[8] 
+A[7] A[6] A[5] A[4] A[3] A[1] A[2] A[0] 
+Number of inputs = 128
+BDD reordering with converging linear sifting: from 898 to ... 771 nodes in 0.06 sec
+New order
+A[2] A[1] A[3] A[4] A[5] A[6] A[7] A[8] 
+A[9] A[10] A[11] A[12] A[13] A[14] A[15] A[16] 
+A[17] A[18] A[19] A[20] A[21] A[22] A[23] A[24] 
+A[25] A[26] A[27] A[28] A[29] A[30] A[31] A[32] 
+A[33] A[34] A[35] A[36] A[37] A[38] A[39] A[40] 
+A[41] A[42] A[43] A[44] A[45] A[46] A[47] A[48] 
+A[49] A[50] A[51] A[52] A[53] A[54] A[55] A[56] 
+A[57] A[58] A[59] A[60] A[61] A[62] A[63] A[0] 
+A[64] A[65] A[66] A[67] A[68] A[69] A[70] A[71] 
+A[72] A[73] A[74] A[75] A[76] A[77] A[78] A[79] 
+A[80] A[81] A[82] A[83] A[84] A[85] A[86] A[87] 
+A[88] A[89] A[90] A[91] A[92] A[93] A[94] A[95] 
+A[96] A[97] A[98] A[99] A[100] A[101] A[102] A[103] 
+A[104] A[105] A[106] A[107] A[108] A[109] A[110] A[111] 
+A[112] A[113] A[114] A[115] A[116] A[117] A[118] A[119] 
+A[120] A[121] A[122] A[123] A[124] A[125] A[126] A[127] 
+Dumping BDDs to benchmark_output_CUDD/priority.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 1800
+**** CUDD non-modifiable parameters ****
+Memory in use: 4880904
+Peak number of nodes: 45990
+Peak number of live nodes: 1154
+Number of BDD variables: 128
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 32408
+Number of cache hits: 806
+Number of cache insertions: 84771
+Number of cache collisions: 54206
+Number of cache deletions: 19819
+Cache used slots = 74.24% (expected 80.33%)
+Soft limit for cache size: 132096
+Number of buckets in unique table: 33024
+Used buckets in unique table: 33.38% (expected 33.19%)
+Number of BDD and ADD nodes: 15139
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 14238
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 59946
+Total number of nodes reclaimed: 45892
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.06 sec
+Final size: 771
+total time = 0.07 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.1 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4264K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1659
+Swaps = 0
+Input blocks = 0
+Output blocks = 96
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/router.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/router.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+dest_x[9] dest_x[10] dest_x[11] dest_x[12] dest_x[13] dest_x[14] dest_x[15] dest_x[16] 
+dest_x[17] dest_x[18] dest_x[19] dest_x[20] dest_x[21] dest_x[22] dest_x[23] dest_x[24] 
+dest_x[25] dest_x[26] dest_x[27] dest_x[28] dest_x[29] dest_x[8] dest_x[7] dest_x[6] 
+dest_x[5] dest_x[4] dest_x[3] dest_x[2] dest_x[1] dest_x[0] dest_y[9] dest_y[10] 
+dest_y[11] dest_y[12] dest_y[13] dest_y[14] dest_y[15] dest_y[16] dest_y[17] dest_y[18] 
+dest_y[19] dest_y[20] dest_y[21] dest_y[22] dest_y[23] dest_y[24] dest_y[25] dest_y[26] 
+dest_y[27] dest_y[28] dest_y[0] dest_y[29] dest_y[8] dest_y[7] dest_y[6] dest_y[5] 
+dest_y[4] dest_y[3] dest_y[2] dest_y[1] 
+Number of inputs = 60
+BDD reordering with converging linear sifting: from 296 to ... 107 nodes in 0.02 sec
+New order
+dest_x[26] dest_x[21] dest_x[22] dest_x[18] dest_x[16] dest_x[12] dest_x[13] dest_x[10] 
+dest_x[1] dest_x[2] dest_x[3] dest_x[4] dest_x[5] dest_x[6] dest_x[7] dest_x[8] 
+dest_x[0] dest_x[9] dest_y[0] dest_y[1] dest_y[2] dest_y[4] dest_y[5] dest_y[6] 
+dest_y[7] dest_y[8] dest_y[3] dest_y[9] dest_y[10] dest_y[11] dest_y[13] dest_y[12] 
+dest_y[15] dest_y[14] dest_y[16] dest_y[17] dest_y[18] dest_y[20] dest_y[19] dest_y[22] 
+dest_y[21] dest_y[25] dest_y[24] dest_y[23] dest_y[26] dest_y[29] dest_y[28] dest_y[27] 
+dest_x[11] dest_x[15] dest_x[14] dest_x[17] dest_x[20] dest_x[19] dest_x[25] dest_x[24] 
+dest_x[23] dest_x[28] dest_x[29] dest_x[27] 
+Dumping BDDs to benchmark_output_CUDD/router.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 334
+**** CUDD non-modifiable parameters ****
+Memory in use: 3388200
+Peak number of nodes: 4088
+Peak number of live nodes: 468
+Number of BDD variables: 60
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 4757
+Number of cache hits: 1810
+Number of cache insertions: 3282
+Number of cache collisions: 247
+Number of cache deletions: 2699
+Cache used slots = 9.17% (expected 1.50%)
+Soft limit for cache size: 62464
+Number of buckets in unique table: 15616
+Used buckets in unique table: 9.10% (expected 8.92%)
+Number of BDD and ADD nodes: 1511
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 1343
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 4486
+Total number of nodes reclaimed: 2001
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.02 sec
+Final size: 107
+total time = 0.02 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4016K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1220
+Swaps = 0
+Input blocks = 0
+Output blocks = 40
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/EPFL/sin.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/sin.blif -dumpblif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 3995 to ... 1055 nodes in 0.01 sec
+BDD reordering with group sifting: from 2118 to ... 1916 nodes in 0 sec
+BDD reordering with group sifting: from 3841 to ... 3580 nodes in 0.01 sec
+BDD reordering with group sifting: from 7165 to ... 7165 nodes in 0.02 sec
+BDD reordering with group sifting: from 14336 to ... 14320 nodes in 0.06 sec
+BDD reordering with group sifting: from 28644 to ... 28410 nodes in 0.15 sec
+BDD reordering with group sifting: from 56824 to ... 56824 nodes in 0.35 sec
+BDD reordering with group sifting: from 113652 to ... 113642 nodes in 0.85 sec
+BDD reordering with group sifting: from 227289 to ... 227268 nodes in 3.62 sec
+BDD reordering with group sifting: from 454542 to ... 454300 nodes in 21.02 sec
+BDD reordering with group sifting: from 908607 to ... 906195 nodes in 144.06 sec
+BDD reordering with group sifting: from 1812396 to ... 1812396 nodes in 354.97 sec
+Order before final reordering
+a[23] a[21] a[19] a[20] a[18] a[17] a[22] a[15] 
+a[16] a[14] a[13] a[12] a[11] a[10] a[9] a[8] 
+a[7] a[6] a[5] a[4] a[3] a[2] a[0] a[1] 
+Number of inputs = 24
+BDD reordering with converging linear sifting: from 1360186 to ... 747515 nodes in 458.25 sec
+New order
+a[21] a[22] a[19] a[18] a[17] a[16] a[15] a[14] 
+a[13] a[12] a[11] a[10] a[9] a[8] a[7] a[23] 
+a[6] a[5] a[4] a[3] a[2] a[1] a[0] a[20] 
+Dumping BDDs to benchmark_output_CUDD/sin.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 1495078
+**** CUDD non-modifiable parameters ****
+Memory in use: 230863944
+Peak number of nodes: 4945458
+Peak number of live nodes: 3177902
+Number of BDD variables: 24
+Number of ZDD variables: 0
+Number of cache entries: 2097152
+Number of cache look-ups: 114436456
+Number of cache hits: 63914332
+Number of cache insertions: 50523907
+Number of cache collisions: 24998411
+Number of cache deletions: 25525423
+Cache used slots = 100.00% (expected 0.02%)
+Soft limit for cache size: 1626112
+Number of buckets in unique table: 406528
+Used buckets in unique table: 72.43% (expected 72.41%)
+Number of BDD and ADD nodes: 747980
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 440
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 48688570
+Total number of nodes reclaimed: 2911883
+Garbage collections so far: 45
+Time for garbage collection: 5.58 sec
+Reorderings so far: 13
+Time for reordering: 983.37 sec
+Final size: 747515
+total time = 1007.14 sec
+Runtime Statistics
+------------------
+Machine name: local.jnu.edu.cn
+User time   1007.0 seconds
+System time    0.1 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 251232K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 49494
+Swaps = 0
+Input blocks = 0
+Output blocks = 66176
+Context switch (voluntary) = 78
+Context switch (involuntary) = 917

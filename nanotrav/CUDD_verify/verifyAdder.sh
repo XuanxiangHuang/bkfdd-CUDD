@@ -1,0 +1,13 @@
+.././nanotrav ../Benchmark/Adder/adder_col04.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col04.blif > cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col05.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col05.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col06.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col06.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col07.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col07.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col08.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col08.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col09.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col09.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col10.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col10.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col11.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col11.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col12.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col12.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col13.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col13.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col14.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col14.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col15.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col15.blif >> cuddverifyAdder.txt
+.././nanotrav ../Benchmark/Adder/adder_col16.blif -autodyn -automethod group -reordering group -drop -verify benchmark_output_Adder/adder_col16.blif >> cuddverifyAdder.txt

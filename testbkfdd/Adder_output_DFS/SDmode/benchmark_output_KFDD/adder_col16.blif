@@ -1,0 +1,517 @@
+.model 16-adder
+.inputs a15 b15 a14 b14 a13 b13 a12 b12 a11 b11 a10 b10 a9 b9 a8 b1 a1 a0 b0 cin b8 a7 b7 b6 a6 b2 a2 a3 b3 a4 b4 b5 a5
+.outputs cout s15 s14 s13 s12 s11 s10 s9 s8 s7 s6 s5 s4 s3 s2 s1 s0
+.names 280ee0
+1
+.names a5 280ee0 280ee0 280eef
+11- 1
+0-0 1
+.names b5 280ee0 280eef 2a4c75
+11- 1
+0-1 1
+.names b5 280eef 280ee0 2a4d09
+11- 1
+0-0 1
+.names b4 2a4c75 2a4d09 2a4bab
+11- 1
+0-1 1
+.names a4 2a4c75 2a4bab 2a4eda
+11- 1
+0-1 1
+.names a4 2a4bab 2a4d09 2918da
+11- 1
+0-1 1
+.names b3 2a4eda 2918da 2a4f08
+11- 1
+0-1 1
+.names a3 2a4eda 2a4f08 2a4be0
+11- 1
+0-1 1
+.names a3 2a4f08 2918da 2a4f10
+11- 1
+0-1 1
+.names a2 2a4be0 2a4f10 2a4466
+11- 1
+0-1 1
+.names b2 2a4be0 2a4466 2a4f3d
+11- 1
+0-1 1
+.names a6 280ee0 2a4f3d 2a4ed6
+11- 1
+0-1 1
+.names a6 2a4f3d 2a4f3d 2a4db6
+11- 1
+0-0 1
+.names b6 2a4ed6 2a4db6 2a4fae
+11- 1
+-11 1
+000 1
+.names b7 280ee0 2a4fae 2a4788
+11- 1
+0-1 1
+.names b7 2a4fae 2a4fae 2a50a9
+11- 1
+0-0 1
+.names a7 2a4788 2a50a9 2a4bd9
+11- 1
+-11 1
+000 1
+.names b8 280ee0 2a4bd9 2a4fa7
+11- 1
+0-1 1
+.names b2 2a4466 2a4f10 2a519a
+11- 1
+0-1 1
+.names a6 280ee0 2a519a 2a5039
+11- 1
+0-1 1
+.names a6 2a519a 2a519a 2a5046
+11- 1
+0-0 1
+.names b6 2a5039 2a5046 2a51d1
+11- 1
+-11 1
+000 1
+.names b7 280ee0 2a51d1 2a4f62
+11- 1
+0-1 1
+.names b7 2a51d1 2a51d1 2a4e35
+11- 1
+0-0 1
+.names a7 2a4f62 2a4e35 2a47e5
+11- 1
+-11 1
+000 1
+.names b8 280ee0 2a47e5 2a50e8
+11- 1
+0-1 1
+.names cin 2a4fa7 2a50e8 2a5019
+11- 1
+0-1 1
+.names b0 2a4fa7 2a5019 2a51ff
+11- 1
+0-1 1
+.names b0 2a5019 2a50e8 2a44ce
+11- 1
+0-1 1
+.names a0 2a51ff 2a44ce 2a4ed9
+11- 1
+0-1 1
+.names a1 2a4fa7 2a4ed9 2a4f42
+11- 1
+0-1 1
+.names a1 2a4ed9 2a50e8 2a4f07
+11- 1
+0-1 1
+.names b1 2a4f42 2a4f07 2a4c9f
+11- 1
+0-1 1
+.names b8 2a4bd9 2a4bd9 2a4f47
+11- 1
+0-0 1
+.names b8 2a47e5 2a47e5 2a4f7a
+11- 1
+0-0 1
+.names cin 2a4f47 2a4f7a 2a4f23
+11- 1
+0-1 1
+.names b0 2a4f47 2a4f23 2a488a
+11- 1
+0-1 1
+.names b0 2a4f23 2a4f7a 2a4f66
+11- 1
+0-1 1
+.names a0 2a488a 2a4f66 2a50cd
+11- 1
+0-1 1
+.names a1 2a4f47 2a50cd 2a4eeb
+11- 1
+0-1 1
+.names a1 2a50cd 2a4f7a 2a4f97
+11- 1
+0-1 1
+.names b1 2a4eeb 2a4f97 2a4134
+11- 1
+0-1 1
+.names a8 2a4c9f 2a4134 2a44a6
+11- 1
+-11 1
+000 1
+.names b9 280ee0 2a44a6 28d63f
+11- 1
+0-1 1
+.names b9 2a44a6 2a44a6 2a4f2f
+11- 1
+0-0 1
+.names a9 28d63f 2a4f2f 2a46f5
+11- 1
+-11 1
+000 1
+.names b10 280ee0 2a46f5 2a4c1c
+11- 1
+0-1 1
+.names b10 2a46f5 2a46f5 2a4cc3
+11- 1
+0-0 1
+.names a10 2a4c1c 2a4cc3 2a431c
+11- 1
+-11 1
+000 1
+.names b11 280ee0 2a431c 2a5013
+11- 1
+0-1 1
+.names b11 2a431c 2a431c 2a51af
+11- 1
+0-0 1
+.names a11 2a5013 2a51af 2a4806
+11- 1
+-11 1
+000 1
+.names b12 280ee0 2a4806 2a500a
+11- 1
+0-1 1
+.names b12 2a4806 2a4806 2a52c1
+11- 1
+0-0 1
+.names a12 2a500a 2a52c1 2a3594
+11- 1
+-11 1
+000 1
+.names b13 280ee0 2a3594 2a517a
+11- 1
+0-1 1
+.names b13 2a3594 2a3594 2a457c
+11- 1
+0-0 1
+.names a13 2a517a 2a457c 2a4f93
+11- 1
+-11 1
+000 1
+.names b14 280ee0 2a4f93 2a4f52
+11- 1
+0-1 1
+.names b14 2a4f93 2a4f93 2a4524
+11- 1
+0-0 1
+.names a14 2a4f52 2a4524 2a4c8f
+11- 1
+-11 1
+000 1
+.names b15 280ee0 2a4c8f 2a44af
+11- 1
+0-1 1
+.names b15 2a4c8f 2a4c8f 2a4f0d
+11- 1
+0-0 1
+.names a15 2a44af 2a4f0d 2a3595
+11- 1
+-11 1
+000 1
+.names a15 2a4f0d 280ee0 2a4b3d
+11- 1
+-10 1
+001 1
+.names a14 2a4524 280ee0 2a4d3e
+11- 1
+-10 1
+001 1
+.names a13 2a457c 280ee0 2a51cf
+11- 1
+-10 1
+001 1
+.names a12 2a52c1 280ee0 2a4b97
+11- 1
+-10 1
+001 1
+.names a11 2a51af 280ee0 2a44b0
+11- 1
+-10 1
+001 1
+.names a10 2a4cc3 280ee0 2a50b2
+11- 1
+-10 1
+001 1
+.names a9 2a4f2f 280ee0 2a4909
+11- 1
+-10 1
+001 1
+.names a8 2a4134 280ee0 2a4ce2
+11- 1
+-10 1
+001 1
+.names a7 2a50a9 280ee0 2a4e89
+11- 1
+-10 1
+001 1
+.names a7 2a4e35 280ee0 2a4eca
+11- 1
+-10 1
+001 1
+.names cin 2a4e89 2a4eca 2a4f3e
+11- 1
+0-1 1
+.names b0 2a4e89 2a4f3e 2a4c8e
+11- 1
+0-1 1
+.names b0 2a4f3e 2a4eca 2a4ee9
+11- 1
+0-1 1
+.names a0 2a4c8e 2a4ee9 283edb
+11- 1
+0-1 1
+.names a1 2a4e89 283edb 2a4d00
+11- 1
+0-1 1
+.names a1 283edb 2a4eca 2a5007
+11- 1
+0-1 1
+.names b1 2a4d00 2a5007 2a4d42
+11- 1
+0-1 1
+.names b6 2a4db6 280ee0 2a46c5
+11- 1
+-10 1
+001 1
+.names b6 2a5046 280ee0 2a3ed1
+11- 1
+-10 1
+001 1
+.names cin 2a46c5 2a3ed1 2a4f03
+11- 1
+0-1 1
+.names b0 2a46c5 2a4f03 2a4f6f
+11- 1
+0-1 1
+.names b0 2a4f03 2a3ed1 2a4f9c
+11- 1
+0-1 1
+.names a0 2a4f6f 2a4f9c 2a43ad
+11- 1
+0-1 1
+.names a1 2a46c5 2a43ad 2a43a7
+11- 1
+0-1 1
+.names a1 2a43ad 2a3ed1 2a4ed0
+11- 1
+0-1 1
+.names b1 2a43a7 2a4ed0 2a43a8
+11- 1
+0-1 1
+.names b5 280eef 280eef 2a43ae
+11- 1
+0-0 1
+.names b4 2a43ae 2a43ae 2a494b
+11- 1
+0-0 1
+.names a4 2a43ae 2a494b 2a4808
+11- 1
+0-1 1
+.names a4 2a494b 2a43ae 2a4ed7
+11- 1
+0-0 1
+.names b3 2a4808 2a4ed7 2a4f17
+11- 1
+0-1 1
+.names a3 2a4808 2a4f17 2a4f6e
+11- 1
+0-1 1
+.names a3 2a4f17 2a4ed7 2a4f34
+11- 1
+0-1 1
+.names a2 2a4f6e 2a4f34 2a4ecf
+11- 1
+0-1 1
+.names b2 2a4f6e 2a4ecf 2a4af1
+11- 1
+0-1 1
+.names b2 2a4ecf 2a4f34 2a4ef6
+11- 1
+0-1 1
+.names cin 2a4af1 2a4ef6 2a4bda
+11- 1
+0-1 1
+.names b0 2a4af1 2a4bda 2a4bf8
+11- 1
+0-1 1
+.names b0 2a4bda 2a4ef6 2a4ef0
+11- 1
+0-1 1
+.names a0 2a4bf8 2a4ef0 2a4d18
+11- 1
+0-1 1
+.names a1 2a4af1 2a4d18 2a4fb7
+11- 1
+0-1 1
+.names a1 2a4d18 2a4ef6 2a48f8
+11- 1
+0-1 1
+.names b1 2a4fb7 2a48f8 2a495a
+11- 1
+0-1 1
+.names b4 280ee0 280ee0 280efe
+11- 1
+0-0 1
+.names a4 280efe 280efe 2a4cd6
+11- 1
+0-0 1
+.names b3 2a4cd6 2a4cd6 2a4f19
+11- 1
+0-0 1
+.names a3 2a4cd6 2a4f19 2a4ef3
+11- 1
+0-1 1
+.names a3 2a4f19 2a4cd6 2a4ee7
+11- 1
+0-0 1
+.names a2 2a4ef3 2a4ee7 2a4fa3
+11- 1
+0-1 1
+.names b2 2a4ef3 2a4fa3 2a4f00
+11- 1
+0-1 1
+.names b2 2a4fa3 2a4ee7 2a515b
+11- 1
+0-1 1
+.names cin 2a4f00 2a515b 2a4c9c
+11- 1
+0-1 1
+.names b0 2a4f00 2a4c9c 292be6
+11- 1
+0-1 1
+.names b0 2a4c9c 2a515b 2a4fce
+11- 1
+0-1 1
+.names a0 292be6 2a4fce 2a4eea
+11- 1
+0-1 1
+.names a1 2a4f00 2a4eea 2a4d0a
+11- 1
+0-1 1
+.names a1 2a4eea 2a515b 2a4f13
+11- 1
+0-1 1
+.names b1 2a4d0a 2a4f13 2a4bcf
+11- 1
+0-1 1
+.names b3 280ee0 280ee0 280efd
+11- 1
+0-0 1
+.names a3 280efd 280efd 2a4f96
+11- 1
+0-0 1
+.names a2 2a4f96 2a4f96 2a4f3c
+11- 1
+0-0 1
+.names b2 2a4f96 2a4f3c 2a4525
+11- 1
+0-1 1
+.names b2 2a4f3c 2a4f96 2a4f06
+11- 1
+0-0 1
+.names cin 2a4525 2a4f06 2a4ff1
+11- 1
+0-1 1
+.names b0 2a4525 2a4ff1 2a4d15
+11- 1
+0-1 1
+.names b0 2a4ff1 2a4f06 2a4ae0
+11- 1
+0-1 1
+.names a0 2a4d15 2a4ae0 2a4546
+11- 1
+0-1 1
+.names a1 2a4525 2a4546 2a4523
+11- 1
+0-1 1
+.names a1 2a4546 2a4f06 2a4f35
+11- 1
+0-1 1
+.names b1 2a4523 2a4f35 2a5116
+11- 1
+0-1 1
+.names a2 280ee0 280ee0 280eec
+11- 1
+0-0 1
+.names b2 280eec 280eec 2a4f86
+11- 1
+0-0 1
+.names cin 2a4f86 2a4f86 2a4ee0
+11- 1
+0-0 1
+.names b0 2a4f86 2a4ee0 294728
+11- 1
+0-1 1
+.names b0 2a4ee0 2a4f86 2a4ee6
+11- 1
+0-0 1
+.names a0 294728 2a4ee6 2a4e36
+11- 1
+0-1 1
+.names a1 2a4f86 2a4e36 2a50ac
+11- 1
+0-1 1
+.names a1 2a4e36 2a4f86 2a4cb8
+11- 1
+0-0 1
+.names b1 2a50ac 2a4cb8 2a4fd4
+11- 1
+0-1 1
+.names cin 280ee0 280ee0 280f04
+11- 1
+0-0 1
+.names b0 280ee0 280f04 2a4c5c
+11- 1
+0-1 1
+.names b0 280f04 280ee0 2a4440
+11- 1
+0-0 1
+.names a0 2a4c5c 2a4440 2a4b36
+11- 1
+0-1 1
+.names a1 2a4b36 2a4b36 2a4ed1
+11- 1
+0-0 1
+.names b1 2a4ed1 2a4ed1 2a5026
+11- 1
+0-0 1
+.names b0 280f04 280f04 2a5028
+11- 1
+0-0 1
+.names a0 2a5028 2a5028 2a5029
+11- 1
+0-0 1
+.names 2a3595 cout
+1 1
+.names 2a4b3d s15
+1 1
+.names 2a4d3e s14
+1 1
+.names 2a51cf s13
+1 1
+.names 2a4b97 s12
+1 1
+.names 2a44b0 s11
+1 1
+.names 2a50b2 s10
+1 1
+.names 2a4909 s9
+1 1
+.names 2a4ce2 s8
+1 1
+.names 2a4d42 s7
+1 1
+.names 2a43a8 s6
+1 1
+.names 2a495a s5
+1 1
+.names 2a4bcf s4
+1 1
+.names 2a5116 s3
+1 1
+.names 2a4fd4 s2
+1 1
+.names 2a5026 s1
+1 1
+.names 2a5029 s0
+1 1
+.end

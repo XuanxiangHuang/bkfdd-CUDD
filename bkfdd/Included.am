@@ -1,0 +1,3 @@
+cudd_libcudd_la_SOURCES += bkfdd/bkfddInt.h \
+	bkfdd/bkfddTransform.c bkfdd/bkfddCache.c bkfdd/bkfddChangeExpn.c bkfdd/bkfddIte.c \
+	bkfdd/bkfddTable.c bkfdd/bkfddVarSwap.c bkfdd/bkfddDump.c bkfdd/bkfddGroup.c bkfdd/bkfddChainReduction.c

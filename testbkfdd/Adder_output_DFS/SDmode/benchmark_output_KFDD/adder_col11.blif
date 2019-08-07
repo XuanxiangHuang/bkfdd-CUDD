@@ -1,0 +1,187 @@
+.model 11-adder
+.inputs a10 b10 b9 a9 a8 b8 a7 b7 a6 b6 b5 a5 b4 a4 b3 a3 b2 a2 a1 b1 cin a0 b0
+.outputs cout s10 s9 s8 s7 s6 s5 s4 s3 s2 s1 s0
+.names e9af2
+1
+.names b0 e9af2 e9af2 e9b0c
+11- 1
+0-0 1
+.names a0 e9af2 e9b0c efecc
+11- 1
+0-1 1
+.names a0 e9b0c e9b0c efecf
+11- 1
+0-0 1
+.names cin efecc efecf ec0d6
+11- 1
+-11 1
+000 1
+.names b1 e9af2 ec0d6 efeba
+11- 1
+0-1 1
+.names b1 ec0d6 ec0d6 efec0
+11- 1
+0-0 1
+.names a1 efeba efec0 efedc
+11- 1
+-11 1
+000 1
+.names a2 e9af2 efedc efece
+11- 1
+0-1 1
+.names a2 efedc efedc eff33
+11- 1
+0-0 1
+.names b2 efece eff33 eca83
+11- 1
+-11 1
+000 1
+.names a3 e9af2 eca83 efeb9
+11- 1
+0-1 1
+.names a3 eca83 eca83 f01a2
+11- 1
+0-0 1
+.names b3 efeb9 f01a2 efec3
+11- 1
+-11 1
+000 1
+.names a4 e9af2 efec3 ec0d7
+11- 1
+0-1 1
+.names a4 efec3 efec3 efd0c
+11- 1
+0-0 1
+.names b4 ec0d7 efd0c efec2
+11- 1
+-11 1
+000 1
+.names a5 e9af2 efec2 eca84
+11- 1
+0-1 1
+.names a5 efec2 efec2 efc9a
+11- 1
+0-0 1
+.names b5 eca84 efc9a eff6d
+11- 1
+-11 1
+000 1
+.names b6 e9af2 eff6d efec8
+11- 1
+0-1 1
+.names b6 eff6d eff6d f00ff
+11- 1
+0-0 1
+.names a6 efec8 f00ff eb90c
+11- 1
+-11 1
+000 1
+.names b7 e9af2 eb90c efebc
+11- 1
+0-1 1
+.names b7 eb90c eb90c efecb
+11- 1
+0-0 1
+.names a7 efebc efecb ea933
+11- 1
+-11 1
+000 1
+.names b8 e9af2 ea933 eb90d
+11- 1
+0-1 1
+.names b8 ea933 ea933 ee482
+11- 1
+0-0 1
+.names a8 eb90d ee482 efebd
+11- 1
+-11 1
+000 1
+.names a9 e9af2 efebd eaf1e
+11- 1
+0-1 1
+.names a9 efebd efebd efebf
+11- 1
+0-0 1
+.names b9 eaf1e efebf efec5
+11- 1
+-11 1
+000 1
+.names b10 e9af2 efec5 efebb
+11- 1
+0-1 1
+.names b10 efec5 efec5 e9c1f
+11- 1
+0-0 1
+.names a10 efebb e9c1f ec50d
+11- 1
+-11 1
+000 1
+.names a10 e9c1f e9af2 ef9c0
+11- 1
+-10 1
+001 1
+.names b9 efebf e9af2 efb46
+11- 1
+-10 1
+001 1
+.names a8 ee482 e9af2 f007a
+11- 1
+-10 1
+001 1
+.names a7 efecb e9af2 efef5
+11- 1
+-10 1
+001 1
+.names a6 f00ff e9af2 ef850
+11- 1
+-10 1
+001 1
+.names b5 efc9a e9af2 ef7ff
+11- 1
+-10 1
+001 1
+.names b4 efd0c e9af2 efb14
+11- 1
+-10 1
+001 1
+.names b3 f01a2 e9af2 f00ab
+11- 1
+-10 1
+001 1
+.names b2 eff33 e9af2 eff84
+11- 1
+-10 1
+001 1
+.names a1 efec0 e9af2 efefd
+11- 1
+-10 1
+001 1
+.names cin efecf e9af2 eff00
+11- 1
+-10 1
+001 1
+.names ec50d cout
+1 1
+.names ef9c0 s10
+1 1
+.names efb46 s9
+1 1
+.names f007a s8
+1 1
+.names efef5 s7
+1 1
+.names ef850 s6
+1 1
+.names ef7ff s5
+1 1
+.names efb14 s4
+1 1
+.names f00ab s3
+1 1
+.names eff84 s2
+1 1
+.names efefd s1
+1 1
+.names eff00 s0
+1 1
+.end
