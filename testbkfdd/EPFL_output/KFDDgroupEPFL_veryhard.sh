@@ -1,6 +1,0 @@
-.././bkfdds ../Benchmark/EPFL/square.blif -autodyn -automethod kfdd -davioexist 10 -choosestep 4 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/square.blif -dumpblif > KFDDgroupEPFLveryhard.txt
-.././bkfdds ../Benchmark/EPFL/log2.blif -autodyn -automethod kfdd -davioexist 10 -choosestep 4 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/log2.blif -dumpblif >> KFDDgroupEPFLveryhard.txt
-.././bkfdds ../Benchmark/EPFL/sqrt.blif -autodyn -automethod kfdd -davioexist 10 -choosestep 4 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/sqrt.blif -dumpblif >> KFDDgroupEPFLveryhard.txt
-.././bkfdds ../Benchmark/EPFL/multiplier.blif -autodyn -automethod kfdd -davioexist 10 -choosestep 4 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/multiplier.blif -dumpblif >> KFDDgroupEPFLveryhard.txt
-.././bkfdds ../Benchmark/EPFL/div.blif -autodyn -automethod kfdd -davioexist 10 -choosestep 4 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/div.blif -dumpblif >> KFDDgroupEPFLveryhard.txt
-.././bkfdds ../Benchmark/EPFL/hyp.blif -autodyn -automethod kfdd -davioexist 10 -choosestep 4 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/hyp.blif -dumpblif >> KFDDgroupEPFLveryhard.txt
