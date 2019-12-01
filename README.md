@@ -1,6 +1,6 @@
-The BKFDD package is a package written in C for the manipulation of
-Bi-Kronecker Functional Decision Diagrams, and Kronecker Functional
-Decision Diagrams.
+The BKFDD package is an extension of the state-of-art CUDD package, It is
+written in C for the manipulation of Bi-Kronecker Functional Decision
+Diagrams, and Kronecker Functional Decision Diagrams.
 
 1. The source file of BKFDD are contained in "bkfdd", "testbkfdd" directories.
 Files for boolean operations, ITE operation, expansion transformation, chain
