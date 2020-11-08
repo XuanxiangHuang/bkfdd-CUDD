@@ -63,11 +63,27 @@
 		2. If S or ND choosed to be canonical, then introducing PD will become uncanonical.
 		If PD choosed to be canonical, then introducing S or ND will become uncanonical.
 
+
+		2020/5/4: 
+			1. change keyNew and keyDav from double to int, add ceil() to the result
+			of computation e.g. from "oldKeysTotal * table->choose_new_bound_factor"
+			to "ceil(oldKeysTotal * table->choose_new_bound_factor)".
+			2. add function to get size of group and maximum size of group.
+			3. add constrain to the process of choosing new expansion,
+				especially when current expansion is cla and we intend to change
+				it to Bi, given that the size of group is equal to the max size.
+			4. add function to check we can combine two adjacent variable group
+
 */
 
 
 #include "util.h"
 #include "bkfddInt.h"
+
+static void choosePreProcess(DdManager * table,	int level);
+static int getGroupSize(DdManager * table, int level);
+static int getMaxGroupSize(DdManager * table);
+static int checkCombineGroup(DdManager * table, int i);
 
 /**
 	@brief Obtain smaller DDs by choosing better expansion types
@@ -86,6 +102,8 @@ int
 chooseSND2(
 	DdManager * table)
 {
+	choosePreProcess(table,0);
+
 	int interactNull;
 	if (table->interact == NULL) {
 		int res = cuddInitInteract(table);
@@ -98,14 +116,6 @@ chooseSND2(
 	int ii;
 	for (ii = 0; ii <= table->size-1; ii ++) {
 		assert(!isPDavio(table->expansion[ii]));
-	}
-	
-	table->isolated = 0;
-	for (ii = 0; ii < table->size; ii ++) {
-		DdNode *tmp = Cudd_Regular(table->vars[ii]);
-		if (tmp->ref == 1) {
-			table->isolated ++;
-		}
 	}
 
 	unsigned int oldKeysTotal, newKeysTotal, initKeysTotal;
@@ -151,17 +161,20 @@ chooseSND2(
 			/* Choose better expansion types between S and ND. */
 			if (!changeExpnBetweenSND(table,ii)) {
 				printf("chooseSND2: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal = table->keys-table->isolated;
-			double key = newKeysTotal;
-			double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-			double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//			double key = newKeysTotal;
+//			double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//			double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+			int key = newKeysTotal;
+			int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+			int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 			if ( (key >= keyNew) ||
 					(!isShan(table->expansion[ii]) && (key >= keyDav)) ) {
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSND2: %d, roll back failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal = table->keys-table->isolated;
 				assert(newKeysTotal == oldKeysTotal);
@@ -182,8 +195,10 @@ chooseSND2(
 		if (failedCount == failedBound) { // failed enough times
 			break;
 		}
-		double keyFinal = oldKeysTotal;
-		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+//		double keyFinal = oldKeysTotal;
+//		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+		int keyFinal = oldKeysTotal;
+		int keyBound = ceil(initKeysTotal * table->choose_lower_bound_factor);
 		if (keyFinal <= keyBound) { // has reduced enough nodes
 			break;
 		}
@@ -240,9 +255,12 @@ chooseSND2(
 	printf("size from %d to %d in %4g sec }",
 	initKeysTotal-3, table->keys-table->isolated-3, (double)(util_cpu_time() - startTime)/1000.0);
 	
+	if (interactNull) {
+		FREE(table->interact);
+	}
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseSND2 failed\n");
 
@@ -273,6 +291,8 @@ int
 chooseSND4(
 	DdManager * table)
 {
+	choosePreProcess(table,0);
+
 	int interactNull;
 	if (table->interact == NULL) {
 		int res = cuddInitInteract(table);
@@ -283,17 +303,8 @@ chooseSND4(
 	}
 
 	int ii;
-	assert(isCla(table->expansion[table->size-1]));
 	for (ii = 0; ii <= table->size-1; ii ++) {
 		assert(!isPDavio(table->expansion[ii]));
-	}
-
-	table->isolated = 0;
-	for (ii = 0; ii < table->size; ii ++) {
-		DdNode *tmp = Cudd_Regular(table->vars[ii]);
-		if (tmp->ref == 1) {
-			table->isolated ++;
-		}
 	}
 
 	unsigned int oldKeysTotal, newKeysTotal, initKeysTotal;
@@ -321,29 +332,40 @@ chooseSND4(
 			nonShan ++;
 		}
 	}
-
+	
+	int max_group_size = getMaxGroupSize(table);
+	if (max_group_size > GROUP_SIZE) {
+		printf("max size of variable group = %d, while contrain GROUP_SIZE = %d\n",
+		max_group_size, GROUP_SIZE);
+		assert(max_group_size <= GROUP_SIZE);
+	}
+	
 	unsigned long startTime = util_cpu_time();
 
 	for (ii = table->size-2; ii >= 0; ii -= 1) {
 		assert(nonShan <= upper_bound);
 		if (table->subtables[ii].keys == 0) { continue; }
-		// Try to divide(or combine) them if they interact
-		if (cuddTestInteract(table,table->invperm[ii],table->invperm[ii+1])) {
+		/* Try to divide(or combine) them if they interact and 
+			if combining them won't make the resulting variable group too large */
+		if ( cuddTestInteract(table,table->invperm[ii],table->invperm[ii+1])
+										&& checkCombineGroup(table,ii) ) {
 			if ( (nonShan == upper_bound) &&
 					isShan(table->expansion[ii]) ) {
 				/* If number of nonShan expansion reach upper bound
 				and current level associated with Shan, then try BS or CS. */
 				if (!changeExpnBetweenBiCla(table,ii)) {
 					printf("chooseSND4: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal = table->keys-table->isolated;
-				double key = newKeysTotal;
-				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//				double key = newKeysTotal;
+//				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+				int key = newKeysTotal;
+				int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
 				if ( key >= keyNew ) {
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSND4: %d, roll back failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal = table->keys-table->isolated;
 					assert(newKeysTotal == oldKeysTotal);
@@ -363,27 +385,28 @@ chooseSND4(
 					// CS->CND or BND->BS
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSND4: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					// CND->BND or BS->CS
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSND4: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
 					// BND->BS or CS->CND
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSND4: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal3 = table->keys-table->isolated;
 					expn3 = table->expansion[ii];
+					assert((table->expansion[ii] == BS) || (table->expansion[ii] == CND));
+
 					newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 					newKeysTotal = ddMin(newKeysTotal, newKeysTotal3);
-					assert((table->expansion[ii] == BS) || (table->expansion[ii] == CND));
 					if (newKeysTotal == newKeysTotal1) {
 						expn = expn1;
 					} else if (newKeysTotal == newKeysTotal2) {
@@ -391,15 +414,19 @@ chooseSND4(
 					} else {
 						expn = expn3;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						// roll back to initial expansion, BS->CS or CND->BND
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSND4: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -408,18 +435,18 @@ chooseSND4(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenSND(table,ii)) {
 								printf("chooseSND4: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSND4: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						} else if (newKeysTotal == newKeysTotal2) {
 							if (!changeExpnBetweenSND(table,ii)) {
 								printf("chooseSND4: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 						}
@@ -429,27 +456,28 @@ chooseSND4(
 					// CND->BND or BS->CS
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSND4: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					// BND->BS or CS->CND
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSND4: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
 					// BS->CS or CND->BND
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSND4: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal3 = table->keys-table->isolated;
 					expn3 = table->expansion[ii];
+					assert((table->expansion[ii] == CS) || (table->expansion[ii] == BND));
+					
 					newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 					newKeysTotal = ddMin(newKeysTotal, newKeysTotal3);
-					assert((table->expansion[ii] == CS) || (table->expansion[ii] == BND));
 					if (newKeysTotal == newKeysTotal1) {
 						expn = expn1;
 					} else if (newKeysTotal == newKeysTotal2) {
@@ -457,14 +485,18 @@ chooseSND4(
 					} else {
 						expn = expn3;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						if (!changeExpnBetweenSND(table,ii)) {
 							printf("chooseSND4: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -473,18 +505,18 @@ chooseSND4(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSND4: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 							if (!changeExpnBetweenSND(table,ii)) {
 								printf("chooseSND4: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						} else if (newKeysTotal == newKeysTotal2) {
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSND4: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 						}
@@ -500,7 +532,7 @@ chooseSND4(
 				}
 				assert(nonShan <= upper_bound);
 			}
-		} else { // not interact
+		} else { // not interact or if combining adjacent variables is not allowed
 			if ( (nonShan == upper_bound) &&
 					isShan(table->expansion[ii]) ) {
 				/* If number of nonShan expansion reach upper bound
@@ -516,17 +548,20 @@ chooseSND4(
 				/* Choose better expansion types between S and ND. */
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSND4: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal = table->keys-table->isolated;
-				double key = newKeysTotal;
-				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//				double key = newKeysTotal;
+//				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+				int key = newKeysTotal;
+				int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+				int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 				if ( (key >= keyNew) ||
 						(!isShan(table->expansion[ii]) && (key >= keyDav)) ) {
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSND4: %d, roll back failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal = table->keys-table->isolated;
 					assert(newKeysTotal == oldKeysTotal);
@@ -547,13 +582,21 @@ chooseSND4(
 		if (failedCount == failedBound) { // failed enough times
 			break;
 		}
-		double keyFinal = oldKeysTotal;
-		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+//		double keyFinal = oldKeysTotal;
+//		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+		int keyFinal = oldKeysTotal;
+		int keyBound = ceil(initKeysTotal * table->choose_lower_bound_factor);
 		if (keyFinal <= keyBound) { // has reduced enough nodes
 			break;
 		}
 	}
-	assert(isCla(table->expansion[table->size-1]));
+	max_group_size = getMaxGroupSize(table);
+	if (max_group_size > GROUP_SIZE) {
+		printf("max size of variable group = %d, while contrain GROUP_SIZE = %d\n",
+		max_group_size, GROUP_SIZE);
+		assert(max_group_size <= GROUP_SIZE);
+	}
+	
 	int CScount,BScount,CNDcount,BNDcount,CPDcount,BPDcount;
 	BScount = CNDcount = BNDcount = CPDcount = BPDcount = 0;
 	/* expansion type of bottom variable has no effect on DD size,
@@ -607,9 +650,12 @@ chooseSND4(
 	printf("size from %d to %d in %4g sec }",
 	initKeysTotal-3, table->keys-table->isolated-3, (double)(util_cpu_time() - startTime)/1000.0);
 	
+	if (interactNull) {
+		FREE(table->interact);
+	}
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseSND4 failed\n");
 
@@ -639,6 +685,8 @@ int
 chooseSD3(
 	DdManager * table)
 {
+	choosePreProcess(table,0);
+
 	int interactNull;
 	if (table->interact == NULL) {
 		int res = cuddInitInteract(table);
@@ -649,17 +697,9 @@ chooseSD3(
 	}
 
 	int ii;
-	assert(isCla(table->expansion[table->size-1]));
+
 	unsigned int oldKeysTotal, newKeysTotal;
 	unsigned int newKeysTotal1, newKeysTotal2;
-	
-	table->isolated = 0;
-	for (ii = 0; ii < table->size; ii ++) {
-		DdNode *tmp = Cudd_Regular(table->vars[ii]);
-		if (tmp->ref == 1) {
-			table->isolated ++;
-		}
-	}
 
 	oldKeysTotal = table->keys-table->isolated;
 
@@ -670,19 +710,19 @@ chooseSD3(
 			// CS->CND->CPD or BS->BND->BPD
 			if (!changeExpnBetweenSND(table,ii)) {
 				printf("chooseSD3: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal1 = table->keys-table->isolated;
 			if (!changeExpnBetweenNDPD(table,ii)) {
 				printf("chooseSD3: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal2 = table->keys-table->isolated;
 			newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 			if (newKeysTotal >= oldKeysTotal) {
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				assert((table->keys-table->isolated) == oldKeysTotal);
 			} else {
@@ -690,7 +730,7 @@ chooseSD3(
 				if (newKeysTotal == newKeysTotal1) {
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD3: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert((table->keys-table->isolated) == newKeysTotal1);
 				}
@@ -699,19 +739,19 @@ chooseSD3(
 			// CND->CPD->CS or BND->BPD->BS
 			if (!changeExpnBetweenNDPD(table,ii)) {
 				printf("chooseSD3: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal1 = table->keys-table->isolated;
 			if (!changeExpnPDtoS(table,ii)) {
 				printf("chooseSD3: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal2 = table->keys-table->isolated;
 			newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 			if (newKeysTotal >= oldKeysTotal) {
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;					
+					goto failed;					
 				}
 				assert((table->keys-table->isolated) == oldKeysTotal);
 			} else {
@@ -719,7 +759,7 @@ chooseSD3(
 				if (newKeysTotal == newKeysTotal1) {
 					if (!changeExpnStoPD(table,ii)) {
 						printf("chooseSD3: %d, choose better expn failed\n", ii);
-						goto chooseFailed;					
+						goto failed;					
 					}
 					assert((table->keys-table->isolated) == newKeysTotal1);
 				}
@@ -728,19 +768,19 @@ chooseSD3(
 			// CPD->CS->CND or BPD->BS->BND
 			if (!changeExpnPDtoS(table,ii)) {
 				printf("chooseSD3: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal1 = table->keys-table->isolated;
 			if (!changeExpnBetweenSND(table,ii)) {
 				printf("chooseSD3: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal2 = table->keys-table->isolated;
 			newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 			if (newKeysTotal >= oldKeysTotal) {
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;					
+					goto failed;					
 				}
 				assert((table->keys-table->isolated) == oldKeysTotal);
 			} else {
@@ -748,7 +788,7 @@ chooseSD3(
 				if (newKeysTotal == newKeysTotal1) {
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD3: %d, choose better expn failed\n", ii);
-						goto chooseFailed;					
+						goto failed;					
 					}
 					assert((table->keys-table->isolated) == newKeysTotal1);
 				}
@@ -806,9 +846,12 @@ chooseSD3(
 	printf("CS:%d, BS:%d, CND:%d, BND:%d, CPD:%d, BPD:%d\n",
 	CScount,BScount,CNDcount,BNDcount,CPDcount,BPDcount);
 
+	if (interactNull) {
+		FREE(table->interact);
+	}
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseSD3 failed\n");
 
@@ -838,6 +881,8 @@ int
 chooseSD6(
 	DdManager * table)
 {
+	choosePreProcess(table,0);
+
 	int interactNull;
 	if (table->interact == NULL) {
 		int res = cuddInitInteract(table);
@@ -848,17 +893,9 @@ chooseSD6(
 	}
 
 	int ii;
-	assert(isCla(table->expansion[table->size-1]));
+
 	unsigned int oldKeysTotal, newKeysTotal;
 	unsigned int newKeysTotal1, newKeysTotal2, newKeysTotal3, newKeysTotal4, newKeysTotal5;
-	
-	table->isolated = 0;
-	for (ii = 0; ii < table->size; ii ++) {
-		DdNode *tmp = Cudd_Regular(table->vars[ii]);
-		if (tmp->ref == 1) {
-			table->isolated ++;
-		}
-	}
 
 	oldKeysTotal = table->keys-table->isolated;
 
@@ -873,31 +910,31 @@ chooseSD6(
 				// CS->CPD or BS->BPD
 				if (!changeExpnStoPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				// CPD->CND or BPD->BND
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				// CND->BND or BND->CND
 				if (!changeExpnBetweenBiCla(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal3 = table->keys-table->isolated;
 				// BND->BPD or CND->CPD
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal4 = table->keys-table->isolated;
 				// BPD->BS or CPD->CS
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				assert(isShan(table->expansion[ii]));
 				newKeysTotal5 = table->keys-table->isolated;
@@ -908,52 +945,52 @@ chooseSD6(
 				if (newKeysTotal >= oldKeysTotal) {
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6: %d, roll back failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 				} else { // CS<-CPD<-CND<-BND<-BPD<-BS or BS<-BPD<-BND<-CND<-CPD<-CS
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						if (!changeExpnStoPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					} else if (newKeysTotal == newKeysTotal2) {
 						if (!changeExpnStoPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal3);
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal2);
 					} else if (newKeysTotal == newKeysTotal3) {
 						if (!changeExpnStoPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal3);
 					} else if (newKeysTotal == newKeysTotal4) {
 						if (!changeExpnStoPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 					}
@@ -963,31 +1000,31 @@ chooseSD6(
 				// CND->CPD or BND->BPD
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				// CPD->CS or BPD->BS
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				// CS->BS or BS->CS
 				if (!changeExpnBetweenBiCla(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal3 = table->keys-table->isolated;
 				// BS->BPD or CS->CPD
 				if (!changeExpnStoPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal4 = table->keys-table->isolated;
 				// BPD->BND or CPD->CND
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				assert(isNDavio(table->expansion[ii]));
 				newKeysTotal5 = table->keys-table->isolated;
@@ -998,52 +1035,52 @@ chooseSD6(
 				if (newKeysTotal >= oldKeysTotal) {
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6: %d, roll back failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 				} else { // CND<-CPD<-CS<-BS<-BPD<-BND or BND<-BPD<-BS<-CS<-CPD<-CND
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					} else if (newKeysTotal == newKeysTotal2) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 						if (!changeExpnPDtoS(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal3);
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal2);
 					} else if (newKeysTotal == newKeysTotal3) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 						if (!changeExpnPDtoS(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal3);
 					} else if (newKeysTotal == newKeysTotal4) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 					}
@@ -1054,31 +1091,31 @@ chooseSD6(
 				// CPD->CND or BPD->BND
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				// CND->CS or BND->BS
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				// CS->BS or BS->CS
 				if (!changeExpnBetweenBiCla(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal3 = table->keys-table->isolated;
 				// BS->BND or CS->CND
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal4 = table->keys-table->isolated;
 				// BND->BPD or CND->CPD
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				assert(isPDavio(table->expansion[ii]));
 				newKeysTotal5 = table->keys-table->isolated;
@@ -1089,52 +1126,52 @@ chooseSD6(
 				if (newKeysTotal >= oldKeysTotal) {
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6: %d, roll back failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 				} else {
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					} else if (newKeysTotal == newKeysTotal2) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 						if (!changeExpnBetweenSND(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal3);
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal2);
 					} else if (newKeysTotal == newKeysTotal3) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 						if (!changeExpnBetweenSND(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal3);
 					} else if (newKeysTotal == newKeysTotal4) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal4);
 					}
@@ -1147,19 +1184,19 @@ chooseSD6(
 				// CS->CND->CPD or BS->BND->BPD
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 				if (newKeysTotal >= oldKeysTotal) {
 					if (!changeExpnPDtoS(table,ii)) {
 						printf("chooseSD6: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 				} else {
@@ -1167,7 +1204,7 @@ chooseSD6(
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6: %d, choose better expn failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					}
@@ -1176,19 +1213,19 @@ chooseSD6(
 				// CND->CPD->CS or BND->BPD->BS
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 				if (newKeysTotal >= oldKeysTotal) {
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD6: %d, choose better expn failed\n", ii);
-						goto chooseFailed;					
+						goto failed;					
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 				} else {
@@ -1196,7 +1233,7 @@ chooseSD6(
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnStoPD(table,ii)) {
 							printf("chooseSD6: %d, choose better expn failed\n", ii);
-							goto chooseFailed;					
+							goto failed;					
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					}
@@ -1205,19 +1242,19 @@ chooseSD6(
 				// CPD->CS->CND or BPD->BS->BND
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD6: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				newKeysTotal = ddMin(newKeysTotal1, newKeysTotal2);
 				if (newKeysTotal >= oldKeysTotal) {
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6: %d, choose better expn failed\n", ii);
-						goto chooseFailed;					
+						goto failed;					
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 				} else {
@@ -1225,7 +1262,7 @@ chooseSD6(
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenSND(table,ii)) {
 							printf("chooseSD6: %d, choose better expn failed\n", ii);
-							goto chooseFailed;					
+							goto failed;					
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					}
@@ -1284,9 +1321,12 @@ chooseSD6(
 	printf("CS:%d, BS:%d, CND:%d, BND:%d, CPD:%d, BPD:%d\n",
 	CScount,BScount,CNDcount,BNDcount,CPDcount,BPDcount);
 
+	if (interactNull) {
+		FREE(table->interact);
+	}
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseSD6 failed\n");
 
@@ -1305,6 +1345,8 @@ int
 chooseSD3_restricted(
 	DdManager * table)
 {
+	choosePreProcess(table,0);
+
 	int interactNull;
 	if (table->interact == NULL) {
 		int res = cuddInitInteract(table);
@@ -1315,15 +1357,6 @@ chooseSD3_restricted(
 	}
 
 	int ii;
-	assert(isCla(table->expansion[table->size-1]));
-
-	table->isolated = 0;
-	for (ii = 0; ii < table->size; ii ++) {
-		DdNode *tmp = Cudd_Regular(table->vars[ii]);
-		if (tmp->ref == 1) {
-			table->isolated ++;
-		}
-	}
 
 	unsigned int oldKeysTotal, newKeysTotal, initKeysTotal;
 	unsigned int newKeysTotal1, newKeysTotal2;
@@ -1371,13 +1404,13 @@ chooseSD3_restricted(
 				// CS->CND->CPD or BS->BND->BPD
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				expn1 = table->expansion[ii];
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				expn2 = table->expansion[ii];
@@ -1387,13 +1420,16 @@ chooseSD3_restricted(
 				} else {
 					expn = expn2;
 				}
-				double key = newKeysTotal;
-				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//				double key = newKeysTotal;
+//				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+				int key = newKeysTotal;
+				int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+				int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 				if ( (key >= keyNew) || (key >= keyDav) ) {
 					if (!changeExpnPDtoS(table,ii)) {
 						printf("chooseSD3: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 					failedCount ++;
@@ -1402,7 +1438,7 @@ chooseSD3_restricted(
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD3: %d, choose better expn failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					}
@@ -1411,13 +1447,13 @@ chooseSD3_restricted(
 				// CND->CPD->CS or BND->BPD->BS
 				if (!changeExpnBetweenNDPD(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				expn1 = table->expansion[ii];
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				expn2 = table->expansion[ii];
@@ -1427,14 +1463,17 @@ chooseSD3_restricted(
 				} else {
 					expn = expn2;
 				}
-				double key = newKeysTotal;
-				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//				double key = newKeysTotal;
+//				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+				int key = newKeysTotal;
+				int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+				int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 				if ( (key >= keyNew) ||
 						(!isShan(expn) && (key >= keyDav)) ) {
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD3: %d, choose better expn failed\n", ii);
-						goto chooseFailed;					
+						goto failed;					
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 					failedCount ++;
@@ -1443,7 +1482,7 @@ chooseSD3_restricted(
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnStoPD(table,ii)) {
 							printf("chooseSD3: %d, choose better expn failed\n", ii);
-							goto chooseFailed;					
+							goto failed;					
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					}
@@ -1452,13 +1491,13 @@ chooseSD3_restricted(
 				// CPD->CS->CND or BPD->BS->BND
 				if (!changeExpnPDtoS(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal1 = table->keys-table->isolated;
 				expn1 = table->expansion[ii];
 				if (!changeExpnBetweenSND(table,ii)) {
 					printf("chooseSD3: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal2 = table->keys-table->isolated;
 				expn2 = table->expansion[ii];
@@ -1468,14 +1507,17 @@ chooseSD3_restricted(
 				} else {
 					expn = expn2;
 				}
-				double key = newKeysTotal;
-				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//				double key = newKeysTotal;
+//				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//				double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+				int key = newKeysTotal;
+				int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+				int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 				if ( (key >= keyNew) ||
 						(!isShan(expn) && (key >= keyDav)) ) {
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD3: %d, choose better expn failed\n", ii);
-						goto chooseFailed;					
+						goto failed;					
 					}
 					assert((table->keys-table->isolated) == oldKeysTotal);
 					failedCount ++;
@@ -1484,7 +1526,7 @@ chooseSD3_restricted(
 					if (newKeysTotal == newKeysTotal1) {
 						if (!changeExpnBetweenSND(table,ii)) {
 							printf("chooseSD3: %d, choose better expn failed\n", ii);
-							goto chooseFailed;					
+							goto failed;					
 						}
 						assert((table->keys-table->isolated) == newKeysTotal1);
 					}
@@ -1501,13 +1543,15 @@ chooseSD3_restricted(
 		if (failedCount == failedBound) { // failed enough times
 			break;
 		}
-		double keyFinal = oldKeysTotal;
-		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+//		double keyFinal = oldKeysTotal;
+//		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+		int keyFinal = oldKeysTotal;
+		int keyBound = ceil(initKeysTotal * table->choose_lower_bound_factor);
 		if (keyFinal <= keyBound) { // has reduced enough nodes
 			break;
 		}
 	}
-	assert(isCla(table->expansion[table->size-1]));
+
 	int CScount,BScount,CNDcount,BNDcount,CPDcount,BPDcount;
 	BScount = CNDcount = BNDcount = CPDcount = BPDcount = 0;
 	/* expansion type of bottom variable has no effect on DD size,
@@ -1561,9 +1605,12 @@ chooseSD3_restricted(
 	printf("size from %d to %d in %4g sec }\n",
 	initKeysTotal-3, table->keys-table->isolated-3, (double)(util_cpu_time() - startTime)/1000.0);
 	
+	if (interactNull) {
+		FREE(table->interact);
+	}
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseSD3_restricted failed\n");
 
@@ -1582,6 +1629,8 @@ int
 chooseSD6_restricted(
 	DdManager * table)
 {
+	choosePreProcess(table,0);
+
 	int interactNull;
 	if (table->interact == NULL) {
 		int res = cuddInitInteract(table);
@@ -1592,15 +1641,6 @@ chooseSD6_restricted(
 	}
 
 	int ii;
-	assert(isCla(table->expansion[table->size-1]));
-
-	table->isolated = 0;
-	for (ii = 0; ii < table->size; ii ++) {
-		DdNode *tmp = Cudd_Regular(table->vars[ii]);
-		if (tmp->ref == 1) {
-			table->isolated ++;
-		}
-	}
 
 	unsigned int oldKeysTotal, newKeysTotal, initKeysTotal;
 	unsigned int newKeysTotal1, newKeysTotal2, newKeysTotal3, newKeysTotal4, newKeysTotal5;
@@ -1640,15 +1680,17 @@ chooseSD6_restricted(
 				and current level associated with Shan, then try BS or CS. */
 				if (!changeExpnBetweenBiCla(table,ii)) {
 					printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal = table->keys-table->isolated;
-				double key = newKeysTotal;
-				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//				double key = newKeysTotal;
+//				double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+				int key = newKeysTotal;
+				int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
 				if ( key >= keyNew ) {
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal = table->keys-table->isolated;
 					assert(newKeysTotal == oldKeysTotal);
@@ -1671,35 +1713,35 @@ chooseSD6_restricted(
 					// CS->CPD or BS->BPD
 					if (!changeExpnStoPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					// CPD->CND or BPD->BND
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
 					// CND->BND or BND->CND
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal3 = table->keys-table->isolated;
 					expn3 = table->expansion[ii];
 					// BND->BPD or CND->CPD
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal4 = table->keys-table->isolated;
 					expn4 = table->expansion[ii];
 					// BPD->BS or CPD->CS
 					if (!changeExpnPDtoS(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert(isShan(table->expansion[ii]));
 					newKeysTotal5 = table->keys-table->isolated;
@@ -1719,14 +1761,17 @@ chooseSD6_restricted(
 					} else {
 						expn = expn5;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -1734,45 +1779,45 @@ chooseSD6_restricted(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == oldKeysTotal);
 							if (!changeExpnStoPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						} else if (newKeysTotal == newKeysTotal2) {
 							if (!changeExpnStoPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal3);
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 						} else if (newKeysTotal == newKeysTotal3) {
 							if (!changeExpnStoPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal3);
 						} else if (newKeysTotal == newKeysTotal4) {
 							if (!changeExpnStoPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 						}
@@ -1782,35 +1827,35 @@ chooseSD6_restricted(
 					// CND->CPD or BND->BPD
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					// CPD->CS or BPD->BS
 					if (!changeExpnPDtoS(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
 					// CS->BS or BS->CS
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal3 = table->keys-table->isolated;
 					expn3 = table->expansion[ii];
 					// BS->BPD or CS->CPD
 					if (!changeExpnStoPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal4 = table->keys-table->isolated;
 					expn4 = table->expansion[ii];
 					// BPD->BND or CPD->CND
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert(isNDavio(table->expansion[ii]));
 					newKeysTotal5 = table->keys-table->isolated;
@@ -1830,14 +1875,17 @@ chooseSD6_restricted(
 					} else {
 						expn = expn5;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -1845,45 +1893,45 @@ chooseSD6_restricted(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == oldKeysTotal);
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						} else if (newKeysTotal == newKeysTotal2) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 							if (!changeExpnPDtoS(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal3);
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 						} else if (newKeysTotal == newKeysTotal3) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 							if (!changeExpnPDtoS(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal3);
 						} else if (newKeysTotal == newKeysTotal4) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 						}
@@ -1894,35 +1942,35 @@ chooseSD6_restricted(
 					// CPD->CND or BPD->BND
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					// CND->CS or BND->BS
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
 					// CS->BS or BS->CS
 					if (!changeExpnBetweenBiCla(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal3 = table->keys-table->isolated;
 					expn3 = table->expansion[ii];
 					// BS->BND or CS->CND
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal4 = table->keys-table->isolated;
 					expn4 = table->expansion[ii];
 					// BND->BPD or CND->CPD
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					assert(isPDavio(table->expansion[ii]));
 					newKeysTotal5 = table->keys-table->isolated;
@@ -1942,14 +1990,17 @@ chooseSD6_restricted(
 					} else {
 						expn = expn5;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						if (!changeExpnBetweenBiCla(table,ii)) {
 							printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -1957,45 +2008,45 @@ chooseSD6_restricted(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == oldKeysTotal);
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						} else if (newKeysTotal == newKeysTotal2) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 							if (!changeExpnBetweenSND(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal3);
 							if (!changeExpnBetweenBiCla(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal2);
 						} else if (newKeysTotal == newKeysTotal3) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 							if (!changeExpnBetweenSND(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal3);
 						} else if (newKeysTotal == newKeysTotal4) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, roll back failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal4);
 						}
@@ -2026,13 +2077,13 @@ chooseSD6_restricted(
 					// CS->CND->CPD or BS->BND->BPD
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
@@ -2042,13 +2093,16 @@ chooseSD6_restricted(
 					} else {
 						expn = expn2;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) || (key >= keyDav) ) {
 						if (!changeExpnPDtoS(table,ii)) {
 							printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-							goto chooseFailed;
+							goto failed;
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -2057,7 +2111,7 @@ chooseSD6_restricted(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenNDPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-								goto chooseFailed;
+								goto failed;
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						}
@@ -2066,13 +2120,13 @@ chooseSD6_restricted(
 					// CND->CPD->CS or BND->BPD->BS
 					if (!changeExpnBetweenNDPD(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					if (!changeExpnPDtoS(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
@@ -2082,14 +2136,17 @@ chooseSD6_restricted(
 					} else {
 						expn = expn2;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						if (!changeExpnBetweenSND(table,ii)) {
 							printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-							goto chooseFailed;					
+							goto failed;					
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -2098,7 +2155,7 @@ chooseSD6_restricted(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnStoPD(table,ii)) {
 								printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-								goto chooseFailed;					
+								goto failed;					
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						}
@@ -2107,13 +2164,13 @@ chooseSD6_restricted(
 					// CPD->CS->CND or BPD->BS->BND
 					if (!changeExpnPDtoS(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal1 = table->keys-table->isolated;
 					expn1 = table->expansion[ii];
 					if (!changeExpnBetweenSND(table,ii)) {
 						printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-						goto chooseFailed;
+						goto failed;
 					}
 					newKeysTotal2 = table->keys-table->isolated;
 					expn2 = table->expansion[ii];
@@ -2123,14 +2180,17 @@ chooseSD6_restricted(
 					} else {
 						expn = expn2;
 					}
-					double key = newKeysTotal;
-					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
-					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+//					double key = newKeysTotal;
+//					double keyNew = oldKeysTotal * table->choose_new_bound_factor;
+//					double keyDav = oldKeysTotal * table->choose_dav_bound_factor;
+					int key = newKeysTotal;
+					int keyNew = ceil(oldKeysTotal * table->choose_new_bound_factor);
+					int keyDav = ceil(oldKeysTotal * table->choose_dav_bound_factor);
 					if ( (key >= keyNew) ||
 							(!isShan(expn) && (key >= keyDav)) ) {
 						if (!changeExpnBetweenNDPD(table,ii)) {
 							printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-							goto chooseFailed;					
+							goto failed;					
 						}
 						assert((table->keys-table->isolated) == oldKeysTotal);
 						failedCount ++;
@@ -2139,7 +2199,7 @@ chooseSD6_restricted(
 						if (newKeysTotal == newKeysTotal1) {
 							if (!changeExpnBetweenSND(table,ii)) {
 								printf("chooseSD6_restricted: %d, choose better expn failed\n", ii);
-								goto chooseFailed;					
+								goto failed;					
 							}
 							assert((table->keys-table->isolated) == newKeysTotal1);
 						}
@@ -2157,13 +2217,15 @@ chooseSD6_restricted(
 		if (failedCount == failedBound) { // failed enough times
 			break;
 		}
-		double keyFinal = oldKeysTotal;
-		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+//		double keyFinal = oldKeysTotal;
+//		double keyBound = initKeysTotal * table->choose_lower_bound_factor;
+		int keyFinal = oldKeysTotal;
+		int keyBound = ceil(initKeysTotal * table->choose_lower_bound_factor);
 		if (keyFinal <= keyBound) { // has reduced enough nodes
 			break;
 		}
 	}
-	assert(isCla(table->expansion[table->size-1]));
+	
 	int CScount,BScount,CNDcount,BNDcount,CPDcount,BPDcount;
 	BScount = CNDcount = BNDcount = CPDcount = BPDcount = 0;
 	/* expansion type of bottom variable has no effect on DD size,
@@ -2217,9 +2279,12 @@ chooseSD6_restricted(
 	printf("size from %d to %d in %4g sec }\n",
 	initKeysTotal-3, table->keys-table->isolated-3, (double)(util_cpu_time() - startTime)/1000.0);
 	
+	if (interactNull) {
+		FREE(table->interact);
+	}
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseSD6_restricted failed\n");
 
@@ -2229,6 +2294,170 @@ chooseFailed:
 	return(0);
 
 } /* end of chooseSD6_restricted */
+
+
+/** 
+	@brief Previous process before DD transformation.
+
+	@detail Clear cache, do garbage collection for nodes at and bellow
+	level, and recount isolated projection functions.
+	Finally check unique table.
+
+*/
+static void
+choosePreProcess(
+	DdManager * table,
+	int level)
+{
+	int i;
+	unsigned int k, slots;
+	DdNode *p, *next;
+	p = next = NULL;
+	DdNodePtr *previousP = NULL;
+	DdNode *sentinel = &(table->sentinel);
+
+	/* Clean cache. */
+	cuddCacheFlush(table);
+	
+	/* GC subtable below current level, there is no dead nodes. */
+	for (i = level; i < table->size; i++) {
+		DdNodePtr *nodelist = table->subtables[i].nodelist;
+		slots = table->subtables[i].slots;
+		for (k = 0; k < slots; k ++) {
+			previousP = &(nodelist[k]);
+			p = *previousP;
+			while (p != sentinel) {
+				next = p->next;
+				if (p->ref == 0) {
+					cuddDeref(cuddT(p));
+					cuddDeref(cuddE(p));
+					cuddDeallocNode(table,p);
+					table->subtables[i].keys--;
+					table->keys --;
+				} else {
+					*previousP = p;
+					previousP = &(p->next);
+				}
+				p = next;
+			}
+			*previousP = sentinel;
+		}
+		table->subtables[i].dead = 0;
+	}
+	if (level == 0) {
+		table->dead = 0;
+	}
+
+	/* Re-count isolated variables. */
+	table->isolated = 0;
+	for (i = 0; i < table->size; i ++) {
+		p = Cudd_Regular(table->vars[i]);
+		if (p->ref == 1) {
+			table->isolated ++;
+		}
+	}
+
+	return;
+} /* end of choosePreProcess */
+
+
+/** @brief get size of variable group containing current variable,
+	a variable group has the form: B*-B*-...-C*, viz start with 
+	a biconditional expansion and end with a classical expansion.
+	and the size is the number of variables in it.
+	
+	@sideeffect None
+
+*/
+static int
+getGroupSize(
+	DdManager * table,
+	int level)
+{
+	int i;
+	int group_size = 0;
+	for (i = level-1; i >= 0; i --) {
+		if (isBi(table->expansion[i])) {
+			group_size ++;
+		} else { // encouter the end of previous group
+			break;
+		}
+	}
+	for (i = level; i <= table->size-1; i ++) {
+		if (isBi(table->expansion[i])) {
+			group_size ++;
+		} else { // reach the end of current group
+			group_size ++;
+			break;
+		}
+	}
+	return group_size;
+}
+
+
+/** 
+	@brief Get maximum size of variable group
+
+	@sideeffect None
+
+*/
+static int
+getMaxGroupSize(
+	DdManager * table)
+{
+	int i;
+	int max_group_size, group_size;
+	max_group_size = group_size = 0;
+	for (i = 0; i <= table->size-1; i ++) {
+		if (isBi(table->expansion[i])) {
+			group_size ++;
+		} else {
+			group_size ++;
+			if (group_size > max_group_size) {
+				max_group_size = group_size;
+			}
+			group_size = 0;
+		}
+	}
+	return max_group_size;
+}
+
+
+/** 
+	@brief check whether we can combine two adjacent variables,
+	given the maximum size of variable group
+
+	@detail 
+	case 1: cla-cla => bi-cla or cla-bi => bi-bi; it may add next group to current group.
+			it is not allowed if the resulting group is too large, then return 0;
+			otherwise return 1.
+
+	case 2: bi-cla => cla-cla or bi-bi => cla-bi;
+			it is always allowed since it may to divide current group,
+			so return 1.
+
+	@sideeffect None
+*/
+static int
+checkCombineGroup(
+	DdManager * table,
+	int i)
+{
+	if (isBi(table->expansion[i])) return 1;
+	
+	int group_sizei = getGroupSize(table, i);
+	int group_sizei1 = getGroupSize(table, i+1);
+	assert(group_sizei <= GROUP_SIZE);
+	assert(group_sizei1 <= GROUP_SIZE);
+	
+	int cla_cla = isCla(table->expansion[i]) && isCla(table->expansion[i+1]);
+	int cla_bi = isCla(table->expansion[i]) && isBi(table->expansion[i+1]);
+	if ( (cla_cla && (GROUP_SIZE == group_sizei)) ||
+		 (cla_bi && ((group_sizei + group_sizei1) > GROUP_SIZE)) ) {
+		return 0;
+	}
+	return 1;
+}
 
 #if 0
 /**
@@ -2256,7 +2485,7 @@ chooseBetterBiDD(
 	}
 
 	int ii;
-	assert(isCla(table->expansion[table->size-1]));
+	
 	for (ii = 0; ii <= table->size-1; ii ++) {
 		assert(isShan(table->expansion[ii]));
 	}
@@ -2276,7 +2505,7 @@ chooseBetterBiDD(
 			/* Choose better expansion types between CS and BS. */
 			if (!changeExpnBetweenBiCla(table,ii)) {
 				printf("chooseBetterBiDD: %d, choose better expn failed\n", ii);
-				goto chooseFailed;
+				goto failed;
 			}
 			newKeysTotal = table->keys-table->isolated;
 			double key = newKeysTotal;
@@ -2284,7 +2513,7 @@ chooseBetterBiDD(
 			if ( key >= keyNew ) {
 				if (!changeExpnBetweenBiCla(table,ii)) {
 					printf("chooseBetterBiDD: %d, roll back failed\n", ii);
-					goto chooseFailed;
+					goto failed;
 				}
 				newKeysTotal = table->keys-table->isolated;
 				assert(newKeysTotal == oldKeysTotal);
@@ -2301,8 +2530,6 @@ chooseBetterBiDD(
 		if (keyFinal <= keyBound)
 			break;
 	}
-
-	assert(isCla(table->expansion[table->size-1]));
 
 	int CScount,BScount,CNDcount,BNDcount,CPDcount,BPDcount;
 	BScount = CNDcount = BNDcount = CPDcount = BPDcount = 0;
@@ -2359,7 +2586,7 @@ chooseBetterBiDD(
 	
 	return(1);
 
-chooseFailed:
+failed:
 
 	fprintf(table->err, "chooseBetterBiDD failed\n");
 
@@ -2369,4 +2596,41 @@ chooseFailed:
 	return(0);
 
 } /* end of chooseBetterBiDD */
+//#endif
+
+
+/* 
+	Transform BKFDD to BDD.
+*/
+int
+bkfddTobdd(
+	DdManager * table)
+{
+	int ii;
+
+	for (ii = 0; ii < table->size-1; ii += 1) {
+		if (table->subtables[ii].keys == 0) { continue; }
+		if (isShan(table->expansion[ii])) { continue; }
+		if (isNDavio(table->expansion[ii])) {
+			if (!changeExpnBetweenSND(table,ii)) {
+				printf("bkfddTobdd: %d, ND->S failed\n", ii);
+				goto failed;					
+			}
+		} else { // positive Davio
+			if (!changeExpnPDtoS(table,ii)) {
+				printf("bkfddTobdd: %d, PD->S failed\n", ii);
+				goto failed;
+			}
+		}
+	}
+
+	return(1);
+
+failed:
+
+	fprintf(table->err, "bkfddTobdd failed\n");
+	
+	return(0);
+
+} /* end of bkfddTobdd */
 #endif

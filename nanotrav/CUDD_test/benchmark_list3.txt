@@ -1,0 +1,13 @@
+../Benchmark/ITC/ITC_b04.blif
+../Benchmark/ITC/ITC_b05.blif
+../Benchmark/ITC/ITC_b07.blif
+../Benchmark/ITC/ITC_b11.blif
+../Benchmark/ITC/ITC_b12.blif
+../Benchmark/ITC/ITC_b15_1.blif
+../Benchmark/ITC/ITC_b15.blif
+../Benchmark/ITC/ITC_b20_1.blif
+../Benchmark/ITC/ITC_b20.blif
+../Benchmark/ITC/ITC_b21_1.blif
+../Benchmark/ITC/ITC_b21.blif
+../Benchmark/ITC/ITC_b22_1.blif
+../Benchmark/ITC/ITC_b22.blif

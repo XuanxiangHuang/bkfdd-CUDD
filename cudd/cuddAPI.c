@@ -3235,8 +3235,8 @@ Cudd_PrintInfo(
     retval = fprintf(fp,"Memory in use: %" PRIszt "\n",
                      Cudd_ReadMemoryInUse(dd));
     if (retval == EOF) return(0);
-    retval = fprintf(fp,"Peak number of nodes: %ld\n",
-		     Cudd_ReadPeakNodeCount(dd));
+    retval = fprintf(fp,"Peak number of nodes: %ld, Peak memory of nodes: %ld\n",
+		     Cudd_ReadPeakNodeCount(dd), Cudd_ReadPeakNodeCount(dd) * sizeof(DdNode));
     if (retval == EOF) return(0);
     retval = fprintf(fp,"Peak number of live nodes: %d\n",
 		     Cudd_ReadPeakLiveNodeCount(dd));
@@ -3646,11 +3646,38 @@ Cudd_StdPreReordHook(
     }
     switch (method) {
 /** Xuanxiang Huang:BKFDD */
+		case BKFDD_OET_SIFT:
+		retval = fprintf(dd->out,"bkfdd-oet sifting");
+		break;
+		case KFDD_SYMM_SIFT:
+		retval = fprintf(dd->out,"kfdd-symm sifting");
+		break;
+		case BKFDD_SYMM_SIFT:
+		retval = fprintf(dd->out,"bkfdd-symm sifting");
+		break;
 		case KFDD_GROUP_SIFT:
 		retval = fprintf(dd->out,"kfdd-group sifting");
 		break;
 		case BKFDD_GROUP_SIFT:
 		retval = fprintf(dd->out,"bkfdd-group sifting");
+		break;
+		case BKFDD_GROUP_SIFT_NMEG:
+		retval = fprintf(dd->out,"bkfdd-group no merge sifting");
+		break;
+		case KFDD_SYMM_MIX:
+		retval = fprintf(dd->out,"kfdd-symm-mix sifting");
+		break;
+		case BKFDD_SYMM_MIX:
+		retval = fprintf(dd->out,"bkfdd-symm-mix sifting");
+		break;
+		case KFDD_GROUP_MIX:
+		retval = fprintf(dd->out,"kfdd-group-mix sifting");
+		break;
+		case BKFDD_GROUP_MIX:
+		retval = fprintf(dd->out,"bkfdd-group-mix sifting");
+		break;
+		case BKFDD_GROUP_NMEG_MIX:
+		retval = fprintf(dd->out,"bkfdd-group-no-merge sifting");
 		break;
 //		case BIDD_GROUP_SIFT:
 //		retval = fprintf(dd->out,"bidd-group sifting");

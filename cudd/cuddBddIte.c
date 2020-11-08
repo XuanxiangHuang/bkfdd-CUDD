@@ -623,78 +623,78 @@ Cudd_bddLeq(
   DdNode * f /**< first operand */,
   DdNode * g /**< second operand */)
 {
-    DdNode *one, *zero, *tmp, *F, *fv, *fvn, *gv, *gvn;
-    int topf, topg, res;
+	DdNode *one, *zero, *tmp, *F, *fv, *fvn, *gv, *gvn;
+	int topf, topg, res;
 
-    statLine(dd);
-    /* Terminal cases and normalization. */
-    if (f == g) return(1);
+	statLine(dd);
+	/* Terminal cases and normalization. */
+	if (f == g) return(1);
 
-    if (Cudd_IsComplement(g)) {
-	/* Special case: if f is regular and g is complemented,
-	** f(1,...,1) = 1 > 0 = g(1,...,1).
-	*/
-	if (!Cudd_IsComplement(f)) return(0);
-	/* Both are complemented: Swap and complement because
-	** f <= g <=> g' <= f' and we want the second argument to be regular.
-	*/
-	tmp = g;
-	g = Cudd_Not(f);
-	f = Cudd_Not(tmp);
-    } else if (Cudd_IsComplement(f) && g < f) {
-	tmp = g;
-	g = Cudd_Not(f);
-	f = Cudd_Not(tmp);
-    }
+	if (Cudd_IsComplement(g)) {
+		/* Special case: if f is regular and g is complemented,
+		** f(1,...,1) = 1 > 0 = g(1,...,1).
+		*/
+		if (!Cudd_IsComplement(f)) return(0);
+		/* Both are complemented: Swap and complement because
+		** f <= g <=> g' <= f' and we want the second argument to be regular.
+		*/
+		tmp = g;
+		g = Cudd_Not(f);
+		f = Cudd_Not(tmp);
+	} else if (Cudd_IsComplement(f) && g < f) {
+		tmp = g;
+		g = Cudd_Not(f);
+		f = Cudd_Not(tmp);
+	}
 
-    /* Now g is regular. */
-    one = DD_ONE(dd);
-    if (g == one) return(1);	/* no need to test against zero */
-    if (f == one) return(0);	/* since at this point g != one */
-    if (Cudd_Not(f) == g) return(0); /* because neither is constant */
-    zero = Cudd_Not(one);
-    if (f == zero) return(1);
+	/* Now g is regular. */
+	one = DD_ONE(dd);
+	if (g == one) return(1);	/* no need to test against zero */
+	if (f == one) return(0);	/* since at this point g != one */
+	if (Cudd_Not(f) == g) return(0); /* because neither is constant */
+	zero = Cudd_Not(one);
+	if (f == zero) return(1);
 
-    /* Here neither f nor g is constant. */
+	/* Here neither f nor g is constant. */
 
-    /* Check cache. */
-    F = Cudd_Regular(f);
-    if (F->ref != 1 || g->ref != 1) {
-        tmp = cuddCacheLookup2(dd,(DD_CTFP)Cudd_bddLeq,f,g);
-        if (tmp != NULL) {
-            return(tmp == one);
-        }
-    }
+	/* Check cache. */
+	F = Cudd_Regular(f);
+	if (F->ref != 1 || g->ref != 1) {
+	tmp = cuddCacheLookup2(dd,(DD_CTFP)Cudd_bddLeq,f,g);
+	if (tmp != NULL) {
+	return(tmp == one);
+	}
+	}
 
-    /* Compute cofactors. */
-    topf = dd->perm[F->index];
-    topg = dd->perm[g->index];
-    if (topf <= topg) {
+	/* Compute cofactors. */
+	topf = dd->perm[F->index];
+	topg = dd->perm[g->index];
+	if (topf <= topg) {
 	fv = cuddT(F); fvn = cuddE(F);
 	if (f != F) {
-	    fv = Cudd_Not(fv);
-	    fvn = Cudd_Not(fvn);
+	fv = Cudd_Not(fv);
+	fvn = Cudd_Not(fvn);
 	}
-    } else {
+	} else {
 	fv = fvn = f;
-    }
-    if (topg <= topf) {
+	}
+	if (topg <= topf) {
 	gv = cuddT(g); gvn = cuddE(g);
-    } else {
+	} else {
 	gv = gvn = g;
-    }
+	}
 
-    /* Recursive calls. Since we want to maximize the probability of
-    ** the special case f(1,...,1) > g(1,...,1), we consider the negative
-    ** cofactors first. Indeed, the complementation parity of the positive
-    ** cofactors is the same as the one of the parent functions.
-    */
-    res = Cudd_bddLeq(dd,fvn,gvn) && Cudd_bddLeq(dd,fv,gv);
+	/* Recursive calls. Since we want to maximize the probability of
+	** the special case f(1,...,1) > g(1,...,1), we consider the negative
+	** cofactors first. Indeed, the complementation parity of the positive
+	** cofactors is the same as the one of the parent functions.
+	*/
+	res = Cudd_bddLeq(dd,fvn,gvn) && Cudd_bddLeq(dd,fv,gv);
 
-    /* Store result in cache and return. */
-    if (F->ref !=1 || g->ref != 1)
-        cuddCacheInsert2(dd,(DD_CTFP)Cudd_bddLeq,f,g,(res ? one : zero));
-    return(res);
+	/* Store result in cache and return. */
+	if (F->ref !=1 || g->ref != 1)
+	cuddCacheInsert2(dd,(DD_CTFP)Cudd_bddLeq,f,g,(res ? one : zero));
+	return(res);
 
 } /* end of Cudd_bddLeq */
 

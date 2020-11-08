@@ -1,0 +1,1592 @@
+# Benchmark "b05_C.blif" written by ABC on Sun Jan 12 10:51:32 2020
+.model b05_C.blif
+.inputs START STATO_REG_1__SCAN_IN STATO_REG_0__SCAN_IN FLAG_REG_SCAN_IN \
+ RES_DISP_REG_SCAN_IN EN_DISP_REG_SCAN_IN MAX_REG_0__SCAN_IN \
+ MAX_REG_1__SCAN_IN MAX_REG_2__SCAN_IN MAX_REG_3__SCAN_IN \
+ MAX_REG_4__SCAN_IN MAX_REG_5__SCAN_IN MAX_REG_6__SCAN_IN \
+ MAX_REG_7__SCAN_IN MAX_REG_8__SCAN_IN TEMP_REG_0__SCAN_IN \
+ TEMP_REG_1__SCAN_IN TEMP_REG_2__SCAN_IN TEMP_REG_3__SCAN_IN \
+ TEMP_REG_4__SCAN_IN TEMP_REG_5__SCAN_IN TEMP_REG_6__SCAN_IN \
+ TEMP_REG_7__SCAN_IN TEMP_REG_8__SCAN_IN MAR_REG_0__SCAN_IN \
+ MAR_REG_1__SCAN_IN MAR_REG_2__SCAN_IN MAR_REG_3__SCAN_IN \
+ MAR_REG_4__SCAN_IN NUM_REG_0__SCAN_IN NUM_REG_1__SCAN_IN \
+ NUM_REG_2__SCAN_IN NUM_REG_3__SCAN_IN NUM_REG_4__SCAN_IN
+.outputs SIGN DISPMAX1_6_ DISPMAX1_5_ DISPMAX1_4_ DISPMAX1_3_ DISPMAX1_2_ \
+ DISPMAX1_1_ DISPMAX1_0_ DISPMAX2_6_ DISPMAX2_5_ DISPMAX2_4_ DISPMAX2_3_ \
+ DISPMAX2_2_ DISPMAX2_1_ DISPMAX2_0_ DISPMAX3_6_ DISPMAX3_5_ DISPMAX3_4_ \
+ DISPMAX3_3_ DISPMAX3_2_ DISPMAX3_1_ DISPMAX3_0_ DISPNUM1_6_ DISPNUM1_5_ \
+ DISPNUM1_4_ DISPNUM1_3_ DISPNUM1_2_ DISPNUM1_1_ DISPNUM1_0_ DISPNUM2_6_ \
+ DISPNUM2_5_ DISPNUM2_4_ DISPNUM2_3_ DISPNUM2_2_ DISPNUM2_1_ DISPNUM2_0_ \
+ NUM_REG_4__SCAN_OUT NUM_REG_3__SCAN_OUT NUM_REG_2__SCAN_OUT \
+ NUM_REG_1__SCAN_OUT NUM_REG_0__SCAN_OUT MAR_REG_4__SCAN_OUT \
+ MAR_REG_3__SCAN_OUT MAR_REG_2__SCAN_OUT MAR_REG_1__SCAN_OUT \
+ MAR_REG_0__SCAN_OUT TEMP_REG_8__SCAN_OUT TEMP_REG_7__SCAN_OUT \
+ TEMP_REG_6__SCAN_OUT TEMP_REG_5__SCAN_OUT TEMP_REG_4__SCAN_OUT \
+ TEMP_REG_3__SCAN_OUT TEMP_REG_2__SCAN_OUT TEMP_REG_1__SCAN_OUT \
+ TEMP_REG_0__SCAN_OUT MAX_REG_8__SCAN_OUT MAX_REG_7__SCAN_OUT \
+ MAX_REG_6__SCAN_OUT MAX_REG_5__SCAN_OUT MAX_REG_4__SCAN_OUT \
+ MAX_REG_3__SCAN_OUT MAX_REG_2__SCAN_OUT MAX_REG_1__SCAN_OUT \
+ MAX_REG_0__SCAN_OUT EN_DISP_REG_SCAN_OUT RES_DISP_REG_SCAN_OUT \
+ FLAG_REG_SCAN_OUT STATO_REG_0__SCAN_OUT STATO_REG_1__SCAN_OUT \
+ STATO_REG_2__SCAN_OUT
+.names RES_DISP_REG_SCAN_IN EN_DISP_REG_SCAN_IN DISPMAX1_6_
+00 1
+.names EN_DISP_REG_SCAN_IN MAX_REG_8__SCAN_IN n106
+01 1
+.names DISPMAX1_6_ n106 SIGN
+00 0
+.names RES_DISP_REG_SCAN_IN EN_DISP_REG_SCAN_IN DISPMAX1_4_
+10 1
+.names MAX_REG_0__SCAN_IN MAX_REG_1__SCAN_IN n109
+00 1
+.names MAX_REG_2__SCAN_IN n109 n110
+01 1
+.names MAX_REG_3__SCAN_IN n110 n111
+01 1
+.names MAX_REG_4__SCAN_IN n111 n112
+01 1
+.names MAX_REG_8__SCAN_IN n112 n113
+10 1
+.names MAX_REG_4__SCAN_IN n111 n114
+10 1
+.names n113 n114 n115
+10 1
+.names MAX_REG_4__SCAN_IN MAX_REG_8__SCAN_IN n116
+10 1
+.names n115 n116 n117
+00 1
+.names MAX_REG_2__SCAN_IN n109 n118
+10 1
+.names MAX_REG_8__SCAN_IN n110 n119
+10 1
+.names n118 n119 n120
+01 1
+.names MAX_REG_2__SCAN_IN MAX_REG_8__SCAN_IN n121
+10 1
+.names n120 n121 n122
+00 1
+.names MAX_REG_3__SCAN_IN n110 n123
+10 1
+.names MAX_REG_8__SCAN_IN n111 n124
+10 1
+.names n123 n124 n125
+01 1
+.names MAX_REG_3__SCAN_IN MAX_REG_8__SCAN_IN n126
+10 1
+.names n125 n126 n127
+00 1
+.names n122 n127 n128
+11 1
+.names n117 n128 n129
+11 1
+.names n113 n129 n130
+10 1
+.names n113 n130 n131
+00 1
+.names n113 n131 n132
+00 1
+.names DISPMAX1_4_ n132 DISPMAX1_5_
+10 1
+.names n113 n132 n134
+10 1
+.names n113 n130 n135
+11 1
+.names n113 n135 n136
+00 1
+.names n113 n136 n137
+01 1
+.names n113 n136 n138
+10 1
+.names n137 n138 n139
+00 1
+.names n132 n139 n140
+10 1
+.names n134 n140 n141
+00 1
+.names n113 n130 n142
+01 1
+.names n113 n130 n143
+10 1
+.names n142 n143 n144
+00 1
+.names n132 n144 n145
+10 1
+.names n134 n145 n146
+00 1
+.names n122 n132 n147
+11 1
+.names n122 n132 n148
+00 1
+.names n147 n148 n149
+00 1
+.names MAX_REG_0__SCAN_IN MAX_REG_1__SCAN_IN n150
+10 1
+.names MAX_REG_0__SCAN_IN MAX_REG_1__SCAN_IN n151
+01 1
+.names n150 n151 n152
+00 1
+.names MAX_REG_8__SCAN_IN n152 n153
+10 1
+.names MAX_REG_1__SCAN_IN MAX_REG_8__SCAN_IN n154
+10 1
+.names n153 n154 n155
+00 1
+.names n132 n155 n156
+10 1
+.names n132 n155 n157
+00 1
+.names n156 n157 n158
+00 1
+.names n149 n158 n159
+11 1
+.names n122 n127 n160
+00 1
+.names n128 n160 n161
+00 1
+.names n132 n161 n162
+10 1
+.names n127 n132 n163
+00 1
+.names n162 n163 n164
+00 1
+.names n117 n128 n165
+00 1
+.names n129 n165 n166
+00 1
+.names n132 n166 n167
+10 1
+.names n117 n132 n168
+00 1
+.names n167 n168 n169
+00 1
+.names n164 n169 n170
+00 1
+.names n159 n170 n171
+01 1
+.names n113 n129 n172
+01 1
+.names n130 n172 n173
+00 1
+.names n132 n173 n174
+11 1
+.names n134 n174 n175
+00 1
+.names n171 n175 n176
+01 1
+.names n146 n176 n177
+00 1
+.names n113 n135 n178
+01 1
+.names n113 n135 n179
+10 1
+.names n132 n178 n180
+10 1
+.names n179 n180 n181
+01 1
+.names n134 n181 n182
+00 1
+.names n177 n182 n183
+01 1
+.names n141 n183 n184
+10 1
+.names n169 n175 n185
+11 1
+.names n146 n185 n186
+00 1
+.names n182 n186 n187
+10 1
+.names n141 n187 n188
+10 1
+.names n184 n188 n189
+00 1
+.names n149 n164 n190
+11 1
+.names n158 n190 n191
+11 1
+.names n169 n175 n192
+00 1
+.names n191 n192 n193
+01 1
+.names n146 n182 n194
+11 1
+.names n193 n194 n195
+01 1
+.names n141 n195 n196
+10 1
+.names n149 n164 n197
+00 1
+.names n192 n197 n198
+11 1
+.names n194 n198 n199
+10 1
+.names n141 n199 n200
+10 1
+.names n196 n200 n201
+00 1
+.names n149 n158 n202
+00 1
+.names n164 n185 n203
+11 1
+.names n202 n203 n204
+01 1
+.names n146 n204 n205
+00 1
+.names n182 n205 n206
+10 1
+.names n141 n206 n207
+10 1
+.names n201 n207 n208
+00 1
+.names n189 n208 n209
+10 1
+.names n164 n169 n210
+11 1
+.names n175 n210 n211
+00 1
+.names n194 n211 n212
+10 1
+.names n141 n212 n213
+10 1
+.names n170 n202 n214
+11 1
+.names n146 n175 n215
+11 1
+.names n182 n215 n216
+11 1
+.names n214 n216 n217
+01 1
+.names n141 n217 n218
+10 1
+.names n169 n190 n219
+00 1
+.names n175 n194 n220
+11 1
+.names n219 n220 n221
+01 1
+.names n141 n221 n222
+10 1
+.names n218 n222 n223
+00 1
+.names n213 n223 n224
+01 1
+.names n207 n224 n225
+00 1
+.names RES_DISP_REG_SCAN_IN n209 n226
+11 1
+.names n225 n226 n227
+01 1
+.names EN_DISP_REG_SCAN_IN n227 DISPMAX2_6_
+00 1
+.names n159 n164 n229
+00 1
+.names n185 n194 n230
+11 1
+.names n229 n230 n231
+01 1
+.names n141 n231 n232
+10 1
+.names n222 n232 n233
+01 1
+.names n218 n233 n234
+01 1
+.names n207 n213 n235
+00 1
+.names n234 n235 n236
+01 1
+.names n209 n236 n237
+10 1
+.names DISPMAX1_4_ n237 DISPMAX2_5_
+10 1
+.names n213 n218 n239
+00 1
+.names n189 n207 n240
+10 1
+.names n201 n240 n241
+11 1
+.names n222 n239 n242
+11 1
+.names n241 n242 n243
+11 1
+.names DISPMAX1_4_ n243 DISPMAX2_4_
+10 1
+.names n201 n240 n245
+01 1
+.names DISPMAX1_4_ n245 DISPMAX2_3_
+10 1
+.names n233 n239 n247
+01 1
+.names n241 n247 n248
+10 1
+.names DISPMAX1_4_ n248 DISPMAX2_2_
+10 1
+.names n223 n232 n250
+10 1
+.names n213 n250 n251
+00 1
+.names n207 n251 n252
+00 1
+.names n209 n252 n253
+10 1
+.names DISPMAX1_4_ n253 DISPMAX2_1_
+10 1
+.names n222 n232 n255
+00 1
+.names n218 n255 n256
+00 1
+.names n196 n213 n257
+00 1
+.names n256 n257 n258
+01 1
+.names n200 n258 n259
+00 1
+.names n207 n259 n260
+00 1
+.names n188 n260 n261
+00 1
+.names DISPMAX1_4_ n184 n262
+10 1
+.names n261 n262 DISPMAX2_0_
+01 1
+.names n146 n240 n264
+01 1
+.names n146 n240 n265
+10 1
+.names n213 n241 n266
+11 1
+.names n200 n240 n267
+11 1
+.names n196 n200 n268
+10 1
+.names n240 n268 n269
+11 1
+.names n267 n269 n270
+00 1
+.names n266 n270 n271
+01 1
+.names n175 n271 n272
+01 1
+.names n175 n271 n273
+10 1
+.names n213 n218 n274
+01 1
+.names n241 n274 n275
+11 1
+.names n243 n267 n276
+00 1
+.names n275 n276 n277
+01 1
+.names n189 n269 n278
+10 1
+.names n277 n278 n279
+11 1
+.names n169 n279 n280
+01 1
+.names n169 n279 n281
+10 1
+.names n224 n241 n282
+11 1
+.names n184 n275 n283
+00 1
+.names n282 n283 n284
+01 1
+.names n188 n213 n285
+01 1
+.names n201 n285 n286
+11 1
+.names n207 n286 n287
+01 1
+.names n267 n287 n288
+00 1
+.names n284 n288 n289
+11 1
+.names n164 n289 n290
+01 1
+.names n164 n289 n291
+10 1
+.names n189 n207 n292
+11 1
+.names n277 n292 n293
+10 1
+.names n149 n293 n294
+01 1
+.names n149 n293 n295
+10 1
+.names n188 n207 n296
+01 1
+.names n269 n296 n297
+00 1
+.names n284 n297 n298
+11 1
+.names n158 n298 n299
+10 1
+.names n295 n299 n300
+00 1
+.names n294 n300 n301
+00 1
+.names n291 n301 n302
+00 1
+.names n290 n302 n303
+00 1
+.names n281 n303 n304
+00 1
+.names n280 n304 n305
+00 1
+.names n273 n305 n306
+00 1
+.names n272 n306 n307
+00 1
+.names n265 n307 n308
+00 1
+.names n264 n308 n309
+00 1
+.names n182 n309 n310
+11 1
+.names n141 n310 n311
+11 1
+.names n141 n310 n312
+00 1
+.names n311 n312 n313
+00 1
+.names n201 n232 n314
+10 1
+.names n224 n314 n315
+11 1
+.names n240 n315 n316
+11 1
+.names n313 n316 n317
+00 1
+.names n141 n316 n318
+01 1
+.names n317 n318 n319
+00 1
+.names n164 n316 n320
+01 1
+.names n290 n291 n321
+00 1
+.names n301 n321 n322
+00 1
+.names n301 n321 n323
+11 1
+.names n322 n323 n324
+00 1
+.names n316 n324 n325
+00 1
+.names n320 n325 n326
+00 1
+.names n149 n316 n327
+01 1
+.names n294 n295 n328
+00 1
+.names n299 n328 n329
+00 1
+.names n299 n328 n330
+11 1
+.names n329 n330 n331
+00 1
+.names n316 n331 n332
+00 1
+.names n327 n332 n333
+00 1
+.names n326 n333 n334
+11 1
+.names n169 n316 n335
+01 1
+.names n280 n281 n336
+00 1
+.names n303 n336 n337
+00 1
+.names n303 n336 n338
+11 1
+.names n337 n338 n339
+00 1
+.names n316 n339 n340
+00 1
+.names n335 n340 n341
+00 1
+.names n272 n273 n342
+00 1
+.names n305 n342 n343
+00 1
+.names n305 n342 n344
+11 1
+.names n343 n344 n345
+00 1
+.names n316 n345 n346
+00 1
+.names n175 n316 n347
+01 1
+.names n346 n347 n348
+00 1
+.names MAX_REG_0__SCAN_IN MAX_REG_8__SCAN_IN n349
+11 1
+.names MAX_REG_0__SCAN_IN MAX_REG_8__SCAN_IN n350
+10 1
+.names n349 n350 n351
+00 1
+.names n132 n351 n352
+10 1
+.names n132 n351 n353
+00 1
+.names n352 n353 n354
+00 1
+.names n316 n354 n355
+10 1
+.names n316 n354 n356
+00 1
+.names n355 n356 n357
+00 1
+.names n158 n316 n358
+01 1
+.names n158 n298 n359
+01 1
+.names n299 n359 n360
+00 1
+.names n316 n360 n361
+00 1
+.names n358 n361 n362
+00 1
+.names n357 n362 n363
+00 1
+.names n182 n309 n364
+00 1
+.names n310 n364 n365
+00 1
+.names n316 n365 n366
+00 1
+.names n182 n316 n367
+01 1
+.names n366 n367 n368
+00 1
+.names n264 n265 n369
+00 1
+.names n307 n369 n370
+00 1
+.names n307 n369 n371
+11 1
+.names n370 n371 n372
+00 1
+.names n316 n372 n373
+00 1
+.names n146 n316 n374
+01 1
+.names n373 n374 n375
+00 1
+.names n368 n375 n376
+11 1
+.names n334 n363 n377
+10 1
+.names n341 n377 n378
+11 1
+.names n348 n378 n379
+11 1
+.names n376 n379 n380
+11 1
+.names n319 n380 n381
+10 1
+.names n333 n362 n382
+11 1
+.names n326 n382 n383
+11 1
+.names n341 n383 n384
+11 1
+.names n348 n384 n385
+11 1
+.names n375 n385 n386
+11 1
+.names n368 n386 n387
+11 1
+.names n319 n387 n388
+10 1
+.names n381 n388 n389
+00 1
+.names n326 n341 n390
+11 1
+.names n348 n390 n391
+11 1
+.names n333 n363 n392
+01 1
+.names n391 n392 n393
+10 1
+.names n376 n393 n394
+11 1
+.names n319 n394 n395
+10 1
+.names n389 n395 n396
+00 1
+.names n333 n362 n397
+00 1
+.names n391 n397 n398
+10 1
+.names n376 n398 n399
+11 1
+.names n319 n399 n400
+10 1
+.names n357 n362 n401
+11 1
+.names n333 n401 n402
+00 1
+.names n391 n402 n403
+10 1
+.names n376 n403 n404
+11 1
+.names n319 n404 n405
+10 1
+.names n400 n405 n406
+00 1
+.names n395 n406 n407
+00 1
+.names n376 n391 n408
+11 1
+.names n319 n408 n409
+10 1
+.names n333 n401 n410
+11 1
+.names n326 n410 n411
+00 1
+.names n341 n411 n412
+10 1
+.names n348 n412 n413
+11 1
+.names n376 n413 n414
+11 1
+.names n319 n414 n415
+10 1
+.names n409 n415 n416
+00 1
+.names n407 n416 n417
+01 1
+.names n333 n390 n418
+11 1
+.names n348 n418 n419
+11 1
+.names n375 n419 n420
+11 1
+.names n368 n420 n421
+11 1
+.names n319 n421 n422
+10 1
+.names n395 n422 n423
+01 1
+.names n417 n423 n424
+10 1
+.names RES_DISP_REG_SCAN_IN n396 n425
+10 1
+.names n424 n425 n426
+11 1
+.names EN_DISP_REG_SCAN_IN n426 DISPMAX3_6_
+00 1
+.names n334 n401 n428
+11 1
+.names n341 n428 n429
+11 1
+.names n348 n429 n430
+11 1
+.names n376 n430 n431
+11 1
+.names n319 n431 n432
+10 1
+.names n388 n432 n433
+01 1
+.names n381 n433 n434
+01 1
+.names n395 n422 n435
+00 1
+.names n434 n435 n436
+01 1
+.names n417 n436 n437
+10 1
+.names DISPMAX1_4_ n437 DISPMAX3_5_
+10 1
+.names n381 n422 n439
+00 1
+.names n395 n416 n440
+01 1
+.names n406 n440 n441
+11 1
+.names n388 n439 n442
+11 1
+.names n441 n442 n443
+11 1
+.names DISPMAX1_4_ n443 DISPMAX3_4_
+10 1
+.names n406 n440 n445
+01 1
+.names DISPMAX1_4_ n445 DISPMAX3_3_
+10 1
+.names n433 n439 n447
+01 1
+.names n441 n447 n448
+10 1
+.names DISPMAX1_4_ n448 DISPMAX3_2_
+10 1
+.names n395 n432 n450
+00 1
+.names n389 n450 n451
+11 1
+.names n424 n451 n452
+10 1
+.names DISPMAX1_4_ n452 DISPMAX3_1_
+10 1
+.names n388 n432 n454
+00 1
+.names n381 n454 n455
+00 1
+.names n405 n422 n456
+00 1
+.names n455 n456 n457
+01 1
+.names n400 n457 n458
+00 1
+.names n395 n458 n459
+00 1
+.names n409 n459 n460
+00 1
+.names DISPMAX1_4_ n415 n461
+10 1
+.names n460 n461 DISPMAX3_0_
+01 1
+.names NUM_REG_1__SCAN_IN NUM_REG_2__SCAN_IN n463
+00 1
+.names NUM_REG_3__SCAN_IN n463 n464
+10 1
+.names NUM_REG_4__SCAN_IN n464 n465
+00 1
+.names DISPMAX1_4_ n465 DISPNUM1_5_
+11 1
+.names NUM_REG_1__SCAN_IN NUM_REG_2__SCAN_IN n467
+10 1
+.names NUM_REG_1__SCAN_IN NUM_REG_2__SCAN_IN n468
+01 1
+.names n467 n468 n469
+00 1
+.names n465 n469 n470
+01 1
+.names NUM_REG_2__SCAN_IN n465 n471
+11 1
+.names n470 n471 n472
+00 1
+.names NUM_REG_3__SCAN_IN n463 n473
+01 1
+.names n464 n473 n474
+00 1
+.names n465 n474 n475
+01 1
+.names NUM_REG_3__SCAN_IN n465 n476
+11 1
+.names n475 n476 n477
+00 1
+.names NUM_REG_4__SCAN_IN n464 n478
+11 1
+.names n465 n478 n479
+00 1
+.names n465 n479 n480
+00 1
+.names NUM_REG_4__SCAN_IN n465 n481
+11 1
+.names n480 n481 n482
+00 1
+.names n477 n482 n483
+11 1
+.names NUM_REG_0__SCAN_IN n465 n484
+10 1
+.names NUM_REG_0__SCAN_IN n465 n485
+11 1
+.names n484 n485 n486
+00 1
+.names NUM_REG_1__SCAN_IN n465 n487
+00 1
+.names NUM_REG_1__SCAN_IN n465 n488
+11 1
+.names n487 n488 n489
+00 1
+.names n486 n489 n490
+00 1
+.names n472 n490 n491
+10 1
+.names n483 n491 n492
+11 1
+.names n472 n477 n493
+11 1
+.names n489 n493 n494
+11 1
+.names n482 n494 n495
+11 1
+.names n492 n495 n496
+11 1
+.names n472 n489 n497
+00 1
+.names n486 n497 n498
+01 1
+.names n483 n498 n499
+10 1
+.names n496 n499 n500
+01 1
+.names n472 n486 n501
+11 1
+.names n489 n501 n502
+11 1
+.names n477 n502 n503
+00 1
+.names n482 n503 n504
+10 1
+.names n483 n504 n505
+11 1
+.names n483 n497 n506
+10 1
+.names n486 n489 n507
+11 1
+.names n472 n507 n508
+00 1
+.names n483 n508 n509
+10 1
+.names n506 n509 n510
+11 1
+.names n499 n510 n511
+10 1
+.names n505 n511 n512
+10 1
+.names n482 n493 n513
+11 1
+.names n499 n513 n514
+10 1
+.names n512 n514 n515
+10 1
+.names RES_DISP_REG_SCAN_IN n500 n516
+10 1
+.names n515 n516 n517
+11 1
+.names EN_DISP_REG_SCAN_IN n517 DISPNUM2_6_
+00 1
+.names n507 n513 n519
+11 1
+.names n495 n519 n520
+10 1
+.names n492 n520 n521
+11 1
+.names n499 n513 n522
+11 1
+.names n521 n522 n523
+01 1
+.names n512 n523 n524
+10 1
+.names DISPMAX1_4_ n524 DISPNUM2_5_
+10 1
+.names n499 n505 n526
+11 1
+.names n510 n526 n527
+11 1
+.names n492 n513 n528
+11 1
+.names n495 n528 n529
+01 1
+.names n527 n529 n530
+11 1
+.names DISPMAX1_4_ n530 DISPNUM2_4_
+10 1
+.names n510 n526 n532
+01 1
+.names DISPMAX1_4_ n532 DISPNUM2_3_
+10 1
+.names n520 n528 n534
+01 1
+.names n527 n534 n535
+10 1
+.names DISPMAX1_4_ n535 DISPNUM2_2_
+10 1
+.names n499 n519 n537
+11 1
+.names n496 n537 n538
+11 1
+.names n515 n538 n539
+10 1
+.names DISPMAX1_4_ n539 DISPNUM2_1_
+10 1
+.names n495 n519 n541
+11 1
+.names n492 n541 n542
+10 1
+.names n509 n513 n543
+11 1
+.names n542 n543 n544
+01 1
+.names n506 n544 n545
+10 1
+.names n499 n545 n546
+10 1
+.names n483 n546 n547
+10 1
+.names DISPMAX1_4_ n504 n548
+11 1
+.names n547 n548 DISPNUM2_0_
+01 1
+.names START STATO_REG_1__SCAN_IN n550
+00 1
+.names MAR_REG_1__SCAN_IN MAR_REG_3__SCAN_IN n551
+00 1
+.names MAR_REG_0__SCAN_IN MAR_REG_2__SCAN_IN n552
+11 1
+.names MAR_REG_4__SCAN_IN n552 n553
+01 1
+.names n551 n553 n554
+11 1
+.names MAR_REG_1__SCAN_IN MAR_REG_3__SCAN_IN n555
+01 1
+.names MAR_REG_0__SCAN_IN MAR_REG_4__SCAN_IN n556
+01 1
+.names MAR_REG_2__SCAN_IN n556 n557
+01 1
+.names n555 n557 n558
+11 1
+.names n554 n558 n559
+00 1
+.names MAR_REG_1__SCAN_IN MAR_REG_3__SCAN_IN n560
+10 1
+.names MAR_REG_0__SCAN_IN MAR_REG_4__SCAN_IN n561
+00 1
+.names MAR_REG_2__SCAN_IN n561 n562
+11 1
+.names MAR_REG_0__SCAN_IN MAR_REG_2__SCAN_IN n563
+10 1
+.names MAR_REG_4__SCAN_IN n563 n564
+01 1
+.names n557 n562 n565
+00 1
+.names n564 n565 n566
+01 1
+.names n560 n566 n567
+10 1
+.names n555 n564 n568
+11 1
+.names MAR_REG_4__SCAN_IN n563 n569
+11 1
+.names MAR_REG_2__SCAN_IN n556 n570
+11 1
+.names n569 n570 n571
+00 1
+.names n551 n571 n572
+10 1
+.names n568 n572 n573
+00 1
+.names n567 n573 n574
+01 1
+.names MAR_REG_4__SCAN_IN n552 n575
+11 1
+.names n551 n575 n576
+11 1
+.names n574 n576 n577
+10 1
+.names MAR_REG_1__SCAN_IN MAR_REG_3__SCAN_IN n578
+11 1
+.names n569 n578 n579
+11 1
+.names n555 n569 n580
+11 1
+.names n553 n578 n581
+11 1
+.names n551 n557 n582
+11 1
+.names n579 n580 n583
+00 1
+.names n581 n582 n584
+00 1
+.names n583 n584 n585
+11 1
+.names n551 n562 n586
+11 1
+.names n564 n578 n587
+11 1
+.names n586 n587 n588
+00 1
+.names n585 n588 n589
+11 1
+.names n560 n570 n590
+11 1
+.names n559 n590 n591
+10 1
+.names n589 n591 n592
+11 1
+.names n577 n592 n593
+11 1
+.names TEMP_REG_6__SCAN_IN n593 n594
+00 1
+.names TEMP_REG_6__SCAN_IN n593 n595
+11 1
+.names n551 n564 n596
+11 1
+.names n579 n582 n597
+00 1
+.names n590 n596 n598
+00 1
+.names n597 n598 n599
+11 1
+.names n552 n555 n600
+11 1
+.names n599 n600 n601
+10 1
+.names n562 n570 n602
+00 1
+.names n578 n602 n603
+10 1
+.names MAR_REG_2__SCAN_IN n561 n604
+01 1
+.names n551 n604 n605
+11 1
+.names n575 n578 n606
+11 1
+.names n555 n578 n607
+00 1
+.names n604 n607 n608
+10 1
+.names n586 n605 n609
+00 1
+.names n606 n608 n610
+00 1
+.names n609 n610 n611
+11 1
+.names n603 n611 n612
+01 1
+.names n553 n560 n613
+11 1
+.names n581 n587 n614
+00 1
+.names n613 n614 n615
+01 1
+.names n612 n615 n616
+11 1
+.names n577 n616 n617
+11 1
+.names n601 n617 n618
+11 1
+.names TEMP_REG_5__SCAN_IN n618 n619
+00 1
+.names TEMP_REG_5__SCAN_IN n618 n620
+11 1
+.names n560 n569 n621
+11 1
+.names n587 n590 n622
+00 1
+.names n613 n621 n623
+00 1
+.names n622 n623 n624
+11 1
+.names n612 n624 n625
+11 1
+.names TEMP_REG_4__SCAN_IN n625 n626
+00 1
+.names TEMP_REG_4__SCAN_IN n625 n627
+11 1
+.names n560 n575 n628
+11 1
+.names n580 n608 n629
+00 1
+.names n628 n629 n630
+01 1
+.names n559 n630 n631
+11 1
+.names n601 n631 n632
+11 1
+.names TEMP_REG_3__SCAN_IN n632 n633
+00 1
+.names TEMP_REG_3__SCAN_IN n632 n634
+11 1
+.names n580 n582 n635
+00 1
+.names n586 n635 n636
+01 1
+.names n624 n636 n637
+11 1
+.names n577 n637 n638
+11 1
+.names TEMP_REG_2__SCAN_IN n638 n639
+00 1
+.names TEMP_REG_2__SCAN_IN n638 n640
+11 1
+.names n621 n628 n641
+00 1
+.names n559 n641 n642
+11 1
+.names n585 n642 n643
+11 1
+.names n612 n643 n644
+11 1
+.names n559 n581 n645
+10 1
+.names n624 n645 n646
+11 1
+.names n574 n646 n647
+11 1
+.names TEMP_REG_0__SCAN_IN n647 n648
+11 1
+.names n644 n648 n649
+00 1
+.names n644 n648 n650
+11 1
+.names TEMP_REG_1__SCAN_IN n650 n651
+00 1
+.names n649 n651 n652
+00 1
+.names n640 n652 n653
+00 1
+.names n639 n653 n654
+00 1
+.names n634 n654 n655
+00 1
+.names n633 n655 n656
+00 1
+.names n627 n656 n657
+00 1
+.names n626 n657 n658
+00 1
+.names n620 n658 n659
+00 1
+.names n619 n659 n660
+00 1
+.names n595 n660 n661
+00 1
+.names n594 n661 n662
+00 1
+.names n608 n613 n663
+00 1
+.names n621 n663 n664
+01 1
+.names n574 n664 n665
+11 1
+.names n589 n665 n666
+11 1
+.names TEMP_REG_7__SCAN_IN n666 n667
+00 1
+.names n662 n667 n668
+10 1
+.names TEMP_REG_7__SCAN_IN n666 n669
+11 1
+.names TEMP_REG_8__SCAN_IN n589 n670
+00 1
+.names TEMP_REG_8__SCAN_IN n589 n671
+11 1
+.names n670 n671 n672
+00 1
+.names n669 n672 n673
+00 1
+.names n668 n673 n674
+01 1
+.names n662 n669 n675
+00 1
+.names n667 n672 n676
+01 1
+.names n675 n676 n677
+01 1
+.names n674 n677 n678
+00 1
+.names STATO_REG_1__SCAN_IN n678 n679
+11 1
+.names STATO_REG_0__SCAN_IN n550 n680
+10 1
+.names n679 n680 n681
+01 1
+.names STATO_REG_1__SCAN_IN FLAG_REG_SCAN_IN n682
+10 1
+.names n681 n682 n683
+10 1
+.names NUM_REG_4__SCAN_IN n683 n684
+10 1
+.names NUM_REG_0__SCAN_IN NUM_REG_1__SCAN_IN n685
+11 1
+.names NUM_REG_2__SCAN_IN n685 n686
+11 1
+.names NUM_REG_3__SCAN_IN n686 n687
+11 1
+.names NUM_REG_4__SCAN_IN n687 n688
+01 1
+.names NUM_REG_4__SCAN_IN n687 n689
+10 1
+.names n688 n689 n690
+00 1
+.names STATO_REG_1__SCAN_IN STATO_REG_0__SCAN_IN STATO_REG_2__SCAN_OUT
+11 1
+.names FLAG_REG_SCAN_IN STATO_REG_2__SCAN_OUT n692
+11 1
+.names n678 n692 n693
+01 1
+.names n690 n693 n694
+01 1
+.names n684 n694 NUM_REG_4__SCAN_OUT
+00 0
+.names NUM_REG_3__SCAN_IN n683 n696
+10 1
+.names NUM_REG_3__SCAN_IN n686 n697
+01 1
+.names NUM_REG_3__SCAN_IN n686 n698
+10 1
+.names n697 n698 n699
+00 1
+.names n693 n699 n700
+10 1
+.names n696 n700 NUM_REG_3__SCAN_OUT
+00 0
+.names NUM_REG_2__SCAN_IN n683 n702
+10 1
+.names NUM_REG_2__SCAN_IN n685 n703
+01 1
+.names NUM_REG_2__SCAN_IN n685 n704
+10 1
+.names n703 n704 n705
+00 1
+.names n693 n705 n706
+10 1
+.names n702 n706 NUM_REG_2__SCAN_OUT
+00 0
+.names NUM_REG_1__SCAN_IN n683 n708
+10 1
+.names NUM_REG_0__SCAN_IN NUM_REG_1__SCAN_IN n709
+10 1
+.names NUM_REG_0__SCAN_IN NUM_REG_1__SCAN_IN n710
+01 1
+.names n709 n710 n711
+00 1
+.names n693 n711 n712
+10 1
+.names n708 n712 NUM_REG_1__SCAN_OUT
+00 0
+.names NUM_REG_0__SCAN_IN n683 n714
+10 1
+.names NUM_REG_0__SCAN_IN n693 n715
+01 1
+.names n714 n715 NUM_REG_0__SCAN_OUT
+00 0
+.names START STATO_REG_1__SCAN_IN n717
+10 1
+.names STATO_REG_0__SCAN_IN n717 n718
+11 1
+.names MAR_REG_4__SCAN_IN n718 MAR_REG_4__SCAN_OUT
+10 1
+.names MAR_REG_3__SCAN_IN n718 MAR_REG_3__SCAN_OUT
+10 1
+.names MAR_REG_2__SCAN_IN n718 MAR_REG_2__SCAN_OUT
+10 1
+.names MAR_REG_1__SCAN_IN n718 MAR_REG_1__SCAN_OUT
+10 1
+.names MAR_REG_0__SCAN_IN n718 MAR_REG_0__SCAN_OUT
+10 1
+.names STATO_REG_1__SCAN_IN n589 n724
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_8__SCAN_IN n725
+01 1
+.names n724 n725 TEMP_REG_8__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN n666 n727
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_7__SCAN_IN n728
+01 1
+.names n727 n728 TEMP_REG_7__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN n593 n730
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_6__SCAN_IN n731
+01 1
+.names n730 n731 TEMP_REG_6__SCAN_OUT
+00 0
+.names n553 n575 n733
+00 1
+.names n555 n733 n734
+10 1
+.names n599 n734 n735
+10 1
+.names n617 n735 n736
+11 1
+.names STATO_REG_1__SCAN_IN n736 n737
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_5__SCAN_IN n738
+01 1
+.names n737 n738 TEMP_REG_5__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN n625 n740
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_4__SCAN_IN n741
+01 1
+.names n740 n741 TEMP_REG_4__SCAN_OUT
+00 0
+.names n631 n735 n743
+11 1
+.names STATO_REG_1__SCAN_IN n743 n744
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_3__SCAN_IN n745
+01 1
+.names n744 n745 TEMP_REG_3__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN n638 n747
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_2__SCAN_IN n748
+01 1
+.names n747 n748 TEMP_REG_2__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN n644 n750
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_1__SCAN_IN n751
+01 1
+.names n750 n751 TEMP_REG_1__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN n647 n753
+10 1
+.names STATO_REG_1__SCAN_IN TEMP_REG_0__SCAN_IN n754
+01 1
+.names n753 n754 TEMP_REG_0__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN STATO_REG_0__SCAN_IN n756
+10 1
+.names n619 n620 n757
+00 1
+.names n658 n757 n758
+00 1
+.names n658 n757 n759
+11 1
+.names n626 n627 n760
+00 1
+.names n656 n760 n761
+00 1
+.names n656 n760 n762
+11 1
+.names n667 n669 n763
+00 1
+.names n662 n763 n764
+00 1
+.names n662 n763 n765
+11 1
+.names n639 n640 n766
+00 1
+.names n652 n766 n767
+00 1
+.names n652 n766 n768
+11 1
+.names TEMP_REG_1__SCAN_IN n644 n769
+00 1
+.names TEMP_REG_1__SCAN_IN n644 n770
+11 1
+.names n769 n770 n771
+00 1
+.names n648 n771 n772
+00 1
+.names n648 n771 n773
+11 1
+.names TEMP_REG_0__SCAN_IN n647 n774
+00 1
+.names n633 n634 n775
+00 1
+.names n654 n775 n776
+00 1
+.names n654 n775 n777
+11 1
+.names n594 n595 n778
+00 1
+.names n660 n778 n779
+00 1
+.names n660 n778 n780
+11 1
+.names n648 n774 n781
+00 1
+.names n772 n781 n782
+01 1
+.names n773 n782 n783
+01 1
+.names n767 n783 n784
+01 1
+.names n768 n784 n785
+01 1
+.names n776 n785 n786
+01 1
+.names n777 n786 n787
+01 1
+.names n761 n787 n788
+01 1
+.names n762 n788 n789
+01 1
+.names n758 n789 n790
+01 1
+.names n759 n790 n791
+01 1
+.names n779 n791 n792
+01 1
+.names n780 n792 n793
+01 1
+.names n764 n793 n794
+01 1
+.names n765 n794 n795
+01 1
+.names n678 n795 n796
+11 1
+.names MAX_REG_6__SCAN_IN n593 n797
+00 1
+.names MAX_REG_2__SCAN_IN n638 n798
+00 1
+.names MAX_REG_1__SCAN_IN n644 n799
+00 1
+.names MAX_REG_0__SCAN_IN n647 n800
+11 1
+.names MAX_REG_1__SCAN_IN n644 n801
+11 1
+.names n800 n801 n802
+00 1
+.names n798 n799 n803
+00 1
+.names n802 n803 n804
+01 1
+.names MAX_REG_2__SCAN_IN n638 n805
+11 1
+.names MAX_REG_3__SCAN_IN n632 n806
+11 1
+.names n805 n806 n807
+00 1
+.names n804 n807 n808
+01 1
+.names MAX_REG_4__SCAN_IN n625 n809
+00 1
+.names MAX_REG_3__SCAN_IN n632 n810
+00 1
+.names n809 n810 n811
+00 1
+.names n808 n811 n812
+01 1
+.names MAX_REG_4__SCAN_IN n625 n813
+11 1
+.names MAX_REG_5__SCAN_IN n618 n814
+11 1
+.names n813 n814 n815
+00 1
+.names n812 n815 n816
+01 1
+.names MAX_REG_5__SCAN_IN n618 n817
+00 1
+.names n816 n817 n818
+00 1
+.names MAX_REG_6__SCAN_IN n593 n819
+11 1
+.names n818 n819 n820
+00 1
+.names n797 n820 n821
+00 1
+.names MAX_REG_7__SCAN_IN n666 n822
+00 1
+.names n821 n822 n823
+10 1
+.names MAX_REG_7__SCAN_IN n666 n824
+11 1
+.names MAX_REG_8__SCAN_IN n589 n825
+00 1
+.names MAX_REG_8__SCAN_IN n589 n826
+11 1
+.names n825 n826 n827
+00 1
+.names n824 n827 n828
+00 1
+.names n823 n828 n829
+01 1
+.names n821 n824 n830
+00 1
+.names n822 n827 n831
+01 1
+.names n830 n831 n832
+01 1
+.names n829 n832 n833
+00 1
+.names n679 n833 n834
+10 1
+.names n796 n834 n835
+01 1
+.names n756 n835 n836
+00 1
+.names n589 n836 n837
+00 1
+.names MAX_REG_8__SCAN_IN n836 n838
+11 1
+.names n837 n838 MAX_REG_8__SCAN_OUT
+00 0
+.names n666 n836 n840
+00 1
+.names MAX_REG_7__SCAN_IN n836 n841
+11 1
+.names n840 n841 MAX_REG_7__SCAN_OUT
+00 0
+.names n593 n836 n843
+00 1
+.names MAX_REG_6__SCAN_IN n836 n844
+11 1
+.names n843 n844 MAX_REG_6__SCAN_OUT
+00 0
+.names n736 n836 n846
+00 1
+.names MAX_REG_5__SCAN_IN n836 n847
+11 1
+.names n846 n847 MAX_REG_5__SCAN_OUT
+00 0
+.names n625 n836 n849
+00 1
+.names MAX_REG_4__SCAN_IN n836 n850
+11 1
+.names n849 n850 MAX_REG_4__SCAN_OUT
+00 0
+.names n743 n836 n852
+00 1
+.names MAX_REG_3__SCAN_IN n836 n853
+11 1
+.names n852 n853 MAX_REG_3__SCAN_OUT
+00 0
+.names n638 n836 n855
+00 1
+.names MAX_REG_2__SCAN_IN n836 n856
+11 1
+.names n855 n856 MAX_REG_2__SCAN_OUT
+00 0
+.names n644 n836 n858
+00 1
+.names MAX_REG_1__SCAN_IN n836 n859
+11 1
+.names n858 n859 MAX_REG_1__SCAN_OUT
+00 0
+.names n647 n836 n861
+00 1
+.names MAX_REG_0__SCAN_IN n836 n862
+11 1
+.names n861 n862 MAX_REG_0__SCAN_OUT
+00 0
+.names STATO_REG_1__SCAN_IN STATO_REG_0__SCAN_IN n864
+00 1
+.names EN_DISP_REG_SCAN_IN n864 n865
+10 1
+.names n718 n865 EN_DISP_REG_SCAN_OUT
+00 0
+.names RES_DISP_REG_SCAN_IN n864 n867
+10 1
+.names n718 n867 RES_DISP_REG_SCAN_OUT
+00 0
+.names FLAG_REG_SCAN_IN n681 n869
+10 1
+.names STATO_REG_0__SCAN_IN n679 n870
+11 1
+.names n796 n870 n871
+01 1
+.names n869 n871 FLAG_REG_SCAN_OUT
+00 0
+.names n680 n756 STATO_REG_0__SCAN_OUT
+10 0
+.names n718 n756 STATO_REG_1__SCAN_OUT
+00 0
+.names DISPMAX1_4_ DISPMAX1_3_
+1 1
+.names DISPMAX1_5_ DISPMAX1_2_
+1 1
+.names DISPMAX1_5_ DISPMAX1_1_
+1 1
+.names DISPMAX1_5_ DISPMAX1_0_
+1 1
+.names DISPMAX1_6_ DISPNUM1_6_
+1 1
+.names DISPMAX1_4_ DISPNUM1_4_
+1 1
+.names DISPMAX1_4_ DISPNUM1_3_
+1 1
+.names DISPNUM1_5_ DISPNUM1_2_
+1 1
+.names DISPNUM1_5_ DISPNUM1_1_
+1 1
+.names DISPNUM1_5_ DISPNUM1_0_
+1 1
+.end
