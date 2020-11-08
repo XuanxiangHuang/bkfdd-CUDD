@@ -1,8 +1,7 @@
 check_PROGRAMS += testbkfdd/bkfdds
-testbkfdd_bkfdds_SOURCES = testbkfdd/bnet.h testbkfdd/ntr.h testbkfdd/bkfdd_bnet.h\
+testbkfdd_bkfdds_SOURCES = testbkfdd/bnet.h testbkfdd/ntr.h \
 	testbkfdd/bnet.c testbkfdd/ntr.c testbkfdd/bkfddBuild.c \
-	testbkfdd/testbkfdd.c testbkfdd/bkfddChangeExpn_bnet.c testbkfdd/bkfddTransform_bnet.c \
-	testbkfdd/bkfddODTSifting_bnet.c
+	testbkfdd/testbkfdd.c
 testbkfdd_bkfdds_CPPFLAGS = -I$(top_srcdir)/cudd -I$(top_srcdir)/mtr \
   -I$(top_srcdir)/epd -I$(top_srcdir)/st -I$(top_srcdir)/dddmp \
   -I$(top_srcdir)/util -I$(top_srcdir)/bkfdd

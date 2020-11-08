@@ -170,6 +170,9 @@ Bkfdd_bS_S_RCDetection(
 	int * detected,
 	int * reduced)
 {
+	assert(table->dead == 0);
+	assert(table->subtables[x].dead == 0);
+	assert(table->subtables[y].dead == 0);
 
   DdNode *f,*f0,*f1,*f01,*f00,*f11,*f10,*one;
   int comple;		/* f0 is complemented */
@@ -312,6 +315,9 @@ Bkfdd_bS_D_RCDetection(
 	int * detected,
 	int * reduced)
 {
+	assert(table->dead == 0);
+	assert(table->subtables[x].dead == 0);
+	assert(table->subtables[y].dead == 0);
 
   DdNode *f,*f0,*f1,*f01,*f00,*f11,*f10,*one,*tmp,*next;
 	DdNodePtr *previousP = NULL;
@@ -433,6 +439,7 @@ Bkfdd_bS_D_RCDetection(
 	cuddLocalCacheClearAll(table);
 	for (i = y+1; (int)i < table->size; i++) {
 		DdNodePtr *nodelist = table->subtables[i].nodelist;
+		assert(table->subtables[i].dead == 0);
 		slots = table->subtables[i].slots;
 		for (k = 0; k < slots; k ++) {
 			previousP = &(nodelist[k]);
@@ -489,6 +496,9 @@ Bkfdd_bD_S_RCDetection(
 	int * detected,
 	int * reduced)
 {
+	assert(table->dead == 0);
+	assert(table->subtables[x].dead == 0);
+	assert(table->subtables[y].dead == 0);
 
   DdNode *f,*f0,*f1,*f11,*f10,*tmp,*next,*one;
 	DdNodePtr *previousP = NULL;
@@ -593,6 +603,7 @@ Bkfdd_bD_S_RCDetection(
 	cuddLocalCacheClearAll(table);
 	for (i = y+1; (int)i < table->size; i++) {
 		DdNodePtr *nodelist = table->subtables[i].nodelist;
+		assert(table->subtables[i].dead == 0);
 		slots = table->subtables[i].slots;
 		for (k = 0; k < slots; k ++) {
 			previousP = &(nodelist[k]);
@@ -649,6 +660,9 @@ Bkfdd_bD_D_RCDetection(
 	int * detected,
 	int * reduced)
 {
+	assert(table->dead == 0);
+	assert(table->subtables[x].dead == 0);
+	assert(table->subtables[y].dead == 0);
 
   DdNode *f,*f0,*f1,*f10,*one;
   int yindex;

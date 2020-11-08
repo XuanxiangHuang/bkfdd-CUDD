@@ -17,8 +17,6 @@
 
 	@Modification and Extension details
 		1. Add special version of unique table find-or-add function.
-
-	2020/5/4: disable cuddLocalCacheClearAll
 ======================================================================
 
 **********************************************************************
@@ -117,9 +115,7 @@ cuddUniqueInter_Inner(
 #endif
 	}
 	if (T == cuddT(looking) && E == cuddE(looking)) {
-		assert((int)(T->ref) > 0);
-		assert((int)(Cudd_Regular(E)->ref) > 0);
-		assert((int)(looking->ref) >= 0);
+		assert((int)looking->ref >= 0);
 		return(looking);
 	}
 
@@ -145,57 +141,3 @@ cuddUniqueInter_Inner(
 	return(looking);
 
 } /* end of cuddUniqueInter_Inner */
-
-
-/** 
-	@brief simple garbage collection
-
-	@detail Clear cache, do garbage collection for nodes at and bellow
-	level, and recount isolated projection functions.
-
-*/
-void
-garbageCollectSimple(
-	DdManager * unique,
-	int level)
-{
-	int i,k;
-  int slots;
-	DdNodePtr *previousP = NULL;
-	DdNode *tmp, *ff, *next;
-  DdNode *sentinel = &(unique->sentinel);
-
-	cuddCacheFlush(unique);
-
-	for (i = level; (int)i < unique->size; i++) {
-		DdNodePtr *nodelist = unique->subtables[i].nodelist;
-		slots = unique->subtables[i].slots;
-		for (k = 0; k < slots; k ++) {
-			previousP = &(nodelist[k]);
-			ff = *previousP;
-			while (ff != sentinel) {
-				next = ff->next;
-				if (ff->ref == 0) {
-					tmp = cuddT(ff);
-					cuddSatDec(tmp->ref);
-					tmp = Cudd_Regular(cuddE(ff));
-					cuddSatDec(tmp->ref);
-					cuddDeallocNode(unique,ff);
-					unique->subtables[i].keys--;
-					unique->keys --;
-				} else {
-					*previousP = ff;
-					previousP = &(ff->next);
-				}
-				ff = next;
-			}
-			*previousP = sentinel;
-		}
-		unique->subtables[i].dead = 0;
-	}
-	if (level == 0) {
-		unique->dead = 0;
-	}
-
-	return;
-} /* end of garbageCollectSimple */

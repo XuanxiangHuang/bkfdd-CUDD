@@ -616,8 +616,8 @@ Cudd_CheckKeys(
 		(void) fprintf(table->err, "Wrong number of total dead found \
 		(difference=%d)\n", (int) (totalDead-table->dead));
 	}
-//	(void) fprintf(table->out,"Average length of non-empty lists = %g\n",
-//	(double) table->keys / (double) nonEmpty);
+	(void) fprintf(table->out,"Average length of non-empty lists = %g\n",
+	(double) table->keys / (double) nonEmpty);
 
 	return(count);
 

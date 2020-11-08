@@ -10,8 +10,7 @@ srcdir=@srcdir@
 # arguments.  Each entry consists of a model name and a list of arguments.
 OIFS=$IFS
 IFS=:
-argslist= ""
-"\
+argslist="\
 C17,-cover:\
 C880,-ordering dfs -autodyn -automethod sifting -reordering sifting -drop:\
 s27,-ordering hw -reordering annealing -trav:\

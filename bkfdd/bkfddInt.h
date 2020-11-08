@@ -69,16 +69,11 @@
 	#define BPD			5
 	#define BND			6
 	// max number of davio expansions allowed to exist.
-	#define DAVIO_EXIST_BOUND 250
+	#define DAVIO_EXIST_BOUND 200
 
 /* bkfdd mode */
 	#define MODE_SND 0	// only S and ND are introduced during building.
 	#define MODE_SD 1	// all expansions are introduced during building.
-
-	#define GROUP_SIZE	4	// maximum size of variable group
-
-/* BKFDD check function type */
-typedef int (*BKFDD_CHKFP)(DdManager *, int, int);
 
 /* 
 	In BKFDD'theory, the only terminal is logic 0, and low-edge must be regular.
@@ -189,7 +184,6 @@ isPDavio(int expn)
 /** bkfddTable.c */
 /* Inner find or add nodes to unique table. */
 extern DdNode * cuddUniqueInter_Inner(DdManager *unique, int index, DdNode *T, DdNode *E);
-extern void garbageCollectSimple(DdManager * unique, int level);
 
 /** bkfddCache.c */
 /* Inner Cache lookups used in BKFDD. */
@@ -222,19 +216,10 @@ extern int changeExpnBetweenBiCla(DdManager * dd,	int level);
 /** bkfddVarSwap.c */
 /* Swap two adjacent variables with different expansions. */
 extern int BkfddSwapInPlace(DdManager *table, int x, int y);
-extern int NaiveSwap(DdManager *table, int x,	int y);
 
 /** bkfddGroup.c */
-/* BKFDD, KFDD group sifting. */
-extern int bkfddSymmSifting(DdManager * table, int lower, int upper);
-extern int bkfddGroupSifting(DdManager * table, int lower, int upper, BKFDD_CHKFP checkFunction);
-extern int bkfddGroupSifting_noMerge(DdManager * table, int lower, int upper);
-extern int bkfddExtSymmCheck1(DdManager *table, int x, int y);
-extern int bkfddExtSymmCheck2(DdManager *table, int x, int y);
-
-/** bkfddSifting.c */
-/* BKFDD oet sifting */
-extern int oetSifting(DdManager * table, int lower, int upper);
+/* BKFDD group sifting. */
+extern int bkfddGroupSifting(DdManager * table, int lower, int upper);
 
 /** bkfddTransform.c */
 /* Choose Better expansions type. */
@@ -245,7 +230,6 @@ extern int chooseSD3(DdManager * table);
 extern int chooseSD6(DdManager * table);
 extern int chooseSD3_restricted(DdManager * table);
 extern int chooseSD6_restricted(DdManager * table);
-//extern int bkfddTobdd(DdManager * table);
 
 /** bkfddDump.c*/
 /* Dump BKFDD to BLIF file. */

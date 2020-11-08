@@ -191,26 +191,12 @@ extern int Bnet_BuildNodeBDD (DdManager *dd, BnetNode *nd, st_table *hash, int p
 extern int Bnet_DfsVariableOrder (DdManager *dd, BnetNetwork *net);
 extern int Bnet_ReadOrder (DdManager *dd, char *ordFile, BnetNetwork *net, int locGlob, int nodrop);
 extern int Bnet_PrintOrder (BnetNetwork * net, DdManager *dd);
-#if 0
 /** Xuanxiang Huang:BKFDD */
-extern int changeExpnBetweenSND_bnet(DdManager * dd, int level, BnetNetwork * network);
-extern int changeExpnBetweenNDPD_bnet(DdManager * dd, int level, BnetNetwork * network);
-extern int changeExpnPDtoS_bnet(DdManager * dd, int level, BnetNetwork * network);
-extern int changeExpnStoPD_bnet(DdManager * dd, int level, BnetNetwork * network);
-extern int changeExpnBetweenBiCla_bnet(DdManager * dd,	int level, BnetNetwork * network);
-extern int chooseSD3_restricted_bnet(DdManager * table, BnetNetwork * network);
-extern int chooseSD6_restricted_bnet(DdManager * table, BnetNetwork * network);
-extern int bkfdd_reorder_bnet(DdManager * table,Cudd_ReorderingType heuristic,int minsize,BnetNetwork *net);
-extern int odtSifting_bnet(DdManager * table,int lower,int upper, BnetNetwork * network);
 extern int Bnet_BuildNodeBKFDD (DdManager *dd, BnetNode *nd, BnetNetwork * net, st_table *hash, int params, int nodrop);
 extern int fix_Canonicity(DdManager * dd, BnetNetwork * network);
-extern int fix_Canonicity(DdManager * dd,BnetNetwork * network);
-extern int fix_Canonicity_level(DdManager * dd, BnetNetwork * network, int level);
-extern DdNode * fix_Canonicity_node(DdManager * dd, DdNode *node);
 extern int Bnet_bkfddDump(DdManager * dd, BnetNetwork * network, char * dfile);
 extern int Bnet_bkfddArrayDump(DdManager * dd, BnetNetwork * network, char * dfile, DdNode ** outputs, char ** onames, int noutputs);
 /** Xuanxiang Huang:BKFDD */
-#endif
 /** \endcond */
 
 

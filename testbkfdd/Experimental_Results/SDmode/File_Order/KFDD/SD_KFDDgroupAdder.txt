@@ -1,0 +1,1339 @@
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col04.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col04.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+Order before final reordering
+a3 a2 a1 b3 b2 b1 a0 b0 
+cin 
+Number of inputs = 9
+Average length of non-empty lists = 1.46802
+BDD reordering with kfdd-group sifting: from 42 to ... 22 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:5, BS:0, CND:4, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 22 to 18
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 18
+Average length of non-empty lists = 1
+New order
+a3 b3 a2 b2 a1 b1 a0 b0 
+cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col04.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 64
+**** CUDD non-modifiable parameters ****
+Memory in use: 3183120
+Peak number of nodes: 1022
+Peak number of live nodes: 64
+Number of BDD variables: 9
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 1287
+Number of cache hits: 629
+Number of cache insertions: 691
+Number of cache collisions: 8
+Number of cache deletions: 683
+Cache used slots = 2.08% (expected 0.00%)
+Soft limit for cache size: 10240
+Number of buckets in unique table: 2560
+Used buckets in unique table: 1.13% (expected 1.13%)
+Number of BDD and ADD nodes: 29
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 1010
+Total number of nodes reclaimed: 941
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 18
+Average length of non-empty lists = 1
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3920K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1147
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col05.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col05.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+Order before final reordering
+a4 a3 a2 a1 b4 b3 b2 b1 
+a0 b0 cin 
+Number of inputs = 11
+Average length of non-empty lists = 2.04071
+BDD reordering with kfdd-group sifting: from 82 to ... 27 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:6, BS:0, CND:5, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 27 to 22
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 22
+Average length of non-empty lists = 1
+New order
+a4 b4 a3 b3 a2 b2 a1 b1 
+a0 b0 cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col05.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 78
+**** CUDD non-modifiable parameters ****
+Memory in use: 3269872
+Peak number of nodes: 3066
+Peak number of live nodes: 107
+Number of BDD variables: 11
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 3593
+Number of cache hits: 1841
+Number of cache insertions: 1843
+Number of cache collisions: 97
+Number of cache deletions: 1746
+Cache used slots = 5.33% (expected 0.00%)
+Soft limit for cache size: 12288
+Number of buckets in unique table: 3072
+Used buckets in unique table: 1.14% (expected 1.13%)
+Number of BDD and ADD nodes: 35
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 2657
+Total number of nodes reclaimed: 3122
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 22
+Average length of non-empty lists = 1
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3928K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1169
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col06.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col06.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+{ [KFDD] CS:8, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 140 to 83 in    0 sec }
+{ [KFDD] CS:8, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 82 to 82 in    0 sec }
+{ [KFDD] CS:8, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 81 to 81 in    0 sec }
+{ [KFDD] CS:8, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 80 to 80 in    0 sec }
+{ [KFDD] CS:8, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 79 to 79 in    0 sec }
+Order before final reordering
+a5 a4 a3 a2 a1 b5 b4 b3 
+b2 b1 a0 b0 cin 
+Number of inputs = 13
+Average length of non-empty lists = 1.02151
+BDD reordering with kfdd-group sifting: from 79 to ... 27 nodes in 0 sec
+Average length of non-empty lists = 1.02439
+{ chooseSD3: [KFDD] CS:7, BS:0, CND:6, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime: 0.01
+	BKFDD Transformation size, from 27 to 26
+Average length of non-empty lists = 1.025
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 26
+Average length of non-empty lists = 1.025
+New order
+a5 b5 a4 b4 a3 b3 a2 b2 
+a1 b1 a0 b0 cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col06.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 82
+**** CUDD non-modifiable parameters ****
+Memory in use: 34363106448
+Peak number of nodes: 6132
+Peak number of live nodes: 254
+Number of BDD variables: 13
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 28469
+Number of cache hits: 10848
+Number of cache insertions: 17939
+Number of cache collisions: 1627
+Number of cache deletions: 16312
+Cache used slots = 40.60% (expected 0.00%)
+Soft limit for cache size: 14336
+Number of buckets in unique table: 3584
+Used buckets in unique table: 1.12% (expected 1.14%)
+Number of BDD and ADD nodes: 41
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 12077
+Total number of nodes reclaimed: 13997
+Garbage collections so far: 6
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 26
+Average length of non-empty lists = 1.025
+total time = 0.01 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3956K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1202
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 4
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col07.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col07.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+{ [KFDD] CS:9, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 270 to 150 in    0 sec }
+{ [KFDD] CS:9, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 149 to 149 in    0 sec }
+{ [KFDD] CS:9, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 148 to 148 in 0.01 sec }
+{ [KFDD] CS:9, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 147 to 147 in    0 sec }
+{ [KFDD] CS:9, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 146 to 146 in    0 sec }
+Order before final reordering
+a6 a5 a4 a3 a2 a1 b6 b5 
+b4 b3 b2 b1 a0 b0 cin 
+Number of inputs = 15
+Average length of non-empty lists = 1.12876
+BDD reordering with kfdd-group sifting: from 145 to ... 31 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:8, BS:0, CND:7, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 31 to 30
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 30
+Average length of non-empty lists = 1
+New order
+a6 b6 a5 b5 a4 b4 a3 b3 
+a2 b2 a1 b1 a0 b0 cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col07.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 94
+**** CUDD non-modifiable parameters ****
+Memory in use: 240521700336
+Peak number of nodes: 11242
+Peak number of live nodes: 467
+Number of BDD variables: 15
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 96100
+Number of cache hits: 35144
+Number of cache insertions: 61736
+Number of cache collisions: 6246
+Number of cache deletions: 55490
+Cache used slots = 83.31% (expected 0.00%)
+Soft limit for cache size: 16384
+Number of buckets in unique table: 4096
+Used buckets in unique table: 1.15% (expected 1.14%)
+Number of BDD and ADD nodes: 47
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 37867
+Total number of nodes reclaimed: 46517
+Garbage collections so far: 11
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 30
+Average length of non-empty lists = 1
+total time = 0.01 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3992K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1259
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col08.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col08.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+{ [BDD] CS:17, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 402 to 402 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 528 to 281 in 0.01 sec }
+{ [KFDD] CS:10, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 280 to 280 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 279 to 279 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 278 to 278 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 277 to 277 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 276 to 276 in    0 sec }
+Order before final reordering
+a7 a6 a5 a4 a3 a2 a1 b7 
+b6 b5 b4 b3 b2 b1 a0 b0 
+cin 
+Number of inputs = 17
+Average length of non-empty lists = 1.10674
+BDD reordering with kfdd-group sifting: from 275 to ... 35 nodes in 0 sec
+Average length of non-empty lists = 1.01887
+{ chooseSD3: [KFDD] CS:9, BS:0, CND:8, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 35 to 34
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 34
+Average length of non-empty lists = 1
+New order
+a7 b7 a6 b6 a5 b5 a4 b4 
+a3 b3 a2 b2 a1 b1 a0 b0 
+cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col08.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 106
+**** CUDD non-modifiable parameters ****
+Memory in use: 274881700592
+Peak number of nodes: 19418
+Peak number of live nodes: 878
+Number of BDD variables: 17
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 340938
+Number of cache hits: 116276
+Number of cache insertions: 226559
+Number of cache collisions: 32061
+Number of cache deletions: 194498
+Cache used slots = 99.84% (expected 0.00%)
+Soft limit for cache size: 18432
+Number of buckets in unique table: 4608
+Used buckets in unique table: 1.15% (expected 1.14%)
+Number of BDD and ADD nodes: 53
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 120609
+Total number of nodes reclaimed: 154604
+Garbage collections so far: 27
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 34
+Average length of non-empty lists = 1
+total time = 0.03 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4072K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1347
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col09.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col09.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+{ [BDD] CS:19, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 1553 to 1553 in 0.01 sec }
+{ [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 2063 to 1050 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 1049 to 1049 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 1048 to 1048 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 1047 to 1047 in 0.01 sec }
+{ [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 1046 to 1046 in    0 sec }
+{ [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 1045 to 1045 in    0 sec }
+Order before final reordering
+a8 a7 a6 a5 a4 a3 a2 a1 
+a0 b8 b7 b6 b5 b4 b3 b2 
+b1 b0 cin 
+Number of inputs = 19
+Average length of non-empty lists = 1.43486
+BDD reordering with kfdd-group sifting: from 1042 to ... 38 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:10, BS:0, CND:9, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 38 to 38
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 38
+Average length of non-empty lists = 1
+New order
+a8 b8 a7 b7 a6 b6 a5 b5 
+a4 b4 a3 b3 a2 b2 a1 b1 
+a0 b0 cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col09.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 116
+**** CUDD non-modifiable parameters ****
+Memory in use: 309241471696
+Peak number of nodes: 20440
+Peak number of live nodes: 3221
+Number of BDD variables: 19
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 2094875
+Number of cache hits: 662535
+Number of cache insertions: 1436546
+Number of cache collisions: 263057
+Number of cache deletions: 1173489
+Cache used slots = 100.00% (expected 0.00%)
+Soft limit for cache size: 20480
+Number of buckets in unique table: 5120
+Used buckets in unique table: 1.15% (expected 1.15%)
+Number of BDD and ADD nodes: 59
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 526610
+Total number of nodes reclaimed: 780632
+Garbage collections so far: 138
+Time for garbage collection: 0.03 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 38
+Average length of non-empty lists = 1
+total time = 0.14 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.1 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4236K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1399
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col10.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col10.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+{ [BDD] CS:21, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 3091 to 3091 in 0.01 sec }
+BDD reordering with kfdd-group sifting: from 4001 to ... 91 nodes in 0 sec
+Order before final reordering
+b9 a9 a8 b8 a7 b7 a6 b6 
+b5 a5 b4 a4 b3 a3 b2 a2 
+b1 a1 b0 cin a0 
+Number of inputs = 21
+Average length of non-empty lists = 1.69465
+BDD reordering with kfdd-group sifting: from 52 to ... 52 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:11, BS:0, CND:10, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 52 to 42
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 42
+Average length of non-empty lists = 1
+New order
+b9 a9 a8 b8 a7 b7 a6 b6 
+b5 a5 b4 a4 b3 a3 b2 a2 
+b1 a1 b0 cin a0 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col10.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 148
+**** CUDD non-modifiable parameters ****
+Memory in use: 309241656656
+Peak number of nodes: 25550
+Peak number of live nodes: 4004
+Number of BDD variables: 21
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 412623
+Number of cache hits: 145005
+Number of cache insertions: 272454
+Number of cache collisions: 71703
+Number of cache deletions: 200751
+Cache used slots = 99.93% (expected 0.00%)
+Soft limit for cache size: 22528
+Number of buckets in unique table: 5632
+Used buckets in unique table: 1.15% (expected 1.15%)
+Number of BDD and ADD nodes: 65
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 191741
+Total number of nodes reclaimed: 445895
+Garbage collections so far: 26
+Time for garbage collection: 0.00 sec
+Reorderings so far: 2
+Time for reordering: 0.00 sec
+Final size: 42
+Average length of non-empty lists = 1
+total time = 0.04 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4560K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1521
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col11.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col11.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+BDD reordering with kfdd-group sifting: from 4001 to ... 103 nodes in 0.01 sec
+{ [BDD] CS:23, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 57 to 57 in    0 sec }
+{ [KFDD] CS:22, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 57 to 56 in 0.01 sec }
+{ [KFDD] CS:21, BS:0, CND:2, BND:0, CPD:0, BPD:0, size from 56 to 55 in 0.01 sec }
+{ [KFDD] CS:20, BS:0, CND:3, BND:0, CPD:0, BPD:0, size from 55 to 54 in    0 sec }
+{ [KFDD] CS:19, BS:0, CND:4, BND:0, CPD:0, BPD:0, size from 54 to 53 in    0 sec }
+{ [KFDD] CS:18, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 53 to 52 in    0 sec }
+{ [KFDD] CS:17, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 52 to 51 in    0 sec }
+{ [KFDD] CS:16, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 51 to 50 in 0.01 sec }
+{ [KFDD] CS:15, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 50 to 49 in    0 sec }
+{ [KFDD] CS:14, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 49 to 48 in    0 sec }
+{ [KFDD] CS:12, BS:0, CND:11, BND:0, CPD:0, BPD:0, size from 48 to 46 in    0 sec }
+Order before final reordering
+b10 a10 b9 a9 b8 a8 b7 a7 
+b6 a6 b5 a5 a4 b4 b3 a3 
+b2 a2 b1 a1 a0 cin b0 
+Number of inputs = 23
+Average length of non-empty lists = 1
+BDD reordering with kfdd-group sifting: from 46 to ... 46 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:12, BS:0, CND:11, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime: 0.01
+	BKFDD Transformation size, from 46 to 46
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 46
+Average length of non-empty lists = 1
+New order
+b10 a10 b9 a9 b8 a8 b7 a7 
+b6 a6 b5 a5 a4 b4 b3 a3 
+b2 a2 b1 a1 a0 cin b0 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col11.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 140
+**** CUDD non-modifiable parameters ****
+Memory in use: 206162507024
+Peak number of nodes: 27594
+Peak number of live nodes: 4004
+Number of BDD variables: 23
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 582084
+Number of cache hits: 271966
+Number of cache insertions: 318442
+Number of cache collisions: 53524
+Number of cache deletions: 264918
+Cache used slots = 99.90% (expected 0.00%)
+Soft limit for cache size: 24576
+Number of buckets in unique table: 6144
+Used buckets in unique table: 1.16% (expected 1.15%)
+Number of BDD and ADD nodes: 71
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 422596
+Total number of nodes reclaimed: 1156238
+Garbage collections so far: 60
+Time for garbage collection: 0.00 sec
+Reorderings so far: 2
+Time for reordering: 0.01 sec
+Final size: 46
+Average length of non-empty lists = 1
+total time = 0.09 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.1 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  5204K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1700
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col12.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col12.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+BDD reordering with kfdd-group sifting: from 4001 to ... 115 nodes in 0 sec
+{ [BDD] CS:25, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 155 to 155 in 0.01 sec }
+BDD reordering with kfdd-group sifting: from 231 to ... 115 nodes in 0 sec
+{ [KFDD] CS:24, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 62 to 61 in 0.01 sec }
+{ [KFDD] CS:23, BS:0, CND:2, BND:0, CPD:0, BPD:0, size from 61 to 60 in    0 sec }
+{ [KFDD] CS:22, BS:0, CND:3, BND:0, CPD:0, BPD:0, size from 60 to 59 in    0 sec }
+{ [KFDD] CS:21, BS:0, CND:4, BND:0, CPD:0, BPD:0, size from 59 to 58 in    0 sec }
+{ [KFDD] CS:20, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 58 to 57 in    0 sec }
+{ [KFDD] CS:19, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 57 to 56 in 0.01 sec }
+{ [KFDD] CS:18, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 56 to 55 in    0 sec }
+{ [KFDD] CS:17, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 55 to 54 in    0 sec }
+{ [KFDD] CS:16, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 54 to 53 in    0 sec }
+{ [KFDD] CS:15, BS:0, CND:10, BND:0, CPD:0, BPD:0, size from 53 to 52 in 0.01 sec }
+Order before final reordering
+b11 a11 b10 a10 b9 a9 a8 b8 
+a7 b7 a6 b6 b5 a5 b4 a4 
+b3 a3 b2 a2 b1 a1 b0 a0 
+cin 
+Number of inputs = 25
+Average length of non-empty lists = 1.04286
+BDD reordering with kfdd-group sifting: from 52 to ... 52 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:13, BS:0, CND:12, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 52 to 50
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 50
+Average length of non-empty lists = 1
+New order
+b11 a11 b10 a10 b9 a9 a8 b8 
+a7 b7 a6 b6 b5 a5 b4 a4 
+b3 a3 b2 a2 b1 a1 b0 a0 
+cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col12.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 156
+**** CUDD non-modifiable parameters ****
+Memory in use: 274882081968
+Peak number of nodes: 30660
+Peak number of live nodes: 4004
+Number of BDD variables: 25
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 1309531
+Number of cache hits: 645495
+Number of cache insertions: 678326
+Number of cache collisions: 99267
+Number of cache deletions: 579059
+Cache used slots = 100.00% (expected 0.00%)
+Soft limit for cache size: 26624
+Number of buckets in unique table: 6656
+Used buckets in unique table: 1.16% (expected 1.15%)
+Number of BDD and ADD nodes: 77
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 938185
+Total number of nodes reclaimed: 2760410
+Garbage collections so far: 111
+Time for garbage collection: 0.00 sec
+Reorderings so far: 3
+Time for reordering: 0.00 sec
+Final size: 50
+Average length of non-empty lists = 1
+total time = 0.15 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.2 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  6864K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 2156
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col13.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col13.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+BDD reordering with kfdd-group sifting: from 4001 to ... 107 nodes in 0.01 sec
+BDD reordering with kfdd-group sifting: from 215 to ... 125 nodes in 0 sec
+{ [BDD] CS:27, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 67 to 67 in    0 sec }
+{ [KFDD] CS:26, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 67 to 66 in 0.01 sec }
+{ [KFDD] CS:25, BS:0, CND:2, BND:0, CPD:0, BPD:0, size from 66 to 65 in    0 sec }
+{ [KFDD] CS:24, BS:0, CND:3, BND:0, CPD:0, BPD:0, size from 65 to 64 in    0 sec }
+{ [KFDD] CS:23, BS:0, CND:4, BND:0, CPD:0, BPD:0, size from 64 to 63 in 0.01 sec }
+{ [KFDD] CS:22, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 63 to 62 in 0.01 sec }
+{ [KFDD] CS:21, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 62 to 61 in 0.01 sec }
+{ [KFDD] CS:20, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 61 to 60 in    0 sec }
+{ [KFDD] CS:19, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 60 to 59 in 0.01 sec }
+{ [KFDD] CS:18, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 59 to 58 in    0 sec }
+{ [KFDD] CS:17, BS:0, CND:10, BND:0, CPD:0, BPD:0, size from 58 to 57 in    0 sec }
+{ [KFDD] CS:16, BS:0, CND:11, BND:0, CPD:0, BPD:0, size from 57 to 56 in 0.01 sec }
+Order before final reordering
+a12 b12 b11 a11 b10 a10 b9 a9 
+b8 a8 b7 a7 a6 b6 b5 a5 
+b4 a4 a3 b3 a2 b2 a1 b1 
+b0 a0 cin 
+Number of inputs = 27
+Average length of non-empty lists = 1.0411
+BDD reordering with kfdd-group sifting: from 56 to ... 56 nodes in 0 sec
+Average length of non-empty lists = 1.0119
+{ chooseSD3: [KFDD] CS:14, BS:0, CND:13, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime:    0
+	BKFDD Transformation size, from 56 to 54
+Average length of non-empty lists = 1.0122
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 54
+Average length of non-empty lists = 1.0122
+New order
+a12 b12 b11 a11 b10 a10 b9 a9 
+b8 a8 b7 a7 a6 b6 b5 a5 
+b4 a4 a3 b3 a2 b2 a1 b1 
+b0 a0 cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col13.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 168
+**** CUDD non-modifiable parameters ****
+Memory in use: 309244014672
+Peak number of nodes: 66430
+Peak number of live nodes: 4004
+Number of BDD variables: 27
+Number of ZDD variables: 0
+Number of cache entries: 65536
+Number of cache look-ups: 2747531
+Number of cache hits: 1307933
+Number of cache insertions: 1467550
+Number of cache collisions: 122913
+Number of cache deletions: 1344637
+Cache used slots = 100.00% (expected 0.00%)
+Soft limit for cache size: 28672
+Number of buckets in unique table: 7168
+Used buckets in unique table: 1.14% (expected 1.15%)
+Number of BDD and ADD nodes: 83
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 2182600
+Total number of nodes reclaimed: 6476147
+Garbage collections so far: 216
+Time for garbage collection: 0.03 sec
+Reorderings so far: 3
+Time for reordering: 0.01 sec
+Final size: 54
+Average length of non-empty lists = 1.0122
+total time = 0.36 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.4 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 11508K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 3760
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 4
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col14.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col14.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+BDD reordering with kfdd-group sifting: from 4001 to ... 118 nodes in 0 sec
+BDD reordering with kfdd-group sifting: from 237 to ... 173 nodes in 0 sec
+BDD reordering with kfdd-group sifting: from 347 to ... 133 nodes in 0 sec
+{ [BDD] CS:29, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 75 to 75 in    0 sec }
+{ [KFDD] CS:28, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 79 to 75 in 0.01 sec }
+{ [KFDD] CS:28, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 75 to 75 in    0 sec }
+{ [KFDD] CS:27, BS:0, CND:2, BND:0, CPD:0, BPD:0, size from 75 to 74 in 0.01 sec }
+{ [KFDD] CS:26, BS:0, CND:3, BND:0, CPD:0, BPD:0, size from 74 to 73 in    0 sec }
+{ [KFDD] CS:25, BS:0, CND:4, BND:0, CPD:0, BPD:0, size from 73 to 72 in 0.01 sec }
+{ [KFDD] CS:24, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 72 to 71 in 0.01 sec }
+{ [KFDD] CS:23, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 71 to 70 in 0.01 sec }
+{ [KFDD] CS:22, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 70 to 69 in    0 sec }
+{ [KFDD] CS:21, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 69 to 68 in 0.01 sec }
+{ [KFDD] CS:20, BS:0, CND:9, BND:0, CPD:0, BPD:0, size from 68 to 67 in 0.01 sec }
+{ [KFDD] CS:19, BS:0, CND:10, BND:0, CPD:0, BPD:0, size from 67 to 66 in    0 sec }
+{ [KFDD] CS:18, BS:0, CND:11, BND:0, CPD:0, BPD:0, size from 66 to 65 in 0.01 sec }
+Order before final reordering
+b13 b12 a12 a13 b11 a11 b10 a10 
+b9 a9 a8 b8 b7 a7 a6 b6 
+b5 a5 b4 a4 b3 a3 b2 a2 
+b1 a1 b0 a0 cin 
+Number of inputs = 29
+Average length of non-empty lists = 1.05195
+BDD reordering with kfdd-group sifting: from 65 to ... 61 nodes in 0 sec
+Average length of non-empty lists = 1
+{ chooseSD3: [KFDD] CS:15, BS:0, CND:14, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime: 0.01
+	BKFDD Transformation size, from 61 to 58
+Average length of non-empty lists = 1
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 58
+Average length of non-empty lists = 1
+New order
+b13 a13 b12 a12 b11 a11 b10 a10 
+b9 a9 a8 b8 b7 a7 a6 b6 
+b5 a5 b4 a4 b3 a3 b2 a2 
+b1 a1 b0 a0 cin 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col14.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 182
+**** CUDD non-modifiable parameters ****
+Memory in use: 377962934896
+Peak number of nodes: 49056
+Peak number of live nodes: 4004
+Number of BDD variables: 29
+Number of ZDD variables: 0
+Number of cache entries: 65536
+Number of cache look-ups: 6249922
+Number of cache hits: 2847888
+Number of cache insertions: 3455994
+Number of cache collisions: 374791
+Number of cache deletions: 3081203
+Cache used slots = 100.00% (expected 0.00%)
+Soft limit for cache size: 30720
+Number of buckets in unique table: 7680
+Used buckets in unique table: 1.16% (expected 1.15%)
+Number of BDD and ADD nodes: 89
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 4989527
+Total number of nodes reclaimed: 14479856
+Garbage collections so far: 429
+Time for garbage collection: 0.07 sec
+Reorderings so far: 4
+Time for reordering: 0.00 sec
+Final size: 58
+Average length of non-empty lists = 1
+total time = 0.67 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.7 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 17588K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 5231
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 4
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col15.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col15.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+BDD reordering with kfdd-group sifting: from 4001 to ... 116 nodes in 0 sec
+BDD reordering with kfdd-group sifting: from 233 to ... 174 nodes in 0 sec
+{ [BDD] CS:31, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 102 to 102 in 0.02 sec }
+{ [KFDD] CS:30, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 120 to 118 in 0.01 sec }
+{ [KFDD] CS:29, BS:0, CND:2, BND:0, CPD:0, BPD:0, size from 136 to 134 in 0.01 sec }
+{ [KFDD] CS:28, BS:0, CND:3, BND:0, CPD:0, BPD:0, size from 152 to 150 in 0.01 sec }
+{ [KFDD] CS:27, BS:0, CND:4, BND:0, CPD:0, BPD:0, size from 168 to 166 in 0.02 sec }
+{ [KFDD] CS:26, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 184 to 182 in 0.01 sec }
+{ [KFDD] CS:25, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 200 to 198 in 0.01 sec }
+{ [KFDD] CS:24, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 216 to 214 in 0.01 sec }
+{ [KFDD] CS:23, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 239 to 238 in 0.02 sec }
+{ [KFDD] CS:23, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 258 to 258 in 0.01 sec }
+{ [KFDD] CS:23, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 274 to 274 in 0.02 sec }
+{ [KFDD] CS:23, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 287 to 287 in 0.01 sec }
+{ [KFDD] CS:23, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 297 to 297 in 0.01 sec }
+Order before final reordering
+b1 a1 b0 a0 cin b2 a2 b3 
+a3 a4 b4 a14 b14 a13 b13 a12 
+b12 b11 a11 b10 a10 b9 a9 b8 
+a8 a5 b6 b5 b7 a7 a6 
+Number of inputs = 31
+Average length of non-empty lists = 1.12952
+BDD reordering with kfdd-group sifting: from 307 to ... 271 nodes in 0.01 sec
+Average length of non-empty lists = 1.0346
+{ chooseSD3: [KFDD] CS:23, BS:0, CND:8, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime: 0.01
+	BKFDD Transformation size, from 271 to 271
+Average length of non-empty lists = 1.03819
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 271
+Average length of non-empty lists = 1.03819
+New order
+a14 b1 a1 b0 a0 cin b2 a2 
+b3 a3 b14 a13 b13 a12 b12 b11 
+a11 b10 a10 b9 a9 b8 a8 b7 
+a7 a4 b4 a5 b5 b6 a6 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col15.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 596
+**** CUDD non-modifiable parameters ****
+Memory in use: 309246493200
+Peak number of nodes: 77672
+Peak number of live nodes: 4004
+Number of BDD variables: 31
+Number of ZDD variables: 0
+Number of cache entries: 131072
+Number of cache look-ups: 15915376
+Number of cache hits: 6117574
+Number of cache insertions: 9799261
+Number of cache collisions: 353750
+Number of cache deletions: 9445511
+Cache used slots = 100.00% (expected 0.00%)
+Soft limit for cache size: 32768
+Number of buckets in unique table: 8192
+Used buckets in unique table: 3.52% (expected 3.53%)
+Number of BDD and ADD nodes: 299
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 10278615
+Total number of nodes reclaimed: 17006195
+Garbage collections so far: 2106
+Time for garbage collection: 0.59 sec
+Reorderings so far: 3
+Time for reordering: 0.01 sec
+Final size: 271
+Average length of non-empty lists = 1.03819
+total time = 1.91 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      1.9 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 34836K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 9205
+Swaps = 0
+Input blocks = 0
+Output blocks = 48
+Context switch (voluntary) = 0
+Context switch (involuntary) = 6
+# Nanotrav Version #0.13, Release date 2015/7/15
+# ../.././bkfdds ../../Benchmark/Adder/adder_col16.blif -sdmode -autodyn -automethod kfdd -davioexist 50 -chooselowbound 50 -reordering kfdd -drop -dumpfile benchmark_output_KFDD/adder_col16.blif -dumpblif
+# CUDD Version 3.0.0
+	Mode: All expns mix during building
+	startCudd: davio_exist_factor = 0.500000, choose_lower_bound_factor = 0.500000, choose_new_bound_factor = 1.000000 choose_dav_bound_factor = 1.000000, choose_fail_bound_factor = 2.000000
+BDD reordering with kfdd-group sifting: from 4001 to ... 113 nodes in 0 sec
+BDD reordering with kfdd-group sifting: from 227 to ... 203 nodes in 0 sec
+{ [BDD] CS:33, BS:0, CND:0, BND:0, CPD:0, BPD:0, size from 117 to 117 in 0.01 sec }
+{ [KFDD] CS:32, BS:0, CND:1, BND:0, CPD:0, BPD:0, size from 144 to 142 in 0.02 sec }
+{ [KFDD] CS:31, BS:0, CND:2, BND:0, CPD:0, BPD:0, size from 169 to 167 in 0.01 sec }
+{ [KFDD] CS:30, BS:0, CND:3, BND:0, CPD:0, BPD:0, size from 194 to 192 in 0.01 sec }
+{ [KFDD] CS:29, BS:0, CND:4, BND:0, CPD:0, BPD:0, size from 219 to 217 in 0.01 sec }
+{ [KFDD] CS:28, BS:0, CND:5, BND:0, CPD:0, BPD:0, size from 244 to 242 in 0.02 sec }
+{ [KFDD] CS:27, BS:0, CND:6, BND:0, CPD:0, BPD:0, size from 269 to 267 in 0.02 sec }
+BDD reordering with kfdd-group sifting: from 395 to ... 296 nodes in 0 sec
+{ [KFDD] CS:26, BS:0, CND:7, BND:0, CPD:0, BPD:0, size from 225 to 223 in 0.02 sec }
+{ [KFDD] CS:25, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 241 to 239 in 0.01 sec }
+{ [KFDD] CS:25, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 264 to 264 in 0.02 sec }
+{ [KFDD] CS:25, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 284 to 284 in 0.01 sec }
+{ [KFDD] CS:25, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 300 to 300 in 0.01 sec }
+{ [KFDD] CS:25, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 313 to 313 in 0.02 sec }
+{ [KFDD] CS:25, BS:0, CND:8, BND:0, CPD:0, BPD:0, size from 323 to 323 in 0.01 sec }
+Order before final reordering
+a0 cin b0 a1 b1 b2 a2 a3 
+b3 b4 b15 a4 a15 b14 a14 a13 
+b13 b12 a12 b11 a11 b10 a10 b9 
+a9 a8 b8 b6 a6 b5 a5 b7 
+a7 
+Number of inputs = 33
+Average length of non-empty lists = 1.14364
+BDD reordering with kfdd-group sifting: from 334 to ... 279 nodes in 0 sec
+Average length of non-empty lists = 1.03344
+{ chooseSD3: [KFDD] CS:24, BS:0, CND:9, BND:0, CPD:0, BPD:0
+	BKFDD Transformation runtime: 0.02
+	BKFDD Transformation size, from 279 to 277
+Average length of non-empty lists = 1.0302
+	[RC]: 0 nodes detected, reduce 0 nodes has effect on DD size. Check in    0 sec
+	BKFDD final size can be 277
+Average length of non-empty lists = 1.0302
+New order
+b15 a15 a1 b1 a0 cin b0 b2 
+a2 a3 b3 b14 a14 a13 b13 b12 
+a12 b11 a11 b10 a10 b9 a9 a8 
+b8 b7 a7 b4 a4 b5 a5 b6 
+a6 
+Dumping BKFDDs to benchmark_output_KFDD/adder_col16.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: no
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 1.2
+Dynamic reordering of BDDs enabled: no
+Default BDD reordering method: 0
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 616
+**** CUDD non-modifiable parameters ****
+Memory in use: 412326133872
+Peak number of nodes: 90958
+Peak number of live nodes: 4004
+Number of BDD variables: 33
+Number of ZDD variables: 0
+Number of cache entries: 131072
+Number of cache look-ups: 41232514
+Number of cache hits: 14057275
+Number of cache insertions: 27176736
+Number of cache collisions: 1181073
+Number of cache deletions: 25995663
+Cache used slots = 100.00% (expected 0.00%)
+Soft limit for cache size: 34816
+Number of buckets in unique table: 8704
+Used buckets in unique table: 3.42% (expected 3.42%)
+Number of BDD and ADD nodes: 307
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 0
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 27926445
+Total number of nodes reclaimed: 32237786
+Garbage collections so far: 4876
+Time for garbage collection: 1.36 sec
+Reorderings so far: 4
+Time for reordering: 0.01 sec
+Final size: 277
+Average length of non-empty lists = 1.0302
+total time = 4.28 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      4.3 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 60380K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 15731
+Swaps = 0
+Input blocks = 0
+Output blocks = 32
+Context switch (voluntary) = 0
+Context switch (involuntary) = 14

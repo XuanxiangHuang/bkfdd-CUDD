@@ -1,0 +1,155 @@
+.model 9-adder
+.inputs a8 b8 a7 b7 a6 b6 a5 b5 a4 b4 a3 b3 a2 b2 a1 b1 a0 b0 cin
+.outputs cout s8 s7 s6 s5 s4 s3 s2 s1 s0
+.names 11e3a0
+1
+.names cin 11e3a0 11e3a0 11e3b6
+11- 1
+0-0 1
+.names b0 11e3a0 11e3b6 1205bc
+11- 1
+0-1 1
+.names b0 11e3b6 11e3b6 1205ab
+11- 1
+0-0 1
+.names a0 1205bc 1205ab 1205ce
+11- 1
+-11 1
+000 1
+.names b1 11e3a0 1205ce 11e5a0
+11- 1
+0-1 1
+.names b1 1205ce 1205ce 1205c3
+11- 1
+0-0 1
+.names a1 11e5a0 1205c3 1205b6
+11- 1
+-11 1
+000 1
+.names b2 11e3a0 1205b6 12037c
+11- 1
+0-1 1
+.names b2 1205b6 1205b6 1205b8
+11- 1
+0-0 1
+.names a2 12037c 1205b8 1205c5
+11- 1
+-11 1
+000 1
+.names b3 11e3a0 1205c5 1205b7
+11- 1
+0-1 1
+.names b3 1205c5 1205c5 11f275
+11- 1
+0-0 1
+.names a3 1205b7 11f275 11ee83
+11- 1
+-11 1
+000 1
+.names b4 11e3a0 11ee83 11e4dc
+11- 1
+0-1 1
+.names b4 11ee83 11ee83 1205be
+11- 1
+0-0 1
+.names a4 11e4dc 1205be 1205ad
+11- 1
+-11 1
+000 1
+.names b5 11e3a0 1205ad 11f86b
+11- 1
+0-1 1
+.names b5 1205ad 1205ad 11e459
+11- 1
+0-0 1
+.names a5 11f86b 11e459 11ee84
+11- 1
+-11 1
+000 1
+.names b6 11e3a0 11ee84 1205c2
+11- 1
+0-1 1
+.names b6 11ee84 11ee84 1205c4
+11- 1
+0-0 1
+.names a6 1205c2 1205c4 11f9eb
+11- 1
+-11 1
+000 1
+.names b7 11e3a0 11f9eb 12065f
+11- 1
+0-1 1
+.names b7 11f9eb 11f9eb 11f86a
+11- 1
+0-0 1
+.names a7 12065f 11f86a 1205b2
+11- 1
+-11 1
+000 1
+.names b8 11e3a0 1205b2 1205bf
+11- 1
+0-1 1
+.names b8 1205b2 1205b2 1205b5
+11- 1
+0-0 1
+.names a8 1205bf 1205b5 120965
+11- 1
+-11 1
+000 1
+.names a8 1205b5 11e3a0 12076c
+11- 1
+-10 1
+001 1
+.names a7 11f86a 11e3a0 1205e7
+11- 1
+-10 1
+001 1
+.names a6 1205c4 11e3a0 11fec0
+11- 1
+-10 1
+001 1
+.names a5 11e459 11e3a0 11fe6f
+11- 1
+-10 1
+001 1
+.names a4 1205be 11e3a0 120186
+11- 1
+-10 1
+001 1
+.names a3 11f275 11e3a0 12079d
+11- 1
+-10 1
+001 1
+.names a2 1205b8 11e3a0 120676
+11- 1
+-10 1
+001 1
+.names a1 1205c3 11e3a0 1205ef
+11- 1
+-10 1
+001 1
+.names a0 1205ab 11e3a0 1205ac
+11- 1
+-10 1
+001 1
+.names 120965 cout
+1 1
+.names 12076c s8
+1 1
+.names 1205e7 s7
+1 1
+.names 11fec0 s6
+1 1
+.names 11fe6f s5
+1 1
+.names 120186 s4
+1 1
+.names 12079d s3
+1 1
+.names 120676 s2
+1 1
+.names 1205ef s1
+1 1
+.names 1205ac s0
+1 1
+.end

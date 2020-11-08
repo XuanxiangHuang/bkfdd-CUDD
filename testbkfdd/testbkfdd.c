@@ -19,7 +19,6 @@
 		3. Add arguments to ntrReadOptions.
 		4. Add CheckBkfddNodes to check BKFDD nodes.
 		surrounded by	"Xuanxiang Huang" or "BKFDD"
-		5. Allow adding automethd to DDmanager even though autodyn is disable.
 ======================================================================
 
 **********************************************************************
@@ -63,13 +62,12 @@
 #include "cuddInt.h"
 #include "ntr.h"
 #include "bkfddInt.h"
-#include "bkfdd_bnet.h"
 
 /*---------------------------------------------------------------------------*/
 /* Constant declarations                                                     */
 /*---------------------------------------------------------------------------*/
 
-#define NTR_VERSION "Nanotrav Version #0.13, Release date 2020/09/18"
+#define NTR_VERSION "Nanotrav Version #0.13, Release date 2015/7/15"
 
 #define BUFLENGTH 8192
 
@@ -84,7 +82,7 @@
 /*---------------------------------------------------------------------------*/
 /* Variable declarations                                                     */
 /*---------------------------------------------------------------------------*/
-//#define DD_DEBUG 100
+#define DD_DEBUG 100
 static  char    buffer[BUFLENGTH];
 
 /*---------------------------------------------------------------------------*/
@@ -105,7 +103,7 @@ static FILE * open_file (char *filename, const char *mode);
 static int reorder (BnetNetwork *net, DdManager *dd, NtrOptions *option);
 static void freeOption (NtrOptions *option);
 static DdManager * startCudd (NtrOptions *option, int nvars);
-//static int CheckBkfddNodes(DdManager * dd);
+static int CheckBkfddNodes(DdManager * dd);
 
 /** \endcond */
 
@@ -190,25 +188,21 @@ main(
 	Cudd_AutodynDisable(dd);
 
 	// Introduce pD expansions to BKFDDs
-	int fix_cano = 1;//0;
+	int fix_cano = 0;
 	unsigned long transStart = util_cpu_time();
 	long transSize1 = Cudd_ReadNodeCount(dd);
-	if (option->reordering == BKFDD_GROUP_MIX ||
-			option->reordering == BKFDD_SYMM_MIX ||
-			option->reordering == BKFDD_OET_SIFT ||
-			option->reordering == BKFDD_GROUP_NMEG_MIX) {
+	if (option->autoMethod == BKFDD_GROUP_SIFT) {
 		chooseSD6(dd);
 		/* once introduce pD expansions, we
 			need to fix canonicity of DD nodes*/
-				if (fix_Canonicity(dd, net1, dd->size-1) == 0) {
+		if (fix_Canonicity(dd, net1) == 0) {
 			printf("fix canonicity failed\n");
 		} else {
 			fix_cano = 1;
 		}
-	} else if (option->reordering == KFDD_GROUP_MIX ||
-						option->reordering == KFDD_SYMM_MIX) {
+	} else if (option->autoMethod == KFDD_GROUP_SIFT){
 		chooseSD3(dd);
-		if (fix_Canonicity(dd, net1, dd->size-1) == 0) {
+		if (fix_Canonicity(dd, net1) == 0) {
 			printf("fix canonicity failed\n");
 		} else {
 			fix_cano = 1;
@@ -223,7 +217,7 @@ main(
 	if (dd->interact != NULL) {
 		FREE(dd->interact);
 	}
-#if 0	
+	
 	/* check before RC detection. */
 	int checkVal = Cudd_DebugCheck(dd);
 	if (checkVal != 0) {
@@ -250,16 +244,14 @@ main(
 	int RCdetect, RCreduce;
 	RCdetect = RCreduce = 0;
 	unsigned long checkRCTime = util_cpu_time();
-	
 	if (!Bkfdd_RC_Detection(dd, &RCdetect, &RCreduce)) {
 		fprintf(stderr, "RC detection failed\n");
 		exit(2);
 	}
-	
 	printf("\t[RC]: %d nodes detected, reduce %d nodes has effect on DD size. Check in %4g sec\n",
 	RCdetect, RCreduce, (double)(util_cpu_time() - checkRCTime)/1000.0);
 	printf("\tBKFDD final size can be %ld\n", transSize2-RCreduce);
-	
+
 	/* Final Check. */
 	checkVal = Cudd_DebugCheck(dd);
 	if (checkVal != 0) {
@@ -273,7 +265,7 @@ main(
 		(void) fprintf(stderr, "Cudd_CheckKeys failed\n");
 		exit(2);
 	}
-#endif
+
 	/* Print final order. */
 	if ((option->reordering != CUDD_REORDER_NONE || option->gaOnOff) &&
 	option->locGlob != BNET_LOCAL_DD) {
@@ -281,7 +273,7 @@ main(
 		result = Bnet_PrintOrder(net1,dd);
 		if (result == 0) exit(2);
 	}
-	
+
 	/* Dump BKFDDs if so requested. */
 	if ( (fix_cano == 1) && option->bdddump && option->second == FALSE &&
 	option->density == FALSE && option->decomp == FALSE &&
@@ -455,7 +447,7 @@ mainInit(
 	option->seed           = 1;
 
 /** Xuanxiang Huang:BKFDD */
-	option->davioExist = 30;
+	option->davioExist = 15;
 	option->chooseLowBound = 70;
 	option->chooseNew = 10000;
 	option->chooseDav = 10000;
@@ -593,30 +585,12 @@ ntrReadOptions(
 		} else if (STRING_EQUAL(argv[i],"exact")) {
 		option->reordering = CUDD_REORDER_EXACT;
 /** Xuanxiang Huang:BKFDD */
-		} else if (STRING_EQUAL(argv[i],"kfddsymm")) {
-		option->reordering = KFDD_SYMM_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfddsymm")){
-		option->reordering = BKFDD_SYMM_SIFT;
-		} else if (STRING_EQUAL(argv[i],"kfddgroup")) {
+		} else if (STRING_EQUAL(argv[i],"kfdd")) {
 		option->reordering = KFDD_GROUP_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfddgroup")){
+		} else if (STRING_EQUAL(argv[i],"bkfdd")){
 		option->reordering = BKFDD_GROUP_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfddgroupnmeg")){
-		option->reordering = BKFDD_GROUP_SIFT_NMEG;
-		} else if (STRING_EQUAL(argv[i],"biddgroup")){
+		} else if (STRING_EQUAL(argv[i],"bidd")){
 		option->reordering = BIDD_GROUP_SIFT;
-		} else if (STRING_EQUAL(argv[i],"oet")) {
-		option->reordering = BKFDD_OET_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfdd-symm-mix")) {
-		option->reordering = BKFDD_SYMM_MIX;
-		} else if (STRING_EQUAL(argv[i],"kfdd-symm-mix")) {
-		option->reordering = KFDD_SYMM_MIX;
-		} else if (STRING_EQUAL(argv[i],"bkfdd-group-mix")) {
-		option->reordering = BKFDD_GROUP_MIX;
-		} else if (STRING_EQUAL(argv[i],"kfdd-group-mix")) {
-		option->reordering = KFDD_GROUP_MIX;
-		} else if (STRING_EQUAL(argv[i],"bkfdd-group-nmeg-mix")) {
-		option->reordering = BKFDD_GROUP_NMEG_MIX;
 /** Xuanxiang Huang:BKFDD */
 		} else {
 		goto usage;
@@ -673,20 +647,12 @@ ntrReadOptions(
 		} else if (STRING_EQUAL(argv[i],"exact")) {
 		option->autoMethod = CUDD_REORDER_EXACT;
 	/** Xuanxiang Huang:BKFDD */
-		} else if (STRING_EQUAL(argv[i],"kfddsymm")) {
-		option->autoMethod = KFDD_SYMM_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfddsymm")) {
-		option->autoMethod = BKFDD_SYMM_SIFT;
-		} else if (STRING_EQUAL(argv[i],"kfddgroup")) {
+		} else if (STRING_EQUAL(argv[i],"kfdd")) {
 		option->autoMethod = KFDD_GROUP_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfddgroup")) {
+		} else if (STRING_EQUAL(argv[i],"bkfdd")) {
 		option->autoMethod = BKFDD_GROUP_SIFT;
-		} else if (STRING_EQUAL(argv[i],"bkfddgroupnmeg")) {
-		option->autoMethod = BKFDD_GROUP_SIFT_NMEG;
 		} else if (STRING_EQUAL(argv[i],"bidd")) {
 		option->autoMethod = BIDD_GROUP_SIFT;
-		} else if (STRING_EQUAL(argv[i],"oet")) {
-		option->autoMethod = BKFDD_OET_SIFT;
 		}else {
 		goto usage;
 		}
@@ -740,19 +706,9 @@ ntrReadOptions(
 		option->groupcheck = CUDD_GROUP_CHECK8;
 		} else if (STRING_EQUAL(argv[i],"check9")) {
 		option->groupcheck = CUDD_GROUP_CHECK9;
-		} else if (STRING_EQUAL(argv[i],"bkfcheck1")) {
-		option->groupcheck = BKFDD_GROUP_CHECK1;
-		} else if (STRING_EQUAL(argv[i],"bkfcheck2")) {
-		option->groupcheck = BKFDD_GROUP_CHECK2;
-		}	else {
+		} else {
 		goto usage;
 		}
-	} else if (STRING_EQUAL(argv[i],"-arcviolation")) {
-	    i++;
-	    option->arcviolation = (int)atoi(argv[i]);
-	} else if (STRING_EQUAL(argv[i],"-symmviolation")) {
-	    i++;
-	    option->symmviolation = (int)atoi(argv[i]);
 	} else if (STRING_EQUAL(argv[i],"-drop")) {
 	option->nodrop = FALSE;
 	} else if (STRING_EQUAL(argv[i],"-sign")) {
@@ -994,13 +950,8 @@ reorder(
 
 		dd->siftMaxVar = 1000000;
 		dd->siftMaxSwap = 1000000000;
-		if (option->reordering == BKFDD_OET_SIFT) {
-			result = bkfdd_reorder_bnet(dd,option->reordering,1,net);
-			if (result == 0) return(0);
-		} else {
-			result = Cudd_ReduceHeap(dd,option->reordering,1);
-			if (result == 0) return(0);
-		}
+		result = Cudd_ReduceHeap(dd,option->reordering,1);
+		if (result == 0) return(0);
 
 #ifdef DD_DEBUG
 		result = Cudd_DebugCheck(dd);
@@ -1088,13 +1039,6 @@ startCudd(
 	if (option->autoDyn & 1) {
 	Cudd_AutodynEnable(dd,option->autoMethod);
 	}
-/** Xuanxiang Huang:BKFDD, add automethod to DDmanager even though autodyn is disable,
-	cause we want to reordering by hand. */	
-	if (option->autoMethod != CUDD_REORDER_SAME) {
-		dd->autoMethod = option->autoMethod;
-	}
-/** Xuanxiang Huang:BKFDD */
-	
 	dd->nextDyn = option->firstReorder;
 	dd->countDead = (option->countDead == FALSE) ? ~0 : 0;
 	dd->maxGrowth = 1.0 + ((float) option->maxGrowth / 100.0);
@@ -1109,7 +1053,7 @@ startCudd(
 	dd->choose_dav_bound_factor = ((double) option->chooseDav / 10000.0);
 	dd->choose_fail_bound_factor = ((double) option->chooseFail / 100.0);
 	dd->bkfddMode = option->bkfddMode;
-	dd->choose_threshold = 4004; /* init choose threshold for chooseSD3, chooseSD6. */
+	dd->choose_threshold = 4444; /* init choose threshold for chooseSD3, chooseSD6. */
 	if (dd->davio_exist_factor < 0) {
 		dd->davio_exist_factor = 0;
 	}
@@ -1150,7 +1094,7 @@ startCudd(
 
 } /* end of startCudd */
 
-#if 0
+
 /** 
 	@brief Check BKFDD nodes
 		1. Check isolated variables.
@@ -1173,6 +1117,7 @@ CheckBkfddNodes(
 	totalDeads = isolatedCount = 0;
 	for (kk = 0; kk < dd->size; kk++) {
 		DdNodePtr *nodelist = dd->subtables[kk].nodelist;
+		assert(dd->subtables[kk].dead == 0);
 		unsigned int slots = dd->subtables[kk].slots;
 		unsigned int k;
 		for (k = 0; k < slots; k ++) {
@@ -1212,4 +1157,3 @@ CheckBkfddNodes(
 	}
 	return(1);
 } /* end of CheckBkfddNodes */
-#endif

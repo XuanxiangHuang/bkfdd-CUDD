@@ -18,14 +18,6 @@
 	@Modification and Extension details
 		1. Extend AND, XOR, ITE operations to non-Shannon decomposed nodes.
 		2. Add special version of AND, XOR, ITE operations.
-
-
-	2020/5/4: 
-		1. modified davio section of BkfddAndRecur and BkfddAndRecur_Inner
-			use rhigh = (flow and glow) xor [(flow xor fhigh) and (glow xor ghigh)]
-			instead.
-		2. modified davio section of BkfddIteRecur and BkfddIteRecur_Inner
-			use definition of ITE(f, g, h) := (f * g) xor (!f * h) instead.
 ======================================================================
 
 **********************************************************************
@@ -337,21 +329,21 @@ BkfddAndRecur(
 				}
 			}
 		}
-	} else { // Davio expansion using t xor [(flow xor fhigh) and (glow xor ghigh)]
+	} else { // Davio expansion
 		t = BkfddAndRecur(manager, flow, glow);
 		if (t == NULL) {
 			return(NULL);
 		}
 		cuddRef(t);
 
-		DdNode *tmp1 = BkfddXorRecur(manager, flow, fhigh);
+		DdNode * tmp1 = BkfddAndRecur(manager, fhigh, ghigh);
 		if (tmp1 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			return(NULL);
 		}
 		cuddRef(tmp1);
 
-		DdNode *tmp2 = BkfddXorRecur(manager, glow, ghigh);
+		DdNode * tmp2 = BkfddAndRecur(manager, flow, ghigh);
 		if (tmp2 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			Cudd_IterDerefBdd(manager, tmp1);
@@ -359,7 +351,7 @@ BkfddAndRecur(
 		}
 		cuddRef(tmp2);
 
-		DdNode *tmp3 = BkfddAndRecur(manager, tmp1, tmp2);
+		DdNode * tmp3 = BkfddAndRecur(manager, glow, fhigh);
 		if (tmp3 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			Cudd_IterDerefBdd(manager, tmp1);
@@ -368,12 +360,23 @@ BkfddAndRecur(
 		}
 		cuddRef(tmp3);
 
-		e = BkfddXorRecur(manager, t, tmp3);
+		DdNode * tmp4 = BkfddXorRecur(manager, tmp1, tmp2);
+		if (tmp4 == NULL) {
+			Cudd_IterDerefBdd(manager, t);
+			Cudd_IterDerefBdd(manager, tmp1);
+			Cudd_IterDerefBdd(manager, tmp2);
+			Cudd_IterDerefBdd(manager, tmp3);
+			return(NULL);
+		}
+		cuddRef(tmp4);
+
+		e = BkfddXorRecur(manager, tmp3, tmp4);
 		if (e == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			Cudd_IterDerefBdd(manager, tmp1);
 			Cudd_IterDerefBdd(manager, tmp2);
 			Cudd_IterDerefBdd(manager, tmp3);
+			Cudd_IterDerefBdd(manager, tmp4);
 			return(NULL);
 		}
 		cuddRef(e);
@@ -388,6 +391,7 @@ BkfddAndRecur(
 					Cudd_IterDerefBdd(manager, tmp1);
 					Cudd_IterDerefBdd(manager, tmp2);
 					Cudd_IterDerefBdd(manager, tmp3);
+					Cudd_IterDerefBdd(manager, tmp4);
 					Cudd_IterDerefBdd(manager, e);
 					return(NULL);
 				}
@@ -399,6 +403,7 @@ BkfddAndRecur(
 					Cudd_IterDerefBdd(manager, tmp1);
 					Cudd_IterDerefBdd(manager, tmp2);
 					Cudd_IterDerefBdd(manager, tmp3);
+					Cudd_IterDerefBdd(manager, tmp4);
 					Cudd_IterDerefBdd(manager, e);
 					return(NULL);
 				}
@@ -408,6 +413,7 @@ BkfddAndRecur(
 		Cudd_IterDerefBdd(manager, tmp1);
 		Cudd_IterDerefBdd(manager, tmp2);
 		Cudd_IterDerefBdd(manager, tmp3);
+		Cudd_IterDerefBdd(manager, tmp4);
 	}
 	cuddDeref(e);
 	cuddDeref(t);
@@ -746,15 +752,15 @@ BkfddIteRecur(
 	}
 
 	/* Recursive step. */
+	/* Cause g is always regular, by CUDD's standard triples,
+	t = ITE(F_l,G_l,H_l) is always regular. */
+	t = BkfddIteRecur(dd,F_l,G_l,H_l);
+	if (t == NULL) {
+		return(NULL);
+	}
+	cuddRef(t);
+
 	if (isShan(dec)) {
-		/* Cause g is always regular, by CUDD's standard triples,
-		t = ITE(F_l,G_l,H_l) is always regular. */
-		t = BkfddIteRecur(dd,F_l,G_l,H_l);
-		if (t == NULL) {
-			return(NULL);
-		}
-		cuddRef(t);
-		
 		e = BkfddIteRecur(dd,F_h,G_h,H_h);
 		if (e == NULL) {
 			Cudd_IterDerefBdd(dd,t);
@@ -771,30 +777,103 @@ BkfddIteRecur(
 				return(NULL);
 			}
 		}
-		cuddDeref(t);
-		cuddDeref(e);
-	} else { // Davio expansion, we use definition of ITE to compute result
-		/* ITE(F, G, H) := F * G + !F * H = (F * G) xor (!F * H) */
-		DdNode *tmp1 = BkfddAndRecur(dd, f, g);
+	} else { // Davio expansion
+		/* e = ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l)
+				XOR ITE(F_l,G_h,H_h) XOR H_l XOR H_h. */
+		DdNode *tmp1 = BkfddIteRecur(dd,F_h,G_h,H_h);
 		if (tmp1 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
 			return(NULL);
 		}
 		cuddRef(tmp1);
-		DdNode *tmp2 = BkfddAndRecur(dd, Cudd_Not(f), h);
+		DdNode *tmp2 = BkfddIteRecur(dd,F_h,G_l,H_l);
 		if (tmp2 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
 			Cudd_IterDerefBdd(dd,tmp1);
 			return(NULL);
 		}
 		cuddRef(tmp2);
-		r = BkfddXorRecur(dd, tmp1, tmp2);
-		if (r == NULL) {
+		DdNode *tmp3 = BkfddIteRecur(dd,F_l,G_h,H_h);
+		if (tmp3 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
 			Cudd_IterDerefBdd(dd,tmp1);
 			Cudd_IterDerefBdd(dd,tmp2);
 			return(NULL);
 		}
+		cuddRef(tmp3);
+		DdNode *tmp4 = BkfddXorRecur(dd,H_l,H_h);
+		if (tmp4 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			return(NULL);
+		}
+		cuddRef(tmp4);
+		/* ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l) */
+		DdNode *tmp5 = BkfddXorRecur(dd,tmp1,tmp2);
+		if (tmp5 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			Cudd_IterDerefBdd(dd,tmp4);
+			return(NULL);
+		}
+		cuddRef(tmp5);
+		/* ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l) XOR ITE(F_l,G_h,H_h) */
+		DdNode *tmp6 = BkfddXorRecur(dd,tmp5,tmp3);
+		if (tmp6 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			Cudd_IterDerefBdd(dd,tmp4);
+			Cudd_IterDerefBdd(dd,tmp5);
+			return(NULL);
+		}
+		cuddRef(tmp6);
+		/* ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l) XOR ITE(F_l,G_h,H_h)
+		 XOR H_l XOR H_h. */
+		e = BkfddXorRecur(dd,tmp6,tmp4);
+		if (e == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			Cudd_IterDerefBdd(dd,tmp4);
+			Cudd_IterDerefBdd(dd,tmp5);
+			Cudd_IterDerefBdd(dd,tmp6);
+			return(NULL);
+		}
+		cuddRef(e);
+
+		if (e == zero) {
+			r = t;
+		} else {
+			r = cuddUniqueInter(dd,(int)index,t,e);
+			if (r == NULL) {
+				Cudd_IterDerefBdd(dd,t);
+				Cudd_IterDerefBdd(dd,tmp1);
+				Cudd_IterDerefBdd(dd,tmp2);
+				Cudd_IterDerefBdd(dd,tmp3);
+				Cudd_IterDerefBdd(dd,tmp4);
+				Cudd_IterDerefBdd(dd,tmp5);
+				Cudd_IterDerefBdd(dd,tmp6);
+				Cudd_IterDerefBdd(dd,e);
+				return(NULL);
+			}
+		}
+		/* Dissolve intermediate results. */
 		Cudd_IterDerefBdd(dd,tmp1);
 		Cudd_IterDerefBdd(dd,tmp2);
+		Cudd_IterDerefBdd(dd,tmp3);
+		Cudd_IterDerefBdd(dd,tmp4);
+		Cudd_IterDerefBdd(dd,tmp5);
+		Cudd_IterDerefBdd(dd,tmp6);
 	}
+	cuddDeref(t);
+	cuddDeref(e);
 	cuddCacheInsert(dd, DD_BKFDD_ITE_TAG, f, g, h, r);
 	return(Cudd_NotCond(r,comple));
 
@@ -946,21 +1025,21 @@ BkfddAndRecur_Inner(
 				}
 			}
 		}
-	} else { // Davio expansion using t xor [(flow xor fhigh) and (glow xor ghigh)]
+	} else { // Davio expansion
 		t = BkfddAndRecur_Inner(manager, flow, glow);
 		if (t == NULL) {
 			return(NULL);
 		}
 		cuddRef(t);
 
-		DdNode *tmp1 = BkfddXorRecur_Inner(manager, flow, fhigh);
+		DdNode * tmp1 = BkfddAndRecur_Inner(manager, fhigh, ghigh);
 		if (tmp1 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			return(NULL);
 		}
 		cuddRef(tmp1);
 
-		DdNode *tmp2 = BkfddXorRecur_Inner(manager, glow, ghigh);
+		DdNode * tmp2 = BkfddAndRecur_Inner(manager, flow, ghigh);
 		if (tmp2 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			Cudd_IterDerefBdd(manager, tmp1);
@@ -968,7 +1047,7 @@ BkfddAndRecur_Inner(
 		}
 		cuddRef(tmp2);
 
-		DdNode *tmp3 = BkfddAndRecur_Inner(manager, tmp1, tmp2);
+		DdNode * tmp3 = BkfddAndRecur_Inner(manager, glow, fhigh);
 		if (tmp3 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			Cudd_IterDerefBdd(manager, tmp1);
@@ -977,12 +1056,23 @@ BkfddAndRecur_Inner(
 		}
 		cuddRef(tmp3);
 
-		e = BkfddXorRecur_Inner(manager, t, tmp3);
-		if (tmp3 == NULL) {
+		DdNode * tmp4 = BkfddXorRecur_Inner(manager, tmp1, tmp2);
+		if (tmp4 == NULL) {
 			Cudd_IterDerefBdd(manager, t);
 			Cudd_IterDerefBdd(manager, tmp1);
 			Cudd_IterDerefBdd(manager, tmp2);
 			Cudd_IterDerefBdd(manager, tmp3);
+			return(NULL);
+		}
+		cuddRef(tmp4);
+
+		e = BkfddXorRecur_Inner(manager, tmp3, tmp4);
+		if (e == NULL) {
+			Cudd_IterDerefBdd(manager, t);
+			Cudd_IterDerefBdd(manager, tmp1);
+			Cudd_IterDerefBdd(manager, tmp2);
+			Cudd_IterDerefBdd(manager, tmp3);
+			Cudd_IterDerefBdd(manager, tmp4);
 			return(NULL);
 		}
 		cuddRef(e);
@@ -997,6 +1087,7 @@ BkfddAndRecur_Inner(
 					Cudd_IterDerefBdd(manager, tmp1);
 					Cudd_IterDerefBdd(manager, tmp2);
 					Cudd_IterDerefBdd(manager, tmp3);
+					Cudd_IterDerefBdd(manager, tmp4);
 					Cudd_IterDerefBdd(manager, e);
 					return(NULL);
 				}
@@ -1008,6 +1099,7 @@ BkfddAndRecur_Inner(
 					Cudd_IterDerefBdd(manager, tmp1);
 					Cudd_IterDerefBdd(manager, tmp2);
 					Cudd_IterDerefBdd(manager, tmp3);
+					Cudd_IterDerefBdd(manager, tmp4);
 					Cudd_IterDerefBdd(manager, e);
 					return(NULL);
 				}
@@ -1016,6 +1108,7 @@ BkfddAndRecur_Inner(
 		cuddDeref(tmp1);
 		cuddDeref(tmp2);
 		cuddDeref(tmp3);
+		cuddDeref(tmp4);
 	}
 	cuddDeref(e);
 	cuddDeref(t);
@@ -1346,15 +1439,15 @@ BkfddIteRecur_Inner(
 	}
 
 	/* Recursive step. */
+	/* Cause g is always regular, by CUDD's standard triples,
+	t = ITE(F_l,G_l,H_l) is always regular. */
+	t = BkfddIteRecur_Inner(dd,F_l,G_l,H_l);
+	if (t == NULL) {
+		return(NULL);
+	}
+	cuddRef(t);
+
 	if (isShan(dec)) {
-		/* Cause g is always regular, by CUDD's standard triples,
-		t = ITE(F_l,G_l,H_l) is always regular. */
-		t = BkfddIteRecur_Inner(dd,F_l,G_l,H_l);
-		if (t == NULL) {
-			return(NULL);
-		}
-		cuddRef(t);
-		
 		e = BkfddIteRecur_Inner(dd,F_h,G_h,H_h);
 		if (e == NULL) {
 			Cudd_IterDerefBdd(dd,t);
@@ -1371,30 +1464,102 @@ BkfddIteRecur_Inner(
 				return(NULL);
 			}
 		}
-		cuddDeref(t);
-		cuddDeref(e);
-	} else { // Davio expansion, we use definition of ITE to compute result
-		/* ITE(F, G, H) := F * G + !F * H = (F * G) xor (!F * H) */
-		DdNode *tmp1 = BkfddAndRecur_Inner(dd, f, g);
+	} else { // Davio expansion
+		/* e = ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l)
+				XOR ITE(F_l,G_h,H_h) XOR H_l XOR H_h. */
+		DdNode *tmp1 = BkfddIteRecur_Inner(dd,F_h,G_h,H_h);
 		if (tmp1 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
 			return(NULL);
 		}
 		cuddRef(tmp1);
-		DdNode *tmp2 = BkfddAndRecur_Inner(dd, Cudd_Not(f), h);
+		DdNode *tmp2 = BkfddIteRecur_Inner(dd,F_h,G_l,H_l);
 		if (tmp2 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
 			Cudd_IterDerefBdd(dd,tmp1);
 			return(NULL);
 		}
 		cuddRef(tmp2);
-		r = BkfddXorRecur_Inner(dd, tmp1, tmp2);
-		if (r == NULL) {
+		DdNode *tmp3 = BkfddIteRecur_Inner(dd,F_l,G_h,H_h);
+		if (tmp3 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
 			Cudd_IterDerefBdd(dd,tmp1);
 			Cudd_IterDerefBdd(dd,tmp2);
 			return(NULL);
 		}
+		cuddRef(tmp3);
+		DdNode *tmp4 = BkfddXorRecur_Inner(dd,H_l,H_h);
+		if (tmp4 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			return(NULL);
+		}
+		cuddRef(tmp4);
+		/* ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l) */
+		DdNode *tmp5 = BkfddXorRecur_Inner(dd,tmp1,tmp2);
+		if (tmp5 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			Cudd_IterDerefBdd(dd,tmp4);
+			return(NULL);
+		}
+		cuddRef(tmp5);
+		/* ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l) XOR ITE(F_l,G_h,H_h) */
+		DdNode *tmp6 = BkfddXorRecur_Inner(dd,tmp5,tmp3);
+		if (tmp6 == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			Cudd_IterDerefBdd(dd,tmp4);
+			Cudd_IterDerefBdd(dd,tmp5);
+			return(NULL);
+		}
+		cuddRef(tmp6);
+		/* ITE(F_h,G_h,H_h) XOR ITE(F_h,G_l,H_l) XOR ITE(F_l,G_h,H_h)
+		 XOR H_l XOR H_h. */
+		e = BkfddXorRecur_Inner(dd,tmp6,tmp4);
+		if (e == NULL) {
+			Cudd_IterDerefBdd(dd,t);
+			Cudd_IterDerefBdd(dd,tmp1);
+			Cudd_IterDerefBdd(dd,tmp2);
+			Cudd_IterDerefBdd(dd,tmp3);
+			Cudd_IterDerefBdd(dd,tmp4);
+			Cudd_IterDerefBdd(dd,tmp5);
+			Cudd_IterDerefBdd(dd,tmp6);
+			return(NULL);
+		}
+		cuddRef(e);
+
+		if (e == zero) {
+			r = t;
+		} else {
+			r = cuddUniqueInter_Inner(dd,(int)index,t,e);
+			if (r == NULL) {
+				Cudd_IterDerefBdd(dd,t);
+				Cudd_IterDerefBdd(dd,tmp1);
+				Cudd_IterDerefBdd(dd,tmp2);
+				Cudd_IterDerefBdd(dd,tmp3);
+				Cudd_IterDerefBdd(dd,tmp4);
+				Cudd_IterDerefBdd(dd,tmp5);
+				Cudd_IterDerefBdd(dd,tmp6);
+				Cudd_IterDerefBdd(dd,e);
+				return(NULL);
+			}
+		}
 		cuddDeref(tmp1);
 		cuddDeref(tmp2);
+		cuddDeref(tmp3);
+		cuddDeref(tmp4);
+		cuddDeref(tmp5);
+		cuddDeref(tmp6);
 	}
+	cuddDeref(t);
+	cuddDeref(e);
 	cuddCacheInsert(dd, DD_BKFDD_ITE_TAG, f, g, h, r);
 	return(Cudd_NotCond(r,comple));
 

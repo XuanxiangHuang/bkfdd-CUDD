@@ -1,0 +1,95 @@
+.model 6-adder
+.inputs a5 b5 a4 b4 a3 b3 a2 b2 a1 b1 a0 b0 cin
+.outputs cout s5 s4 s3 s2 s1 s0
+.names a5 b5 bkf_0_1
+11 1
+00 1
+.names a4 b4 bkf_2_3
+11 1
+00 1
+.names a3 b3 bkf_4_5
+11 1
+00 1
+.names a2 b2 bkf_6_7
+11 1
+00 1
+.names a1 b1 bkf_8_9
+11 1
+00 1
+.names a0 b0 bkf_10_11
+11 1
+00 1
+.names d3637
+1
+.names b5 d3637 d3637 d363c
+11- 1
+0-0 1
+.names b4 d3637 d3637 d363e
+11- 1
+0-0 1
+.names b3 d3637 d3637 d3640
+11- 1
+0-0 1
+.names b2 d3637 d3637 d3642
+11- 1
+0-0 1
+.names b1 d3637 d3637 d3644
+11- 1
+0-0 1
+.names b0 d3637 d3637 d3646
+11- 1
+0-0 1
+.names cin d3637 d3637 d3647
+11- 1
+0-0 1
+.names bkf_10_11 d3646 d3647 d45cb
+11- 1
+0-1 1
+.names bkf_8_9 d3644 d45cb d45c0
+11- 1
+0-1 1
+.names bkf_6_7 d3642 d45c0 d45c9
+11- 1
+0-1 1
+.names bkf_4_5 d3640 d45c9 d45c6
+11- 1
+0-1 1
+.names bkf_2_3 d363e d45c6 d45be
+11- 1
+0-1 1
+.names bkf_0_1 d363c d45be d39fb
+11- 1
+0-1 1
+.names bkf_0_1 d45be d45be d4497
+11- 1
+0-0 1
+.names bkf_2_3 d45c6 d45c6 d46de
+11- 1
+0-0 1
+.names bkf_4_5 d45c9 d45c9 d47f4
+11- 1
+0-0 1
+.names bkf_6_7 d45c0 d45c0 d4872
+11- 1
+0-0 1
+.names bkf_8_9 d45cb d45cb d48a4
+11- 1
+0-0 1
+.names bkf_10_11 d3647 d3647 d48a7
+11- 1
+0-0 1
+.names d39fb cout
+1 1
+.names d4497 s5
+1 1
+.names d46de s4
+1 1
+.names d47f4 s3
+1 1
+.names d4872 s2
+1 1
+.names d48a4 s1
+1 1
+.names d48a7 s0
+1 1
+.end
