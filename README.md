@@ -1,9 +1,3 @@
-===============================================================================
-2020/11:
-We revise this package and use it in our ICCAD-2020 paper.
-
-===============================================================================
-2019/09
 The BKFDD package is an extension of the state-of-art CUDD package, It is
 written in C for the manipulation of Bi-Kronecker Functional Decision
 Diagrams, and Kronecker Functional Decision Diagrams.
@@ -19,7 +13,6 @@ is subdirectory of "nanotrav" directory. Experimental results of BKFDD and KFDD
 are contained in "testbkfdd" directory.
 
 3. Document of BKFDD is contained in "bkfddDoc" directory.
-===============================================================================
 
 FEEDBACK:
 
