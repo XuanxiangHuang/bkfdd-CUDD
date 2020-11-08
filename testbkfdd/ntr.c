@@ -20,6 +20,8 @@
 		2. Delete some unneeded functions.
 		3. Add fix_Canonicity to fix canonicity after changing expansions.
 		4. Enable choose better expns for DD during building if MODE_SD actived.
+
+		5. 2020-09-16: remove chooseSD, move it to bkfddBuild.c
 ======================================================================
 
 **********************************************************************
@@ -63,6 +65,7 @@
 #include "cuddInt.h"
 #include "ntr.h"
 #include "bkfddInt.h"
+#include "bkfdd_bnet.h"
 
 /*---------------------------------------------------------------------------*/
 /* Constant declarations                                                     */
@@ -120,8 +123,6 @@ Ntr_buildBKFDDs(
 	** another network, we initialize their BDDs from that network.
 	*/
 	assert(net2 == NULL);
-	assert( (option->autoMethod == KFDD_GROUP_SIFT) ||
-					(option->autoMethod == BKFDD_GROUP_SIFT) );
 
 	/* First assign variables to inputs if the order is provided.
 	** (Either in the .blif file or in an order file.)
@@ -182,33 +183,43 @@ Ntr_buildBKFDDs(
 				result = Bnet_BuildNodeBKFDD(dd,node,net,net->hash,
 				BNET_GLOBAL_DD,option->nodrop);
 				if (result == 0) return(0);
-
-				if (dd->bkfddMode == MODE_SD) {
+				
+				if (dd->autoDyn && dd->bkfddMode == MODE_SD) {
 					/* SD mode, all expansions are introduced during building. */
 					if ((int)dd->keys > dd->choose_threshold) {
 						/* Do GC before choose better expansions. */
 						cuddCacheFlush(dd);
-						cuddLocalCacheClearAll(dd);
 						cuddGarbageCollect(dd,0);
-						if (dd->autoMethod == BKFDD_GROUP_SIFT) {
-							if (!chooseSD6_restricted(dd)) return(0);
+						if (dd->autoMethod == BKFDD_GROUP_SIFT ||
+								dd->autoMethod == BKFDD_SYMM_SIFT ||
+								dd->autoMethod == BKFDD_GROUP_SIFT_NMEG) {
+							if (!chooseSD6(dd)) return(0);
 							/* once introduce pD expansions, we
 								need to fix canonicity of DD nodes*/
-							if (fix_Canonicity(dd, net) == 0) {
+							if (fix_Canonicity(dd, net, dd->size-1) == 0) {
 								fprintf(dd->err,"fix canonicity failed\n");
 								return(0);
 							}
-						} else if (dd->autoMethod == KFDD_GROUP_SIFT){
-							if (!chooseSD3_restricted(dd)) return(0);
-							if (fix_Canonicity(dd, net) == 0) {
+							if (!chooseSD3(dd)) return(0);
+							/* once introduce pD expansions, we
+								need to fix canonicity of DD nodes*/
+							if (fix_Canonicity(dd, net, dd->size-1) == 0) {
+								fprintf(dd->err,"fix canonicity failed\n");
+								return(0);
+							}
+						} else if (dd->autoMethod == KFDD_GROUP_SIFT ||
+											dd->autoMethod == KFDD_SYMM_SIFT){
+							if (!chooseSD3(dd)) return(0);
+							if (fix_Canonicity(dd, net, dd->size-1) == 0) {
 								fprintf(dd->err,"fix canonicity failed\n");
 								return(0);
 							}
 						}
-						dd->choose_threshold = dd->keys * 2;
+						Cudd_ReduceHeap(dd,dd->autoMethod,1);
+						dd->choose_threshold = (int)(dd->keys * 1.8);
 					}
 				}
-
+				
 				if (option->progress)  {
 					(void) fprintf(stdout,"%s\n",node->name);
 				}
@@ -221,33 +232,43 @@ Ntr_buildBKFDDs(
 			result = Bnet_BuildNodeBKFDD(dd,node,net,net->hash,BNET_GLOBAL_DD,
 			option->nodrop);
 			if (result == 0) return(0);
-
-			if (dd->bkfddMode == MODE_SD) {
+#if 0
+			if (dd->autoDyn && dd->bkfddMode == MODE_SD) {
 				/* SD mode, all expansions are introduced during building. */
 				if ((int)dd->keys > dd->choose_threshold) {
 					/* Do GC before choose better expansions. */
 					cuddCacheFlush(dd);
-					cuddLocalCacheClearAll(dd);
 					cuddGarbageCollect(dd,0);
-					if (dd->autoMethod == BKFDD_GROUP_SIFT) {
-						if (!chooseSD6_restricted(dd)) return(0);
+					if (dd->autoMethod == BKFDD_GROUP_SIFT ||
+							dd->autoMethod == BKFDD_SYMM_SIFT ||
+							dd->autoMethod == BKFDD_GROUP_SIFT_NMEG) {
+						if (!chooseSD6(dd)) return(0);
 						/* once introduce pD expansions, we
 							need to fix canonicity of DD nodes*/
-						if (fix_Canonicity(dd, net) == 0) {
+						if (fix_Canonicity(dd, net, dd->size-1) == 0) {
 							fprintf(dd->err,"fix canonicity failed\n");
 							return(0);
 						}
-					} else if (dd->autoMethod == KFDD_GROUP_SIFT){
-						if (!chooseSD3_restricted(dd)) return(0);
-						if (fix_Canonicity(dd, net) == 0) {
+						if (!chooseSD3(dd)) return(0);
+						/* once introduce pD expansions, we
+							need to fix canonicity of DD nodes*/
+						if (fix_Canonicity(dd, net, dd->size-1) == 0) {
+							fprintf(dd->err,"fix canonicity failed\n");
+							return(0);
+						}
+					} else if (dd->autoMethod == KFDD_GROUP_SIFT ||
+										dd->autoMethod == KFDD_SYMM_SIFT){
+						if (!chooseSD3(dd)) return(0);
+						if (fix_Canonicity(dd, net, dd->size-1) == 0) {
 							fprintf(dd->err,"fix canonicity failed\n");
 							return(0);
 						}
 					}
-					dd->choose_threshold = dd->keys * 2;
+					Cudd_ReduceHeap(dd,dd->autoMethod,1);
+					dd->choose_threshold = (int)(dd->keys * 1.8);
 				}
 			}
-
+#endif
 			if (option->progress)  {
 				(void) fprintf(stdout,"%s\n",node->name);
 			}
@@ -262,7 +283,7 @@ Ntr_buildBKFDDs(
 		}
 		result = Bnet_BuildNodeBKFDD(dd,node,net,net->hash,BNET_GLOBAL_DD,
 		option->nodrop);
-		if (result == 0) return(0);
+		if (result == 0) return(0);		
 		if (node->count == -1) Cudd_RecursiveDeref(dd,node->dd);
 	}
 	for (i = 0; i < net->nlatches; i++) {

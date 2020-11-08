@@ -60,6 +60,7 @@
 #include "cuddInt.h"
 #include "bkfddInt.h"
 #include "bnet.h"
+#include "bkfdd_bnet.h"
 
 /*---------------------------------------------------------------------------*/
 /* Constant declarations                                                     */

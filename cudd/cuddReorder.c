@@ -1174,6 +1174,11 @@ cuddSwapInPlace(
 
 	table->keys += newxkeys + newykeys - oldxkeys - oldykeys;
 
+	/* Xuanxiang Huang
+	long tmp_peak_node = Cudd_ReadPeakNodeCount(table);
+	if (tmp_peak_node > 5000)
+		printf("peak number of node = %ld\n", tmp_peak_node);
+	*/
 	return((int)(table->keys - table->isolated));
 
 cuddSwapOutOfMem:

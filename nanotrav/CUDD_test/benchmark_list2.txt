@@ -1,0 +1,3 @@
+../Benchmark/EPFL/revx.blif
+../Benchmark/EPFL/mul20.blif
+../Benchmark/EPFL/sqrt32.blif
