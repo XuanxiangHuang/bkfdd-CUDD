@@ -1,8 +1,3 @@
-===============================================================================
-2020/11:
-We revise this package and use it in our ICCAD-2020 paper.
-
-===============================================================================
 2019/10:
 The BKFDD package is an extension of the state-of-art CUDD package, It is
 written in C for the manipulation of Bi-Kronecker Functional Decision
