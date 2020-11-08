@@ -103,24 +103,24 @@ Cudd_bddExistAbstract(
   DdNode * f,
   DdNode * cube)
 {
-	DdNode *res;
+    DdNode *res;
 
-	if (bddCheckPositiveCube(manager, cube) == 0) {
-		(void) fprintf(manager->err,
-		"Error: Can only abstract positive cubes\n");
-		manager->errorCode = CUDD_INVALID_ARG;
-		return(NULL);
-	}
+    if (bddCheckPositiveCube(manager, cube) == 0) {
+        (void) fprintf(manager->err,
+		       "Error: Can only abstract positive cubes\n");
+	manager->errorCode = CUDD_INVALID_ARG;
+        return(NULL);
+    }
 
-	do {
-		manager->reordered = 0;
-		res = cuddBddExistAbstractRecur(manager, f, cube);
-	} while (manager->reordered == 1);
-	if (manager->errorCode == CUDD_TIMEOUT_EXPIRED && manager->timeoutHandler) {
-		manager->timeoutHandler(manager, manager->tohArg);
-	}
+    do {
+	manager->reordered = 0;
+	res = cuddBddExistAbstractRecur(manager, f, cube);
+    } while (manager->reordered == 1);
+    if (manager->errorCode == CUDD_TIMEOUT_EXPIRED && manager->timeoutHandler) {
+        manager->timeoutHandler(manager, manager->tohArg);
+    }
 
-	return(res);
+    return(res);
 
 } /* end of Cudd_bddExistAbstract */
 
@@ -228,25 +228,25 @@ Cudd_bddUnivAbstract(
   DdNode * f,
   DdNode * cube)
 {
-	DdNode	*res;
+    DdNode	*res;
 
-	if (bddCheckPositiveCube(manager, cube) == 0) {
+    if (bddCheckPositiveCube(manager, cube) == 0) {
 	(void) fprintf(manager->err,
-	"Error: Can only abstract positive cubes\n");
+		       "Error: Can only abstract positive cubes\n");
 	manager->errorCode = CUDD_INVALID_ARG;
 	return(NULL);
-	}
+    }
 
-	do {
-		manager->reordered = 0;
-		res = cuddBddExistAbstractRecur(manager, Cudd_Not(f), cube);
-	} while (manager->reordered == 1);
-	if (res != NULL) res = Cudd_Not(res);
-	if (manager->errorCode == CUDD_TIMEOUT_EXPIRED && manager->timeoutHandler) {
-		manager->timeoutHandler(manager, manager->tohArg);
-	}
+    do {
+	manager->reordered = 0;
+	res = cuddBddExistAbstractRecur(manager, Cudd_Not(f), cube);
+    } while (manager->reordered == 1);
+    if (res != NULL) res = Cudd_Not(res);
+    if (manager->errorCode == CUDD_TIMEOUT_EXPIRED && manager->timeoutHandler) {
+        manager->timeoutHandler(manager, manager->tohArg);
+    }
 
-	return(res);
+    return(res);
 
 } /* end of Cudd_bddUnivAbstract */
 
@@ -307,45 +307,45 @@ Cudd_bddVarIsDependent(
   DdNode *f,			/**< function */
   DdNode *var			/**< variable */)
 {
-	DdNode *F, *res, *zero, *ft, *fe;
-	unsigned topf, level;
-	DD_CTFP cacheOp;
-	int retval;
+    DdNode *F, *res, *zero, *ft, *fe;
+    unsigned topf, level;
+    DD_CTFP cacheOp;
+    int retval;
 
-	zero = Cudd_Not(DD_ONE(dd));
-	F = Cudd_Regular(f);
-	if (cuddIsConstant(F)) return(f == zero);
+    zero = Cudd_Not(DD_ONE(dd));
+    F = Cudd_Regular(f);
+    if (cuddIsConstant(F)) return(f == zero);
 
-	/* From now on f is not constant. */
-	topf = (unsigned) dd->perm[F->index];
-	level = (unsigned) dd->perm[var->index];
+    /* From now on f is not constant. */
+    topf = (unsigned) dd->perm[F->index];
+    level = (unsigned) dd->perm[var->index];
 
-	/* Check terminal case. If topf > index of var, f does not depend on var.
-	** Therefore, var is not dependent in f. */
-	if (topf > level) {
+    /* Check terminal case. If topf > index of var, f does not depend on var.
+    ** Therefore, var is not dependent in f. */
+    if (topf > level) {
 	return(0);
-	}
+    }
 
-	cacheOp = (DD_CTFP) Cudd_bddVarIsDependent;
-	res = cuddCacheLookup2(dd,cacheOp,f,var);
-	if (res != NULL) {
+    cacheOp = (DD_CTFP) Cudd_bddVarIsDependent;
+    res = cuddCacheLookup2(dd,cacheOp,f,var);
+    if (res != NULL) {
 	return(res != zero);
-	}
+    }
 
-	/* Compute cofactors. */
-	ft = Cudd_NotCond(cuddT(F), f != F);
-	fe = Cudd_NotCond(cuddE(F), f != F);
+    /* Compute cofactors. */
+    ft = Cudd_NotCond(cuddT(F), f != F);
+    fe = Cudd_NotCond(cuddE(F), f != F);
 
-	if (topf == level) {
+    if (topf == level) {
 	retval = Cudd_bddLeq(dd,ft,Cudd_Not(fe));
-	} else {
+    } else {
 	retval = Cudd_bddVarIsDependent(dd,ft,var) &&
-	Cudd_bddVarIsDependent(dd,fe,var);
-	}
+	    Cudd_bddVarIsDependent(dd,fe,var);
+    }
 
-	cuddCacheInsert2(dd,cacheOp,f,var,Cudd_NotCond(zero,retval));
+    cuddCacheInsert2(dd,cacheOp,f,var,Cudd_NotCond(zero,retval));
 
-	return(retval);
+    return(retval);
 
 } /* Cudd_bddVarIsDependent */
 
@@ -374,94 +374,94 @@ cuddBddExistAbstractRecur(
   DdNode * f,
   DdNode * cube)
 {
-	DdNode	*F, *T, *E, *res, *res1, *res2, *one;
+    DdNode	*F, *T, *E, *res, *res1, *res2, *one;
 
-	statLine(manager);
-	one = DD_ONE(manager);
-	F = Cudd_Regular(f);
+    statLine(manager);
+    one = DD_ONE(manager);
+    F = Cudd_Regular(f);
 
-	/* Cube is guaranteed to be a cube at this point. */	
-	if (cube == one || F == one) {  
-		return(f);
-	}
-	/* From now on, f and cube are non-constant. */
+    /* Cube is guaranteed to be a cube at this point. */	
+    if (cube == one || F == one) {  
+        return(f);
+    }
+    /* From now on, f and cube are non-constant. */
 
-	/* Abstract a variable that does not appear in f. */
-	while (manager->perm[F->index] > manager->perm[cube->index]) {
-		cube = cuddT(cube);
-		if (cube == one) return(f);
-	}
+    /* Abstract a variable that does not appear in f. */
+    while (manager->perm[F->index] > manager->perm[cube->index]) {
+	cube = cuddT(cube);
+	if (cube == one) return(f);
+    }
 
-	/* Check the cache. */
-	if (F->ref != 1 && (res = cuddCacheLookup2(manager, Cudd_bddExistAbstract, f, cube)) != NULL) {
+    /* Check the cache. */
+    if (F->ref != 1 && (res = cuddCacheLookup2(manager, Cudd_bddExistAbstract, f, cube)) != NULL) {
 	return(res);
-	}
+    }
 
-	checkWhetherToGiveUp(manager);
+    checkWhetherToGiveUp(manager);
 
-	/* Compute the cofactors of f. */
-	T = cuddT(F); E = cuddE(F);
-	if (f != F) {
+    /* Compute the cofactors of f. */
+    T = cuddT(F); E = cuddE(F);
+    if (f != F) {
 	T = Cudd_Not(T); E = Cudd_Not(E);
-	}
+    }
 
-	/* If the two indices are the same, so are their levels. */
-	if (F->index == cube->index) {
-		if (T == one || E == one || T == Cudd_Not(E)) {
-		return(one);
-		}
-		res1 = cuddBddExistAbstractRecur(manager, T, cuddT(cube));
-		if (res1 == NULL) return(NULL);
-		if (res1 == one) {
-			if (F->ref != 1)
-			cuddCacheInsert2(manager, Cudd_bddExistAbstract, f, cube, one);
-			return(one);
-		}
-		cuddRef(res1);
-		res2 = cuddBddExistAbstractRecur(manager, E, cuddT(cube));
-		if (res2 == NULL) {
-			Cudd_IterDerefBdd(manager,res1);
-			return(NULL);
-		}
-		cuddRef(res2);
-		res = cuddBddAndRecur(manager, Cudd_Not(res1), Cudd_Not(res2));
-		if (res == NULL) {
-			Cudd_IterDerefBdd(manager, res1);
-			Cudd_IterDerefBdd(manager, res2);
-			return(NULL);
-		}
-		res = Cudd_Not(res);
-		cuddRef(res);
-		Cudd_IterDerefBdd(manager, res1);
-		Cudd_IterDerefBdd(manager, res2);
-		if (F->ref != 1)
-			cuddCacheInsert2(manager, Cudd_bddExistAbstract, f, cube, res);
-		cuddDeref(res);
-		return(res);
-	} else { /* if (cuddI(manager,F->index) < cuddI(manager,cube->index)) */
-		res1 = cuddBddExistAbstractRecur(manager, T, cube);
-		if (res1 == NULL) return(NULL);
-		cuddRef(res1);
-		res2 = cuddBddExistAbstractRecur(manager, E, cube);
-		if (res2 == NULL) {
-			Cudd_IterDerefBdd(manager, res1);
-			return(NULL);
-		}
-		cuddRef(res2);
-		/* ITE takes care of possible complementation of res1 and of the
-		** case in which res1 == res2. */
-		res = cuddBddIteRecur(manager, manager->vars[F->index], res1, res2);
-		if (res == NULL) {
-			Cudd_IterDerefBdd(manager, res1);
-			Cudd_IterDerefBdd(manager, res2);
-			return(NULL);
-		}
-		cuddDeref(res1);
-		cuddDeref(res2);
-		if (F->ref != 1)
-			cuddCacheInsert2(manager, Cudd_bddExistAbstract, f, cube, res);
-		return(res);
-	}	    
+    /* If the two indices are the same, so are their levels. */
+    if (F->index == cube->index) {
+	if (T == one || E == one || T == Cudd_Not(E)) {
+	    return(one);
+	}
+	res1 = cuddBddExistAbstractRecur(manager, T, cuddT(cube));
+	if (res1 == NULL) return(NULL);
+	if (res1 == one) {
+	    if (F->ref != 1)
+		cuddCacheInsert2(manager, Cudd_bddExistAbstract, f, cube, one);
+	    return(one);
+	}
+        cuddRef(res1);
+	res2 = cuddBddExistAbstractRecur(manager, E, cuddT(cube));
+	if (res2 == NULL) {
+	    Cudd_IterDerefBdd(manager,res1);
+	    return(NULL);
+	}
+        cuddRef(res2);
+	res = cuddBddAndRecur(manager, Cudd_Not(res1), Cudd_Not(res2));
+	if (res == NULL) {
+	    Cudd_IterDerefBdd(manager, res1);
+	    Cudd_IterDerefBdd(manager, res2);
+	    return(NULL);
+	}
+	res = Cudd_Not(res);
+	cuddRef(res);
+	Cudd_IterDerefBdd(manager, res1);
+	Cudd_IterDerefBdd(manager, res2);
+	if (F->ref != 1)
+	    cuddCacheInsert2(manager, Cudd_bddExistAbstract, f, cube, res);
+	cuddDeref(res);
+        return(res);
+    } else { /* if (cuddI(manager,F->index) < cuddI(manager,cube->index)) */
+	res1 = cuddBddExistAbstractRecur(manager, T, cube);
+	if (res1 == NULL) return(NULL);
+        cuddRef(res1);
+	res2 = cuddBddExistAbstractRecur(manager, E, cube);
+	if (res2 == NULL) {
+	    Cudd_IterDerefBdd(manager, res1);
+	    return(NULL);
+	}
+        cuddRef(res2);
+	/* ITE takes care of possible complementation of res1 and of the
+        ** case in which res1 == res2. */
+	res = cuddBddIteRecur(manager, manager->vars[F->index], res1, res2);
+	if (res == NULL) {
+	    Cudd_IterDerefBdd(manager, res1);
+	    Cudd_IterDerefBdd(manager, res2);
+	    return(NULL);
+	}
+	cuddDeref(res1);
+	cuddDeref(res2);
+	if (F->ref != 1)
+	    cuddCacheInsert2(manager, Cudd_bddExistAbstract, f, cube, res);
+        return(res);
+    }	    
 
 } /* end of cuddBddExistAbstractRecur */
 
@@ -486,156 +486,156 @@ cuddBddXorExistAbstractRecur(
   DdNode * g,
   DdNode * cube)
 {
-  DdNode *F, *fv, *fnv, *G, *gv, *gnv;
-  DdNode *one, *zero, *r, *t, *e, *Cube;
-  int topf, topg, topcube, top;
-  unsigned int index;
+    DdNode *F, *fv, *fnv, *G, *gv, *gnv;
+    DdNode *one, *zero, *r, *t, *e, *Cube;
+    int topf, topg, topcube, top;
+    unsigned int index;
 
-  statLine(manager);
-  one = DD_ONE(manager);
-  zero = Cudd_Not(one);
+    statLine(manager);
+    one = DD_ONE(manager);
+    zero = Cudd_Not(one);
 
-	/* Terminal cases. */
-	if (f == g) {
+    /* Terminal cases. */
+    if (f == g) {
 	return(zero);
-	}
-	if (f == Cudd_Not(g)) {
+    }
+    if (f == Cudd_Not(g)) {
 	return(one);
-	}
-	if (cube == one) {
+    }
+    if (cube == one) {
 	return(cuddBddXorRecur(manager, f, g));
-	}
-	if (f == one) {
+    }
+    if (f == one) {
 	return(cuddBddExistAbstractRecur(manager, Cudd_Not(g), cube));
-	}
-	if (g == one) {
+    }
+    if (g == one) {
 	return(cuddBddExistAbstractRecur(manager, Cudd_Not(f), cube));
-	}
-	if (f == zero) {
+    }
+    if (f == zero) {
 	return(cuddBddExistAbstractRecur(manager, g, cube));
-	}
-	if (g == zero) {
+    }
+    if (g == zero) {
 	return(cuddBddExistAbstractRecur(manager, f, cube));
-	}
+    }
 
-	/* At this point f, g, and cube are not constant. */
+    /* At this point f, g, and cube are not constant. */
 
-	if (f > g) { /* Try to increase cache efficiency. */
+    if (f > g) { /* Try to increase cache efficiency. */
 	DdNode *tmp = f;
 	f = g;
 	g = tmp;
-	}
+    }
 
-	/* Check cache. */
-	r = cuddCacheLookup(manager, DD_BDD_XOR_EXIST_ABSTRACT_TAG, f, g, cube);
-	if (r != NULL) {
+    /* Check cache. */
+    r = cuddCacheLookup(manager, DD_BDD_XOR_EXIST_ABSTRACT_TAG, f, g, cube);
+    if (r != NULL) {
 	return(r);
-	}
+    }
 
-	checkWhetherToGiveUp(manager);
+    checkWhetherToGiveUp(manager);
 
-	/* Here we can skip the use of cuddI, because the operands are known
-	** to be non-constant.
-	*/
-	F = Cudd_Regular(f);
-	topf = manager->perm[F->index];
-	G = Cudd_Regular(g);
-	topg = manager->perm[G->index];
-	top = ddMin(topf, topg);
-	topcube = manager->perm[cube->index];
+    /* Here we can skip the use of cuddI, because the operands are known
+    ** to be non-constant.
+    */
+    F = Cudd_Regular(f);
+    topf = manager->perm[F->index];
+    G = Cudd_Regular(g);
+    topg = manager->perm[G->index];
+    top = ddMin(topf, topg);
+    topcube = manager->perm[cube->index];
 
-	if (topcube < top) {
+    if (topcube < top) {
 	return(cuddBddXorExistAbstractRecur(manager, f, g, cuddT(cube)));
-	}
-	/* Now, topcube >= top. */
+    }
+    /* Now, topcube >= top. */
 
-	if (topf == top) {
+    if (topf == top) {
 	index = F->index;
 	fv = cuddT(F);
 	fnv = cuddE(F);
 	if (Cudd_IsComplement(f)) {
-	fv = Cudd_Not(fv);
-	fnv = Cudd_Not(fnv);
+	    fv = Cudd_Not(fv);
+	    fnv = Cudd_Not(fnv);
 	}
-	} else {
+    } else {
 	index = G->index;
 	fv = fnv = f;
-	}
+    }
 
-	if (topg == top) {
+    if (topg == top) {
 	gv = cuddT(G);
 	gnv = cuddE(G);
 	if (Cudd_IsComplement(g)) {
-	gv = Cudd_Not(gv);
-	gnv = Cudd_Not(gnv);
+	    gv = Cudd_Not(gv);
+	    gnv = Cudd_Not(gnv);
 	}
-	} else {
+    } else {
 	gv = gnv = g;
-	}
+    }
 
-	if (topcube == top) {
+    if (topcube == top) {
 	Cube = cuddT(cube);
-	} else {
+    } else {
 	Cube = cube;
-	}
+    }
 
-	t = cuddBddXorExistAbstractRecur(manager, fv, gv, Cube);
-	if (t == NULL) return(NULL);
+    t = cuddBddXorExistAbstractRecur(manager, fv, gv, Cube);
+    if (t == NULL) return(NULL);
 
-	/* Special case: 1 OR anything = 1. Hence, no need to compute
-	** the else branch if t is 1.
-	*/
-	if (t == one && topcube == top) {
+    /* Special case: 1 OR anything = 1. Hence, no need to compute
+    ** the else branch if t is 1.
+    */
+    if (t == one && topcube == top) {
 	cuddCacheInsert(manager, DD_BDD_XOR_EXIST_ABSTRACT_TAG, f, g, cube, one);
 	return(one);
-	}
-	cuddRef(t);
+    }
+    cuddRef(t);
 
-	e = cuddBddXorExistAbstractRecur(manager, fnv, gnv, Cube);
-	if (e == NULL) {
+    e = cuddBddXorExistAbstractRecur(manager, fnv, gnv, Cube);
+    if (e == NULL) {
 	Cudd_IterDerefBdd(manager, t);
 	return(NULL);
-	}
-	cuddRef(e);
+    }
+    cuddRef(e);
 
-	if (topcube == top) {	/* abstract */
+    if (topcube == top) {	/* abstract */
 	r = cuddBddAndRecur(manager, Cudd_Not(t), Cudd_Not(e));
 	if (r == NULL) {
-	Cudd_IterDerefBdd(manager, t);
-	Cudd_IterDerefBdd(manager, e);
-	return(NULL);
+	    Cudd_IterDerefBdd(manager, t);
+	    Cudd_IterDerefBdd(manager, e);
+	    return(NULL);
 	}
 	r = Cudd_Not(r);
 	cuddRef(r);
 	Cudd_IterDerefBdd(manager, t);
 	Cudd_IterDerefBdd(manager, e);
 	cuddDeref(r);
-	} else if (t == e) {
+    } else if (t == e) {
 	r = t;
 	cuddDeref(t);
 	cuddDeref(e);
-	} else {
+    } else {
 	if (Cudd_IsComplement(t)) {
-	r = cuddUniqueInter(manager,(int)index,Cudd_Not(t),Cudd_Not(e));
-	if (r == NULL) {
-	Cudd_IterDerefBdd(manager, t);
-	Cudd_IterDerefBdd(manager, e);
-	return(NULL);
-	}
-	r = Cudd_Not(r);
+	    r = cuddUniqueInter(manager,(int)index,Cudd_Not(t),Cudd_Not(e));
+	    if (r == NULL) {
+		Cudd_IterDerefBdd(manager, t);
+		Cudd_IterDerefBdd(manager, e);
+		return(NULL);
+	    }
+	    r = Cudd_Not(r);
 	} else {
-	r = cuddUniqueInter(manager,(int)index,t,e);
-	if (r == NULL) {
-	Cudd_IterDerefBdd(manager, t);
-	Cudd_IterDerefBdd(manager, e);
-	return(NULL);
-	}
+	    r = cuddUniqueInter(manager,(int)index,t,e);
+	    if (r == NULL) {
+		Cudd_IterDerefBdd(manager, t);
+		Cudd_IterDerefBdd(manager, e);
+		return(NULL);
+	    }
 	}
 	cuddDeref(e);
 	cuddDeref(t);
-	}
-	cuddCacheInsert(manager, DD_BDD_XOR_EXIST_ABSTRACT_TAG, f, g, cube, r);
-	return (r);
+    }
+    cuddCacheInsert(manager, DD_BDD_XOR_EXIST_ABSTRACT_TAG, f, g, cube, r);
+    return (r);
 
 } /* end of cuddBddXorExistAbstractRecur */
 
@@ -727,13 +727,13 @@ bddCheckPositiveCube(
   DdManager * manager,
   DdNode * cube)
 {
-	if (Cudd_IsComplement(cube)) return(0);
-	if (cube == DD_ONE(manager)) return(1);
-	if (cuddIsConstant(cube)) return(0);
-	if (cuddE(cube) == Cudd_Not(DD_ONE(manager))) {
-		return(bddCheckPositiveCube(manager, cuddT(cube)));
-	}
-	return(0);
+    if (Cudd_IsComplement(cube)) return(0);
+    if (cube == DD_ONE(manager)) return(1);
+    if (cuddIsConstant(cube)) return(0);
+    if (cuddE(cube) == Cudd_Not(DD_ONE(manager))) {
+        return(bddCheckPositiveCube(manager, cuddT(cube)));
+    }
+    return(0);
 
 } /* end of bddCheckPositiveCube */
 

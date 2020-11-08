@@ -48,15 +48,12 @@
 
   @Modification author 
 		Xuanxiang Huang
-
-	2 : 2020/09/20, add counter and check condition to Cudd_CheckZeroRef
 ======================================================================
 
 */
 
 #include "util.h"
 #include "cuddInt.h"
-#include "bkfddInt.h"
 
 /*---------------------------------------------------------------------------*/
 /* Constant declarations                                                     */
@@ -445,11 +442,7 @@ Cudd_CheckZeroRef(
   DdSubtable *subtable;
   int count = 0;
   int index;
-/** Xuanxiang Huang:BKFDD */
-  int counterVar = 0;
-  int counterNonVar = 0;
-/** Xuanxiang Huang:BKFDD */
-  
+
 #ifndef DD_NO_DEATH_ROW
   cuddClearDeathRow(manager);
 #endif
@@ -471,41 +464,10 @@ Cudd_CheckZeroRef(
 					if (node != Cudd_Regular(manager->vars[index])) {
 /** Xuanxiang Huang:BKFDD */
 						count++;
-						counterNonVar ++;
 					} else {
 						if (node->ref != 1) {
-					/** Xuanxiang Huang:BKFDD */
-							if (i) {
-								if (isBi(manager->expansion[i-1])) {
-									if (isShan(manager->expansion[i-1])) {
-										if (node->ref != 3) {
-											printf("Cudd_CheckZeroRef(BKFDD): var whose upper var is BS var must have 3 reference\n");
-										}
-									} else {
-										if (node->ref != 2) {
-											printf("Cudd_CheckZeroRef(BKFDD): var whose upper var is B(P)ND var must have 2 reference\n");
-										}
-									}
-								} else {
-									printf("Cudd_CheckZeroRef(BKFDD): var whose upper var is Cla var must have 1 reference\n");
-								}
-							} else {
-								printf("Cudd_CheckZeroRef(BKFDD): top var must have 1 reference\n");
-							}
 							count++;
-							counterVar ++;
-						} else {// node->ref == 1
-							if (i) {
-								if (isBi(manager->expansion[i-1])) {
-									if (isShan(manager->expansion[i-1])) {
-										printf("Cudd_CheckZeroRef(BKFDD): var whose upper var is BS var must have 3 reference\n");
-									} else {
-										printf("Cudd_CheckZeroRef(BKFDD): var whose upper var is B(P)ND var must have 2 reference\n");
-									}
-								}
-							}
 						}
-					/** Xuanxiang Huang:BKFDD */
 					}
 				}
 				node = node->next;
@@ -566,9 +528,6 @@ Cudd_CheckZeroRef(
 			node = node->next;
 		}
 	}
-	if ( counterNonVar != 0 || (counterVar != 0 && (counterVar + 1) != count) )
-		printf("Cudd_CheckZeroRef: this DD could be non-canonical\n");
-	
 	return(count);
 
 } /* end of Cudd_CheckZeroRef */

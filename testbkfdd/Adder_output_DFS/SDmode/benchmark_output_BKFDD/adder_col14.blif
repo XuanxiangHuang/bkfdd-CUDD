@@ -1,0 +1,207 @@
+.model 14-adder
+.inputs a13 b13 b12 a12 a11 b11 b10 a10 a9 b9 b8 a8 b7 a7 a6 b6 b5 a5 b4 a4 b3 a3 b2 a2 b1 a1 cin a0 b0
+.outputs cout s13 s12 s11 s10 s9 s8 s7 s6 s5 s4 s3 s2 s1 s0
+.names a13 b13 bkf_0_1
+11 1
+00 1
+.names b12 a12 bkf_2_3
+11 1
+00 1
+.names a11 b11 bkf_4_5
+11 1
+00 1
+.names b10 a10 bkf_6_7
+11 1
+00 1
+.names a9 b9 bkf_8_9
+11 1
+00 1
+.names b8 a8 bkf_10_11
+11 1
+00 1
+.names b7 a7 bkf_12_13
+11 1
+00 1
+.names a6 b6 bkf_14_15
+11 1
+00 1
+.names b5 a5 bkf_16_17
+11 1
+00 1
+.names b4 a4 bkf_18_19
+11 1
+00 1
+.names b3 a3 bkf_20_21
+11 1
+00 1
+.names b2 a2 bkf_22_23
+11 1
+00 1
+.names b1 a1 bkf_24_25
+11 1
+00 1
+.names cin a0 bkf_26_27
+11 1
+00 1
+.names 1107f9
+1
+.names b13 1107f9 1107f9 1107fe
+11- 1
+0-0 1
+.names a12 1107f9 1107f9 110800
+11- 1
+0-0 1
+.names b11 1107f9 1107f9 110802
+11- 1
+0-0 1
+.names a10 1107f9 1107f9 110804
+11- 1
+0-0 1
+.names b9 1107f9 1107f9 110806
+11- 1
+0-0 1
+.names a8 1107f9 1107f9 110808
+11- 1
+0-0 1
+.names a7 1107f9 1107f9 11080a
+11- 1
+0-0 1
+.names b6 1107f9 1107f9 11080c
+11- 1
+0-0 1
+.names a5 1107f9 1107f9 11080e
+11- 1
+0-0 1
+.names a4 1107f9 1107f9 110810
+11- 1
+0-0 1
+.names a3 1107f9 1107f9 110812
+11- 1
+0-0 1
+.names a2 1107f9 1107f9 110814
+11- 1
+0-0 1
+.names a1 1107f9 1107f9 110816
+11- 1
+0-0 1
+.names a0 1107f9 1107f9 110818
+11- 1
+0-0 1
+.names b0 1107f9 1107f9 110819
+11- 1
+0-0 1
+.names bkf_26_27 110818 110819 110bc5
+11- 1
+0-1 1
+.names bkf_24_25 110816 110bc5 11bec3
+11- 1
+0-1 1
+.names bkf_22_23 110814 11bec3 11bed0
+11- 1
+0-1 1
+.names bkf_20_21 110812 11bed0 11bec0
+11- 1
+0-1 1
+.names bkf_18_19 110810 11bec0 118367
+11- 1
+0-1 1
+.names bkf_16_17 11080e 118367 11bec5
+11- 1
+0-1 1
+.names bkf_14_15 11080c 11bec5 11bece
+11- 1
+0-1 1
+.names bkf_12_13 11080a 11bece 1133ce
+11- 1
+0-1 1
+.names bkf_10_11 110808 1133ce 1152be
+11- 1
+0-1 1
+.names bkf_8_9 110806 1152be 113145
+11- 1
+0-1 1
+.names bkf_6_7 110804 113145 11612a
+11- 1
+0-1 1
+.names bkf_4_5 110802 11612a 115b78
+11- 1
+0-1 1
+.names bkf_2_3 110800 115b78 11becc
+11- 1
+0-1 1
+.names bkf_0_1 1107fe 11becc 119fd8
+11- 1
+0-1 1
+.names bkf_0_1 11becc 11becc 11909b
+11- 1
+0-0 1
+.names bkf_2_3 115b78 115b78 11ab4d
+11- 1
+0-0 1
+.names bkf_4_5 11612a 11612a 11ac89
+11- 1
+0-0 1
+.names bkf_6_7 113145 113145 11b977
+11- 1
+0-0 1
+.names bkf_8_9 1152be 1152be 11b768
+11- 1
+0-0 1
+.names bkf_10_11 1133ce 1133ce 11afd4
+11- 1
+0-0 1
+.names bkf_12_13 11bece 11bece 11bdec
+11- 1
+0-0 1
+.names bkf_14_15 11bec5 11bec5 11b991
+11- 1
+0-0 1
+.names bkf_16_17 118367 118367 11b8e6
+11- 1
+0-0 1
+.names bkf_18_19 11bec0 11bec0 11bb80
+11- 1
+0-0 1
+.names bkf_20_21 11bed0 11bed0 11c0db
+11- 1
+0-0 1
+.names bkf_22_23 11bec3 11bec3 11bf99
+11- 1
+0-0 1
+.names bkf_24_25 110bc5 110bc5 11bf07
+11- 1
+0-0 1
+.names bkf_26_27 110819 110819 11bebf
+11- 1
+0-0 1
+.names 119fd8 cout
+1 1
+.names 11909b s13
+1 1
+.names 11ab4d s12
+1 1
+.names 11ac89 s11
+1 1
+.names 11b977 s10
+1 1
+.names 11b768 s9
+1 1
+.names 11afd4 s8
+1 1
+.names 11bdec s7
+1 1
+.names 11b991 s6
+1 1
+.names 11b8e6 s5
+1 1
+.names 11bb80 s4
+1 1
+.names 11c0db s3
+1 1
+.names 11bf99 s2
+1 1
+.names 11bf07 s1
+1 1
+.names 11bebf s0
+1 1
+.end

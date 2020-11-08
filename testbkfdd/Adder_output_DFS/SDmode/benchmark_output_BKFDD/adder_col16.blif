@@ -1,0 +1,389 @@
+.model 16-adder
+.inputs a15 b15 a14 b14 b13 a13 a12 b12 a11 b11 b10 a10 b9 a9 b8 a8 b7 a7 b6 a6 cin b0 a0 a1 b1 b3 a3 b4 a4 b5 a5 a2 b2
+.outputs cout s15 s14 s13 s12 s11 s10 s9 s8 s7 s6 s5 s4 s3 s2 s1 s0
+.names a15 b15 bkf_7_23
+11 1
+00 1
+.names a14 b14 bkf_6_22
+11 1
+00 1
+.names b13 a13 bkf_21_5
+11 1
+00 1
+.names a12 b12 bkf_4_20
+11 1
+00 1
+.names a11 b11 bkf_3_19
+11 1
+00 1
+.names b10 a10 bkf_18_2
+11 1
+00 1
+.names b9 a9 bkf_31_15
+11 1
+00 1
+.names b8 a8 bkf_30_14
+11 1
+00 1
+.names b7 a7 bkf_29_13
+11 1
+00 1
+.names b6 a6 bkf_28_12
+11 1
+00 1
+.names cin b0 bkf_32_16
+11 1
+00 1
+.names b3 a3 bkf_25_9
+11 1
+00 1
+.names a3 b4 bkf_9_26
+11 1
+00 1
+.names b4 a4 bkf_26_10
+11 1
+00 1
+.names a4 b5 bkf_10_27
+11 1
+00 1
+.names b5 a5 bkf_27_11
+11 1
+00 1
+.names 1ebde0
+1
+.names b15 1ebde0 1ebde0 1ebdfb
+11- 1
+0-0 1
+.names b14 1ebde0 1ebde0 1ebdfa
+11- 1
+0-0 1
+.names a13 1ebde0 1ebde0 1ebde9
+11- 1
+0-0 1
+.names b12 1ebde0 1ebde0 1ebdf8
+11- 1
+0-0 1
+.names b11 1ebde0 1ebde0 1ebdf7
+11- 1
+0-0 1
+.names a10 1ebde0 1ebde0 1ebde6
+11- 1
+0-0 1
+.names a9 1ebde0 1ebde0 1ebdf3
+11- 1
+0-0 1
+.names a8 1ebde0 1ebde0 1ebdf2
+01- 1
+-10 1
+101 1
+.names a7 1ebde0 1ebde0 1ebdf1
+11- 1
+0-0 1
+.names a6 1ebde0 1ebde0 1ebdf0
+11- 1
+0-0 1
+.names a5 1ebde0 1ebde0 1ebdef
+11- 1
+0-0 1
+.names bkf_27_11 1ebdef 1ebdef 1ebdff
+11- 1
+0-0 1
+.names bkf_10_27 1ebdff 1ebdef 20fdd0
+11- 1
+0-1 1
+.names bkf_10_27 1ebdef 1ebdff 20f620
+11- 1
+0-1 1
+.names bkf_26_10 20fdd0 20f620 20feb7
+11- 1
+0-1 1
+.names bkf_9_26 20feb7 20fdd0 20fe68
+11- 1
+0-1 1
+.names b2 1ebde0 1ebde0 1ebdfc
+11- 1
+0-0 1
+.names a2 1ebde0 1ebdfc 20fe5c
+11- 1
+0-1 1
+.names bkf_27_11 1ebdef 20fe5c 20fe6b
+11- 1
+0-1 1
+.names bkf_26_10 20fdd0 20fe6b 20f1f5
+11- 1
+0-1 1
+.names bkf_25_9 20fe68 20f1f5 20fdf2
+11- 1
+0-1 1
+.names a2 1ebdfc 1ebde0 20fddf
+11- 1
+0-0 1
+.names bkf_27_11 1ebdef 20fddf 20fe51
+11- 1
+0-1 1
+.names bkf_26_10 20fdd0 20fe51 20fdff
+11- 1
+0-1 1
+.names bkf_25_9 20fe68 20fdff 210048
+11- 1
+0-1 1
+.names b1 20fdf2 210048 20fe48
+11- 1
+0-1 1
+.names a1 20fdf2 20fe48 20ff4f
+11- 1
+0-1 1
+.names a1 20fe48 210048 20fdd7
+11- 1
+0-1 1
+.names b0 20ff4f 20fdd7 20fea3
+11- 1
+0-1 1
+.names a0 20ff4f 20fdd7 20ff61
+11- 1
+0-1 1
+.names bkf_32_16 20fea3 20ff61 20fdf1
+11- 1
+0-1 1
+.names bkf_28_12 1ebdf0 20fdf1 20fcec
+11- 1
+0-1 1
+.names bkf_29_13 1ebdf1 20fcec 20fde6
+11- 1
+0-1 1
+.names bkf_30_14 1ebdf2 20fde6 20fddd
+11- 1
+0-0 1
+.names bkf_31_15 1ebdf3 20fddd 20fdc9
+11- 1
+0-0 1
+.names bkf_18_2 1ebde6 20fdc9 20fc14
+11- 1
+0-1 1
+.names bkf_3_19 1ebdf7 20fc14 20f39e
+11- 1
+0-1 1
+.names bkf_4_20 1ebdf8 20f39e 20fee1
+11- 1
+0-1 1
+.names bkf_21_5 1ebde9 20fee1 20fff5
+11- 1
+0-1 1
+.names bkf_6_22 1ebdfa 20fff5 20fe32
+11- 1
+0-1 1
+.names bkf_7_23 1ebdfb 20fe32 20e495
+11- 1
+0-1 1
+.names bkf_7_23 20fe32 20fe32 20fb33
+11- 1
+0-0 1
+.names bkf_6_22 20fff5 20fff5 20f6c1
+11- 1
+0-0 1
+.names bkf_21_5 20fee1 20fee1 21014d
+11- 1
+0-0 1
+.names bkf_4_20 20f39e 20f39e 20fbe9
+11- 1
+0-0 1
+.names bkf_3_19 20fc14 20fc14 20ffa4
+11- 1
+0-0 1
+.names bkf_18_2 20fdc9 20fdc9 21007e
+11- 1
+0-0 1
+.names bkf_31_15 20fddd 20fddd 20fabd
+11- 1
+0-0 1
+.names bkf_30_14 20fde6 20fde6 20f2cd
+11- 1
+0-0 1
+.names bkf_29_13 20fcec 20fcec 20f7b1
+11- 1
+0-0 1
+.names bkf_28_12 20fdf1 20fdf1 20f2ce
+11- 1
+0-0 1
+.names bkf_10_27 1ebdef 1ebdef 20fdf5
+11- 1
+0-0 1
+.names bkf_26_10 20fdf5 20fdf5 20fe04
+11- 1
+0-0 1
+.names bkf_9_26 20fe04 20fdf5 20fe09
+11- 1
+0-1 1
+.names bkf_27_11 20fe5c 20fe5c 20fe3a
+11- 1
+0-0 1
+.names bkf_26_10 20fdf5 20fe3a 20f2e7
+11- 1
+0-1 1
+.names bkf_25_9 20fe09 20f2e7 20ff0a
+11- 1
+0-1 1
+.names bkf_27_11 20fddf 20fddf 20fdcc
+11- 1
+0-0 1
+.names bkf_26_10 20fdf5 20fdcc 20ff99
+11- 1
+0-1 1
+.names bkf_25_9 20fe09 20ff99 20fe0c
+11- 1
+0-1 1
+.names b1 20ff0a 20fe0c 20f913
+11- 1
+0-1 1
+.names a1 20ff0a 20f913 20ff0e
+11- 1
+0-1 1
+.names a1 20f913 20fe0c 20f53b
+11- 1
+0-1 1
+.names b0 20ff0e 20f53b 20fe62
+11- 1
+0-1 1
+.names a0 20ff0e 20f53b 20fdfb
+11- 1
+0-1 1
+.names bkf_32_16 20fe62 20fdfb 20f841
+11- 1
+0-1 1
+.names bkf_10_27 1ebdff 1ebdff 1ebdee
+11- 1
+0-0 1
+.names bkf_9_26 1ebdee 1ebdee 20fdca
+11- 1
+0-0 1
+.names bkf_26_10 20fe5c 20fe5c 20fdda
+11- 1
+0-0 1
+.names bkf_25_9 20fdca 20fdda 20feba
+11- 1
+0-1 1
+.names bkf_26_10 20fddf 20fddf 20fe00
+11- 1
+0-0 1
+.names bkf_25_9 20fdca 20fe00 21017c
+11- 1
+0-1 1
+.names b1 20feba 21017c 20fe81
+11- 1
+0-1 1
+.names a1 20feba 20fe81 20fe72
+11- 1
+0-1 1
+.names a1 20fe81 21017c 20fe5a
+11- 1
+0-1 1
+.names b0 20fe72 20fe5a 20fbce
+11- 1
+0-1 1
+.names a0 20fe72 20fe5a 20fea6
+11- 1
+0-1 1
+.names bkf_32_16 20fbce 20fea6 20faca
+11- 1
+0-1 1
+.names bkf_25_9 20fe5c 20fe5c 20fa11
+11- 1
+0-0 1
+.names bkf_25_9 20fddf 20fddf 20ffa1
+11- 1
+0-0 1
+.names b1 20fa11 20ffa1 20fe26
+11- 1
+0-1 1
+.names a1 20fa11 20fe26 20fdd8
+11- 1
+0-1 1
+.names a1 20fe26 20ffa1 20fe46
+11- 1
+0-1 1
+.names b0 20fdd8 20fe46 20fe5d
+11- 1
+0-1 1
+.names a0 20fdd8 20fe46 20fe13
+11- 1
+0-1 1
+.names bkf_32_16 20fe5d 20fe13 21004c
+11- 1
+0-1 1
+.names a2 1ebdfc 1ebdfc 20f04b
+11- 1
+0-0 1
+.names b1 20f04b 20f04b 20ff1c
+11- 1
+0-0 1
+.names a1 20f04b 20ff1c 20fdd1
+11- 1
+0-1 1
+.names a1 20ff1c 20f04b 20fe44
+11- 1
+0-0 1
+.names b0 20fdd1 20fe44 20fdcd
+11- 1
+0-1 1
+.names a0 20fdd1 20fe44 20fe03
+11- 1
+0-1 1
+.names bkf_32_16 20fdcd 20fe03 20fea1
+11- 1
+0-1 1
+.names b1 1ebde0 1ebde0 1ebdf5
+11- 1
+0-0 1
+.names a1 1ebdf5 1ebdf5 20fc3a
+11- 1
+0-0 1
+.names b0 20fc3a 20fc3a 20fee4
+11- 1
+0-0 1
+.names a0 20fc3a 20fc3a 20feb0
+11- 1
+0-0 1
+.names bkf_32_16 20fee4 20feb0 20fe7e
+11- 1
+0-1 1
+.names a0 1ebde0 1ebde0 1ebde4
+11- 1
+0-0 1
+.names bkf_32_16 1ebde4 1ebde4 20ff2c
+11- 1
+0-0 1
+.names 20e495 cout
+1 1
+.names 20fb33 s15
+1 1
+.names 20f6c1 s14
+1 1
+.names 21014d s13
+1 1
+.names 20fbe9 s12
+1 1
+.names 20ffa4 s11
+1 1
+.names 21007e s10
+1 1
+.names 20fabd s9
+0 1
+.names 20f2cd s8
+1 1
+.names 20f7b1 s7
+1 1
+.names 20f2ce s6
+1 1
+.names 20f841 s5
+1 1
+.names 20faca s4
+1 1
+.names 21004c s3
+1 1
+.names 20fea1 s2
+1 1
+.names 20fe7e s1
+1 1
+.names 20ff2c s0
+1 1
+.end

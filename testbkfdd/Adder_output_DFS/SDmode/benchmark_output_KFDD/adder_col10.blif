@@ -1,0 +1,171 @@
+.model 10-adder
+.inputs b9 a9 a8 b8 a7 b7 a6 b6 b5 a5 a4 b4 b3 a3 a2 b2 b1 a1 cin a0 b0
+.outputs cout s9 s8 s7 s6 s5 s4 s3 s2 s1 s0
+.names 7ad47
+1
+.names b0 7ad47 7ad47 7ad5f
+11- 1
+0-0 1
+.names a0 7ad47 7ad5f 7f288
+11- 1
+0-1 1
+.names a0 7ad5f 7ad5f 7f20e
+11- 1
+0-0 1
+.names cin 7f288 7f20e 7f229
+11- 1
+-11 1
+000 1
+.names a1 7ad47 7f229 7f4f7
+11- 1
+0-1 1
+.names a1 7f229 7f229 7f225
+11- 1
+0-0 1
+.names b1 7f4f7 7f225 7f34f
+11- 1
+-11 1
+000 1
+.names b2 7ad47 7f34f 7f211
+11- 1
+0-1 1
+.names b2 7f34f 7f34f 7f228
+11- 1
+0-0 1
+.names a2 7f211 7f228 7e64d
+11- 1
+-11 1
+000 1
+.names a3 7ad47 7e64d 7f22a
+11- 1
+0-1 1
+.names a3 7e64d 7e64d 7f21d
+11- 1
+0-0 1
+.names b3 7f22a 7f21d 7f220
+11- 1
+-11 1
+000 1
+.names b4 7ad47 7f220 7f21c
+11- 1
+0-1 1
+.names b4 7f220 7f220 7aebb
+11- 1
+0-0 1
+.names a4 7f21c 7aebb 7d3cf
+11- 1
+-11 1
+000 1
+.names a5 7ad47 7d3cf 7f21e
+11- 1
+0-1 1
+.names a5 7d3cf 7d3cf 7e4cf
+11- 1
+0-0 1
+.names b5 7f21e 7e4cf 7aebc
+11- 1
+-11 1
+000 1
+.names b6 7ad47 7aebc 7b140
+11- 1
+0-1 1
+.names b6 7aebc 7aebc 7f215
+11- 1
+0-0 1
+.names a6 7b140 7f215 7bee3
+11- 1
+-11 1
+000 1
+.names b7 7ad47 7bee3 7f224
+11- 1
+0-1 1
+.names b7 7bee3 7bee3 7f231
+11- 1
+0-0 1
+.names a7 7f224 7f231 7f226
+11- 1
+-11 1
+000 1
+.names b8 7ad47 7f226 7ae4f
+11- 1
+0-1 1
+.names b8 7f226 7f226 7ae50
+11- 1
+0-0 1
+.names a8 7ae4f 7ae50 7f21b
+11- 1
+-11 1
+000 1
+.names a9 7ad47 7f21b 7bee4
+11- 1
+0-1 1
+.names a9 7f21b 7f21b 7f210
+11- 1
+0-0 1
+.names b9 7bee4 7f210 7f5d0
+11- 1
+-11 1
+000 1
+.names b9 7f210 7ad47 7ee9e
+11- 1
+-10 1
+001 1
+.names a8 7ae50 7ad47 7f3cf
+11- 1
+-10 1
+001 1
+.names a7 7f231 7ad47 7f24a
+11- 1
+-10 1
+001 1
+.names a6 7f215 7ad47 7eaa5
+11- 1
+-10 1
+001 1
+.names b5 7e4cf 7ad47 7ea54
+11- 1
+-10 1
+001 1
+.names a4 7aebb 7ad47 7ee6b
+11- 1
+-10 1
+001 1
+.names b3 7f21d 7ad47 7f400
+11- 1
+-10 1
+001 1
+.names a2 7f228 7ad47 7f2d9
+11- 1
+-10 1
+001 1
+.names b1 7f225 7ad47 7f252
+11- 1
+-10 1
+001 1
+.names cin 7f20e 7ad47 7f20f
+11- 1
+-10 1
+001 1
+.names 7f5d0 cout
+1 1
+.names 7ee9e s9
+1 1
+.names 7f3cf s8
+1 1
+.names 7f24a s7
+1 1
+.names 7eaa5 s6
+1 1
+.names 7ea54 s5
+1 1
+.names 7ee6b s4
+1 1
+.names 7f400 s3
+1 1
+.names 7f2d9 s2
+1 1
+.names 7f252 s1
+1 1
+.names 7f20f s0
+1 1
+.end

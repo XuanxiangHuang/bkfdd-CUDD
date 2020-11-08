@@ -227,6 +227,11 @@ cuddTreeSifting(
 	*/
 	tempTree = table->tree == NULL; 
 
+/** Xuanxiang Huang:BKFDD */
+	// Xuanxiang Huang: In BKFDD, we always use tempTree.
+	if (method == BKFDD_GROUP_SIFT) { assert(table->tree == NULL); }
+/** Xuanxiang Huang:BKFDD */
+
 	if (tempTree) {
 		table->tree = Mtr_InitGroupTree(0,table->size);
 		table->tree->index = table->invperm[0];
@@ -281,6 +286,9 @@ cuddTreeSifting(
 	if (tempTree)
 		Cudd_FreeTree(table);
 	else {
+/** Xuanxiang Huang:BKFDD */
+		assert(method != BKFDD_GROUP_SIFT);
+/** Xuanxiang Huang:BKFDD */
 		Mtr_ReorderGroups(table->tree, table->perm);
 	}
 
@@ -322,6 +330,9 @@ ddTreeSiftingAux(
 	auxnode = treenode;
 	while (auxnode != NULL) {
 		if (auxnode->child != NULL) {
+/** Xuanxiang Huang:BKFDD */
+			assert(method != BKFDD_GROUP_SIFT);
+/** Xuanxiang Huang:BKFDD */
 			if (!ddTreeSiftingAux(table, auxnode->child, method))
 				return(0);
 			saveCheck = table->groupcheck;
@@ -422,32 +433,9 @@ ddReorderChildren(
 
 /** Xuanxiang Huang:BKFDD */
 /** In SND mode, expansion change invoked after sifting finish. */
-	case BKFDD_OET_SIFT:
-	result = oetSifting(table,lower,upper);
-	break;
-
-	case KFDD_SYMM_SIFT:
-	result = bkfddSymmSifting(table,lower,upper);
-	if (table->bkfddMode == MODE_SND) {
-		if (!chooseSND2(table))
-			return(0);
-	}
-	break;
-
-	case BKFDD_SYMM_SIFT:
-	result = bkfddSymmSifting(table,lower,upper);
-	if (table->bkfddMode == MODE_SND) {
-		if (!chooseSND4(table))
-			return(0);
-	}
-	break;
-
 	case KFDD_GROUP_SIFT:
-	if (table->groupcheck == BKFDD_GROUP_CHECK1) {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck1);
-	} else {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck2);
-	}
+	assert((lower == 0) && (upper == (table->size-1)));
+	result = bkfddGroupSifting(table,lower,upper);
 	if (table->bkfddMode == MODE_SND) {
 		if (!chooseSND2(table))
 			return(0);
@@ -455,56 +443,19 @@ ddReorderChildren(
 	break;
 
 	case BKFDD_GROUP_SIFT:
-	if (table->groupcheck == BKFDD_GROUP_CHECK1) {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck1);
-	} else {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck2);
-	}
+	assert((lower == 0) && (upper == (table->size-1)));
+	result = bkfddGroupSifting(table,lower,upper);
+	assert(result != 0);
 	if (table->bkfddMode == MODE_SND) {
 		if (!chooseSND4(table))
 			return(0);
 	}
 	break;
-
-	case BKFDD_GROUP_SIFT_NMEG:
-	result = bkfddGroupSifting_noMerge(table,lower,upper);
-	if (table->bkfddMode == MODE_SND) {
-		if (!chooseSND4(table))
-			return(0);
-	}
-	break;
-
-	case KFDD_SYMM_MIX:
-	result = bkfddSymmSifting(table,lower,upper);
-	break;
-
-	case BKFDD_SYMM_MIX:
-	result = bkfddSymmSifting(table,lower,upper);
-	break;
-
-	case KFDD_GROUP_MIX:
-	if (table->groupcheck == BKFDD_GROUP_CHECK1) {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck1);
-	} else {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck2);
-	}
-	break;
-
-	case BKFDD_GROUP_MIX:
-	if (table->groupcheck == BKFDD_GROUP_CHECK1) {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck1);
-	} else {
-		result = bkfddGroupSifting(table,lower,upper,bkfddExtSymmCheck2);
-	}
-	break;
-
-	case BKFDD_GROUP_NMEG_MIX:
-	result = bkfddGroupSifting_noMerge(table,lower,upper);
-	break;
-
 #if 0
 	case BIDD_GROUP_SIFT:
+	assert((lower == 0) && (upper == (table->size-1)));
 	result = bkfddGroupSifting(table,lower,upper);
+	assert(result != 0);
 	if (table->bkfddMode == MODE_SND) {
 		if (!chooseBetterBiDD(table))
 			return(0);
@@ -628,6 +579,12 @@ ddReorderChildren(
 	** so that they will be treated as a single block by successive
 	** invocations of ddGroupSifting.
 	*/
+/** Xuanxiang Huang:BKFDD */
+	/* Xuanxiang Huang: lower and upper won't changed during reordering. */
+	if ((method == BKFDD_GROUP_SIFT)) {
+			assert((lower == 0) && (upper == (table->size-1)));
+	}
+/** Xuanxiang Huang:BKFDD */
 	ddMergeGroups(table,treenode,lower,upper);
 
 #ifdef DD_DEBUG

@@ -1,0 +1,91 @@
+.model 5-adder
+.inputs a4 b4 a3 b3 a2 b2 a1 b1 a0 b0 cin
+.outputs cout s4 s3 s2 s1 s0
+.names 9a11a
+1
+.names cin 9a11a 9a11a 9a128
+11- 1
+0-0 1
+.names b0 9a11a 9a128 9a82e
+11- 1
+0-1 1
+.names b0 9a128 9a128 9ab13
+11- 1
+0-0 1
+.names a0 9a82e 9ab13 9a16e
+11- 1
+-11 1
+000 1
+.names b1 9a11a 9a16e 9a169
+11- 1
+0-1 1
+.names b1 9a16e 9a16e 9a821
+11- 1
+0-0 1
+.names a1 9a169 9a821 9aaaf
+11- 1
+-11 1
+000 1
+.names b2 9a11a 9aaaf 9a828
+11- 1
+0-1 1
+.names b2 9aaaf 9aaaf 9a19f
+11- 1
+0-0 1
+.names a2 9a828 9a19f 9a825
+11- 1
+-11 1
+000 1
+.names b3 9a11a 9a825 9a82f
+11- 1
+0-1 1
+.names b3 9a825 9a825 9a82a
+11- 1
+0-0 1
+.names a3 9a82f 9a82a 9a822
+11- 1
+-11 1
+000 1
+.names b4 9a11a 9a822 9a824
+11- 1
+0-1 1
+.names b4 9a822 9a822 9a2e5
+11- 1
+0-0 1
+.names a4 9a824 9a2e5 9a2e6
+11- 1
+-11 1
+000 1
+.names a4 9a2e5 9a11a 9a94b
+11- 1
+-10 1
+001 1
+.names a3 9a82a 9a11a 9aa61
+11- 1
+-10 1
+001 1
+.names a2 9a19f 9a11a 9aadf
+11- 1
+-10 1
+001 1
+.names a1 9a821 9a11a 9ab11
+11- 1
+-10 1
+001 1
+.names a0 9ab13 9a11a 9ab14
+11- 1
+-10 1
+001 1
+.names 9a2e6 cout
+1 1
+.names 9a94b s4
+1 1
+.names 9aa61 s3
+1 1
+.names 9aadf s2
+1 1
+.names 9ab11 s1
+1 1
+.names 9ab14 s0
+1 1
+.end

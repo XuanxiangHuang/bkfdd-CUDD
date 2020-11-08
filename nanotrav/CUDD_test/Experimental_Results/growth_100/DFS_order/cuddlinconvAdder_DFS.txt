@@ -1,0 +1,1076 @@
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col04.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col04.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a3 b3 a2 b2 a1 b1 a0 b0 
+cin 
+Number of inputs = 9
+BDD reordering with converging linear sifting: from 22 to ... 14 nodes in 0 sec
+New order
+b3 a3 b2 a2 b1 a1 b0 cin 
+a0 
+Dumping BDDs to benchmark_output_CUDD/adder_col04.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 40
+**** CUDD non-modifiable parameters ****
+Memory in use: 3183184
+Peak number of nodes: 1022
+Peak number of live nodes: 45
+Number of BDD variables: 9
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 1185
+Number of cache hits: 670
+Number of cache insertions: 559
+Number of cache collisions: 32
+Number of cache deletions: 503
+Cache used slots = 1.60% (expected 0.10%)
+Soft limit for cache size: 10240
+Number of buckets in unique table: 2560
+Used buckets in unique table: 1.41% (expected 1.43%)
+Number of BDD and ADD nodes: 37
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 16
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 802
+Total number of nodes reclaimed: 1238
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 14
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3924K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1156
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 1
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col05.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col05.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a4 b4 a3 b3 a2 b2 a1 b1 
+a0 b0 cin 
+Number of inputs = 11
+BDD reordering with converging linear sifting: from 27 to ... 17 nodes in 0 sec
+New order
+b4 a4 b3 a3 b2 b1 a1 b0 
+cin a0 a2 
+Dumping BDDs to benchmark_output_CUDD/adder_col05.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 48
+**** CUDD non-modifiable parameters ****
+Memory in use: 3237216
+Peak number of nodes: 2044
+Peak number of live nodes: 55
+Number of BDD variables: 11
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 2990
+Number of cache hits: 1834
+Number of cache insertions: 1253
+Number of cache collisions: 107
+Number of cache deletions: 1101
+Cache used slots = 3.49% (expected 0.17%)
+Soft limit for cache size: 12288
+Number of buckets in unique table: 3072
+Used buckets in unique table: 1.63% (expected 1.71%)
+Number of BDD and ADD nodes: 53
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 28
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 1807
+Total number of nodes reclaimed: 4268
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 17
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3940K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1169
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 1
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col06.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col06.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a5 b5 a4 b4 a3 b3 a2 b2 
+a1 b1 a0 b0 cin 
+Number of inputs = 13
+BDD reordering with converging linear sifting: from 32 to ... 20 nodes in 0 sec
+New order
+b5 a5 b4 a4 b3 a3 b2 a2 
+b1 a1 b0 cin a0 
+Dumping BDDs to benchmark_output_CUDD/adder_col06.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 56
+**** CUDD non-modifiable parameters ****
+Memory in use: 3302704
+Peak number of nodes: 4088
+Peak number of live nodes: 65
+Number of BDD variables: 13
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 7087
+Number of cache hits: 4644
+Number of cache insertions: 2664
+Number of cache collisions: 335
+Number of cache deletions: 2294
+Cache used slots = 7.09% (expected 0.18%)
+Soft limit for cache size: 14336
+Number of buckets in unique table: 3584
+Used buckets in unique table: 1.45% (expected 1.47%)
+Number of BDD and ADD nodes: 53
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 24
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 3836
+Total number of nodes reclaimed: 12870
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 20
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3956K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1189
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 1
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col07.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col07.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a6 b6 a5 b5 a4 b4 a3 b3 
+a2 b2 a1 b1 a0 b0 cin 
+Number of inputs = 15
+BDD reordering with converging linear sifting: from 37 to ... 23 nodes in 0 sec
+New order
+b6 a6 b5 a5 b4 a4 b3 a3 
+b2 a2 b1 a1 b0 cin a0 
+Dumping BDDs to benchmark_output_CUDD/adder_col07.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 64
+**** CUDD non-modifiable parameters ****
+Memory in use: 3433664
+Peak number of nodes: 8176
+Peak number of live nodes: 75
+Number of BDD variables: 15
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 16325
+Number of cache hits: 11230
+Number of cache insertions: 5556
+Number of cache collisions: 874
+Number of cache deletions: 4640
+Cache used slots = 14.27% (expected 0.21%)
+Soft limit for cache size: 16384
+Number of buckets in unique table: 4096
+Used buckets in unique table: 1.44% (expected 1.48%)
+Number of BDD and ADD nodes: 61
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 28
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 7953
+Total number of nodes reclaimed: 36132
+Garbage collections so far: 1
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 23
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  3996K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1233
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col08.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col08.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a7 b7 a6 b6 a5 b5 a4 b4 
+a3 b3 a2 b2 a1 b1 a0 b0 
+cin 
+Number of inputs = 17
+BDD reordering with converging linear sifting: from 42 to ... 26 nodes in 0 sec
+New order
+b7 a7 b6 a6 b5 a5 b4 a4 
+b3 a3 b2 b1 a1 b0 cin a0 
+a2 
+Dumping BDDs to benchmark_output_CUDD/adder_col08.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 72
+**** CUDD non-modifiable parameters ****
+Memory in use: 3662832
+Peak number of nodes: 15330
+Peak number of live nodes: 85
+Number of BDD variables: 17
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 37274
+Number of cache hits: 26113
+Number of cache insertions: 12095
+Number of cache collisions: 2508
+Number of cache deletions: 9525
+Cache used slots = 27.92% (expected 0.28%)
+Soft limit for cache size: 18432
+Number of buckets in unique table: 4608
+Used buckets in unique table: 1.65% (expected 1.66%)
+Number of BDD and ADD nodes: 77
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 40
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 17128
+Total number of nodes reclaimed: 95172
+Garbage collections so far: 2
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 26
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4072K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1319
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col09.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col09.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a8 b8 a7 b7 a6 b6 a5 b5 
+a4 b4 a3 b3 a2 b2 a1 b1 
+a0 b0 cin 
+Number of inputs = 19
+BDD reordering with converging linear sifting: from 47 to ... 29 nodes in 0 sec
+New order
+b8 a8 b7 a7 b6 a6 b5 a5 
+b4 b3 a3 b2 a2 b1 a1 b0 
+cin a0 a4 
+Dumping BDDs to benchmark_output_CUDD/adder_col09.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 80
+**** CUDD non-modifiable parameters ****
+Memory in use: 3695584
+Peak number of nodes: 16352
+Peak number of live nodes: 95
+Number of BDD variables: 19
+Number of ZDD variables: 0
+Number of cache entries: 32768
+Number of cache look-ups: 88352
+Number of cache hits: 58798
+Number of cache insertions: 31451
+Number of cache collisions: 5925
+Number of cache deletions: 25441
+Cache used slots = 58.98% (expected 0.37%)
+Soft limit for cache size: 20480
+Number of buckets in unique table: 5120
+Used buckets in unique table: 1.78% (expected 1.80%)
+Number of BDD and ADD nodes: 93
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 52
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 45278
+Total number of nodes reclaimed: 232761
+Garbage collections so far: 3
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 29
+total time = 0.00 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  4244K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 1379
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 3
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col10.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col10.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+b9 a9 a8 b8 a7 b7 a6 b6 
+b5 a5 a4 b4 b3 a3 a2 b2 
+b1 a1 cin a0 b0 
+Number of inputs = 21
+BDD reordering with converging linear sifting: from 52 to ... 32 nodes in 0 sec
+New order
+a9 b9 b8 a8 b7 a7 b6 a6 
+a5 b5 b4 a4 a3 b2 a2 a1 
+b1 a0 b0 cin b3 
+Dumping BDDs to benchmark_output_CUDD/adder_col10.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 88
+**** CUDD non-modifiable parameters ****
+Memory in use: 5289232
+Peak number of nodes: 32704
+Peak number of live nodes: 105
+Number of BDD variables: 21
+Number of ZDD variables: 0
+Number of cache entries: 65536
+Number of cache look-ups: 198206
+Number of cache hits: 131323
+Number of cache insertions: 70701
+Number of cache collisions: 20424
+Number of cache deletions: 50194
+Cache used slots = 23.29% (expected 0.20%)
+Soft limit for cache size: 22528
+Number of buckets in unique table: 5632
+Used buckets in unique table: 1.69% (expected 1.71%)
+Number of BDD and ADD nodes: 97
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 52
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 99387
+Total number of nodes reclaimed: 573975
+Garbage collections so far: 4
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 32
+total time = 0.02 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  5680K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 2122
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 2
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col11.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col11.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a10 b10 b9 a9 a8 b8 a7 b7 
+a6 b6 b5 a5 b4 a4 b3 a3 
+b2 a2 a1 b1 cin a0 b0 
+Number of inputs = 23
+BDD reordering with converging linear sifting: from 57 to ... 35 nodes in 0 sec
+New order
+b10 a10 a9 b9 b8 a8 b7 a7 
+b6 a6 a5 b5 a4 b4 a3 a2 
+b2 b1 a1 a0 b0 cin b3 
+Dumping BDDs to benchmark_output_CUDD/adder_col11.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 96
+**** CUDD non-modifiable parameters ****
+Memory in use: 5321984
+Peak number of nodes: 33726
+Peak number of live nodes: 115
+Number of BDD variables: 23
+Number of ZDD variables: 0
+Number of cache entries: 65536
+Number of cache look-ups: 466206
+Number of cache hits: 284162
+Number of cache insertions: 189705
+Number of cache collisions: 47473
+Number of cache deletions: 142144
+Cache used slots = 15.26% (expected 0.22%)
+Soft limit for cache size: 24576
+Number of buckets in unique table: 6144
+Used buckets in unique table: 1.64% (expected 1.69%)
+Number of BDD and ADD nodes: 105
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 56
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 273899
+Total number of nodes reclaimed: 1328310
+Garbage collections so far: 12
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 35
+total time = 0.04 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.0 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            =  6320K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 2298
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 7
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col12.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col12.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a11 b11 a10 b10 b9 a9 a8 b8 
+a7 b7 a6 b6 b5 a5 b4 a4 
+b3 a3 b2 a2 b1 a1 cin a0 
+b0 
+Number of inputs = 25
+BDD reordering with converging linear sifting: from 62 to ... 38 nodes in 0.01 sec
+New order
+b11 a11 b10 a10 a9 b9 b8 a8 
+b7 a7 b6 a6 a5 b5 a4 a3 
+b3 a2 b2 a1 b1 a0 b0 cin 
+b4 
+Dumping BDDs to benchmark_output_CUDD/adder_col12.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 104
+**** CUDD non-modifiable parameters ****
+Memory in use: 8433968
+Peak number of nodes: 65408
+Peak number of live nodes: 125
+Number of BDD variables: 25
+Number of ZDD variables: 0
+Number of cache entries: 131072
+Number of cache look-ups: 1046125
+Number of cache hits: 618484
+Number of cache insertions: 442987
+Number of cache collisions: 125584
+Number of cache deletions: 317300
+Cache used slots = 23.46% (expected 0.13%)
+Soft limit for cache size: 26624
+Number of buckets in unique table: 6656
+Used buckets in unique table: 1.73% (expected 1.74%)
+Number of BDD and ADD nodes: 117
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 64
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 642625
+Total number of nodes reclaimed: 3114191
+Garbage collections so far: 21
+Time for garbage collection: 0.01 sec
+Reorderings so far: 1
+Time for reordering: 0.01 sec
+Final size: 38
+total time = 0.11 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.1 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 12196K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 3510
+Swaps = 0
+Input blocks = 0
+Output blocks = 8
+Context switch (voluntary) = 0
+Context switch (involuntary) = 1
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col13.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col13.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a12 b12 b11 a11 a10 b10 a9 b9 
+b8 a8 b7 a7 a6 b6 b5 a5 
+b4 a4 a3 b3 a2 b2 a1 b1 
+cin a0 b0 
+Number of inputs = 27
+BDD reordering with converging linear sifting: from 67 to ... 41 nodes in 0 sec
+New order
+b12 a12 a11 b11 b10 a10 b9 a9 
+a8 b8 a7 b7 b6 a6 a5 b5 
+a4 b3 a3 b2 a2 b1 a1 a0 
+b0 cin b4 
+Dumping BDDs to benchmark_output_CUDD/adder_col13.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 112
+**** CUDD non-modifiable parameters ****
+Memory in use: 8401248
+Peak number of nodes: 64386
+Peak number of live nodes: 135
+Number of BDD variables: 27
+Number of ZDD variables: 0
+Number of cache entries: 131072
+Number of cache look-ups: 2380027
+Number of cache hits: 1319858
+Number of cache insertions: 1090880
+Number of cache collisions: 303148
+Number of cache deletions: 787623
+Cache used slots = 25.22% (expected 0.14%)
+Soft limit for cache size: 28672
+Number of buckets in unique table: 7168
+Used buckets in unique table: 1.72% (expected 1.73%)
+Number of BDD and ADD nodes: 125
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 68
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 1604474
+Total number of nodes reclaimed: 7096305
+Garbage collections so far: 48
+Time for garbage collection: 0.00 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 41
+total time = 0.24 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.2 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 15288K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 4329
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 6
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col14.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col14.blif -dumpblif
+# CUDD Version 3.0.0
+Order before final reordering
+a13 b13 b12 a12 a11 b11 b10 a10 
+a9 b9 b8 a8 b7 a7 a6 b6 
+b5 a5 b4 a4 b3 a3 b2 a2 
+b1 a1 cin a0 b0 
+Number of inputs = 29
+BDD reordering with converging linear sifting: from 72 to ... 44 nodes in 0 sec
+New order
+b13 a13 a12 b12 b11 a11 a10 b10 
+b9 a9 a8 b8 a7 b7 b6 a6 
+a5 b5 a4 a3 b3 a2 b2 a1 
+b1 a0 b0 cin b4 
+Dumping BDDs to benchmark_output_CUDD/adder_col14.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 120
+**** CUDD non-modifiable parameters ****
+Memory in use: 9317872
+Peak number of nodes: 93002
+Peak number of live nodes: 145
+Number of BDD variables: 29
+Number of ZDD variables: 0
+Number of cache entries: 131072
+Number of cache look-ups: 5311702
+Number of cache hits: 2807558
+Number of cache insertions: 2565581
+Number of cache collisions: 625864
+Number of cache deletions: 1939602
+Cache used slots = 54.71% (expected 0.16%)
+Soft limit for cache size: 30720
+Number of buckets in unique table: 7680
+Used buckets in unique table: 1.71% (expected 1.72%)
+Number of BDD and ADD nodes: 133
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 72
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 3840392
+Total number of nodes reclaimed: 16099906
+Garbage collections so far: 98
+Time for garbage collection: 0.02 sec
+Reorderings so far: 1
+Time for reordering: 0.00 sec
+Final size: 44
+total time = 0.53 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      0.5 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 22024K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 6181
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 5
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col15.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col15.blif -dumpblif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 4001 to ... 116 nodes in 0.01 sec
+BDD reordering with group sifting: from 233 to ... 180 nodes in 0 sec
+BDD reordering with group sifting: from 362 to ... 210 nodes in 0.01 sec
+Order before final reordering
+b14 a14 b11 a11 b10 a10 a0 b0 
+cin b9 a9 b1 a1 a2 b2 b3 
+a3 a5 b5 a4 b4 b8 a8 a6 
+a7 b7 a12 b12 a13 b13 b6 
+Number of inputs = 31
+BDD reordering with converging linear sifting: from 373 to ... 120 nodes in 0.01 sec
+New order
+a14 b14 b13 a13 b12 a12 a11 b11 
+a10 b10 a9 b9 a8 b7 b5 b0 
+a0 cin a1 b1 a2 b2 b3 a3 
+a4 b4 a5 a6 b6 a7 b8 
+Dumping BDDs to benchmark_output_CUDD/adder_col15.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 274
+**** CUDD non-modifiable parameters ****
+Memory in use: 28731168
+Peak number of nodes: 305578
+Peak number of live nodes: 4004
+Number of BDD variables: 31
+Number of ZDD variables: 0
+Number of cache entries: 524288
+Number of cache look-ups: 14332779
+Number of cache hits: 6519634
+Number of cache insertions: 7813590
+Number of cache collisions: 1443598
+Number of cache deletions: 6369048
+Cache used slots = 29.33% (expected 0.19%)
+Soft limit for cache size: 32768
+Number of buckets in unique table: 8192
+Used buckets in unique table: 12.11% (expected 12.13%)
+Number of BDD and ADD nodes: 1128
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 990
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 8330148
+Total number of nodes reclaimed: 18724565
+Garbage collections so far: 114
+Time for garbage collection: 0.16 sec
+Reorderings so far: 4
+Time for reordering: 0.03 sec
+Final size: 120
+total time = 1.38 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      1.4 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 61524K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 12354
+Swaps = 0
+Input blocks = 0
+Output blocks = 16
+Context switch (voluntary) = 0
+Context switch (involuntary) = 20
+# Nanotrav Version #0.13, Release date 2015/7/15
+# .././nanotrav ../Benchmark/Adder/adder_col16.blif -ordering dfs -autodyn -automethod group -reordering linconv -drop -dumpfile benchmark_output_CUDD/adder_col16.blif -dumpblif
+# CUDD Version 3.0.0
+BDD reordering with group sifting: from 4001 to ... 172 nodes in 0 sec
+BDD reordering with group sifting: from 345 to ... 294 nodes in 0.01 sec
+BDD reordering with group sifting: from 580 to ... 157 nodes in 0.01 sec
+Order before final reordering
+b15 a15 a14 b14 b13 a13 a12 b12 
+a11 b11 a10 b10 b9 a9 b8 a8 
+a0 b0 cin b4 a4 b1 a1 a2 
+b2 a3 b3 a5 b5 a6 b6 a7 
+b7 
+Number of inputs = 33
+BDD reordering with converging linear sifting: from 186 to ... 144 nodes in 0.01 sec
+New order
+a15 b15 b14 a14 a13 b13 b12 a12 
+b11 a11 b10 a10 a9 b9 a8 b8 
+a4 b0 a0 cin a1 b1 b2 a2 
+a3 b3 b4 a5 b5 a6 b6 a7 
+b7 
+Dumping BDDs to benchmark_output_CUDD/adder_col16.blif
+**** CUDD modifiable parameters ****
+Hard limit for cache size: 2796202
+Cache hit threshold for resizing: 30%
+Garbage collection enabled: yes
+Limit for fast unique table growth: 1677721
+Maximum number of variables sifted per reordering: 1000000
+Maximum number of variable swaps per reordering: 1000000000
+Maximum growth while sifting a variable: 2
+Dynamic reordering of BDDs enabled: yes
+Default BDD reordering method: 17
+Dynamic reordering of ZDDs enabled: no
+Default ZDD reordering method: 7
+Realignment of ZDDs to BDDs enabled: no
+Realignment of BDDs to ZDDs enabled: no
+Dead nodes counted in triggering reordering: no
+Group checking criterion: 7
+Recombination threshold: 0
+Symmetry violation threshold: 10
+Arc violation threshold: 10
+GA population size: 0
+Number of crossovers for GA: 0
+Next reordering threshold: 324
+**** CUDD non-modifiable parameters ****
+Memory in use: 37275280
+Peak number of nodes: 572320
+Peak number of live nodes: 4004
+Number of BDD variables: 33
+Number of ZDD variables: 0
+Number of cache entries: 524288
+Number of cache look-ups: 32124474
+Number of cache hits: 14953613
+Number of cache insertions: 17171346
+Number of cache collisions: 4394893
+Number of cache deletions: 12775967
+Cache used slots = 99.99% (expected 0.10%)
+Soft limit for cache size: 34816
+Number of buckets in unique table: 8704
+Used buckets in unique table: 9.18% (expected 9.10%)
+Number of BDD and ADD nodes: 848
+Number of ZDD nodes: 0
+Number of dead BDD and ADD nodes: 685
+Number of dead ZDD nodes: 0
+Total number of nodes allocated: 18010059
+Total number of nodes reclaimed: 42254716
+Garbage collections so far: 124
+Time for garbage collection: 0.34 sec
+Reorderings so far: 4
+Time for reordering: 0.03 sec
+Final size: 144
+total time = 3.37 sec
+Runtime Statistics
+------------------
+Machine name: localhost.localdomain
+User time      3.3 seconds
+System time    0.0 seconds
+
+Average resident text size       =     0K
+Average resident data+stack size =     0K
+Maximum resident size            = 88028K
+
+Virtual memory limit             = unlimited (unlimited)
+Major page faults = 0
+Minor page faults = 20896
+Swaps = 0
+Input blocks = 0
+Output blocks = 32
+Context switch (voluntary) = 0
+Context switch (involuntary) = 34

@@ -56,8 +56,6 @@
 /*********************************************************************************
 	Expansion types change, manually gc, the performs of this version is correct, 
 	but results are sometime unpredictable, currently don't know why.
-
-	2020/5/4: remove all code that enlarge unique table, disable cuddLocalCacheClearAll.
 *********************************************************************************/
 
 static void changeExpnPostProcess(DdManager *dd, int level);
@@ -67,7 +65,8 @@ static void changeExpnPostProcess(DdManager *dd, int level);
 	BS <==> BND, or CS <==> CND.
 
 	1. Disable auto reordering and garbage collecting.
-	2. Move all nodes to a list, use old table.
+	2. Move all nodes to a list, create new table if needed,
+			otherwise use old table.
 	3. For any node N of given level: 
 		3.1	Apply Boolean opeartion to N's old successors,
 				and generate new successors.
@@ -87,10 +86,9 @@ changeExpnBetweenSND(
 	DdManager * dd,
 	int level)
 {
-	if (isPDavio(dd->expansion[level])) {
-		(void) fprintf(dd->err, "changeExpnBetweenSND: wrong expn\n");
-		return(0);
-	}
+	assert(level != (dd->size-1));
+	assert(!isPDavio(dd->expansion[level]));
+	assert(dd->dead == 0);
 
 	/* Disable auto reordering and garbage collecting. */
 	int reorderSave = dd->autoDyn;
@@ -103,8 +101,11 @@ changeExpnBetweenSND(
 	nodechain = p = next = f_l = f_h = f_newh = tmp = NULL;
 	DdNodePtr *previousP = NULL;
 	unsigned int i, posn;
+	extern DD_OOMFP MMoutOfMemory;
+	DD_OOMFP saveHandler;
 
 	DdNodePtr *list = dd->subtables[level].nodelist;
+	int oldkeys = dd->subtables[level].keys;
 	unsigned int slots = dd->subtables[level].slots;
 	int shift = dd->subtables[level].shift;
 	DdNode *sentinel = &(dd->sentinel);
@@ -121,6 +122,52 @@ changeExpnBetweenSND(
 	} /* for each slot of the subtable */
 	DdNode *zero = Cudd_Not(DD_ONE(dd));
 
+	if (((unsigned) oldkeys >= slots || (unsigned) slots == dd->initSlots) &&
+	(unsigned)oldkeys <= DD_MAX_SUBTABLE_DENSITY * slots) {
+	/* Use old table. Do nothing. */
+	} else {
+	/* Create new table. The number of keys unchanged. */
+		DdNodePtr *newlist = NULL;
+		unsigned int newslots = slots;
+		int newshift = shift;
+		while ((unsigned) oldkeys > DD_MAX_SUBTABLE_DENSITY * newslots) {
+			newshift--;
+			newslots <<= 1;
+		}
+		while ((unsigned) oldkeys < newslots &&
+		newslots > dd->initSlots) {
+			newshift++;
+			newslots >>= 1;
+		}
+		/* Try to allocate new table. Be ready to back off. */
+		saveHandler = MMoutOfMemory;
+		MMoutOfMemory = dd->outOfMemCallback;
+		newlist = ALLOC(DdNodePtr, newslots);
+		MMoutOfMemory = saveHandler;
+		if (newlist == NULL) {
+			(void) fprintf(dd->err, "changeExpnBetweenSND: create subtable lack of memory\n");
+			return(0);
+		} else {
+			dd->slots += ((int) newslots - slots);
+			dd->minDead = (unsigned)
+			(dd->gcFrac * (double) dd->slots);
+			dd->cacheSlack = (int)
+			ddMin(dd->maxCacheHard, DD_MAX_CACHE_TO_SLOTS_RATIO
+			* dd->slots) - 2 * (int) dd->cacheSlots;
+			dd->memused +=
+			((int) newslots - slots) * sizeof(DdNodePtr);
+			FREE(list);
+			slots =  newslots;
+			shift = newshift;
+			list = newlist;
+
+			dd->subtables[level].nodelist = list;
+			dd->subtables[level].slots = slots;
+			dd->subtables[level].shift = shift;
+			dd->subtables[level].maxKeys = slots * DD_MAX_SUBTABLE_DENSITY;
+		}
+	}
+
 	/* Initialize new subtable. */
 	for (i = 0; i < slots; i++) {
 		list[i] = sentinel;
@@ -131,15 +178,9 @@ changeExpnBetweenSND(
 		f_l = cuddT(nodechain);
 		f_h = cuddE(nodechain);
 		if (isShan(dec)) { // S => ND
-			if (f_l == f_h) {
-				(void) fprintf(dd->err, "changeExpnBetweenSND: f_l == f_h\n");
-				return(0);
-			}
+			assert(f_l != f_h);
 		} else { // ND => S
-			if (f_h == zero) {
-				(void) fprintf(dd->err, "changeExpnBetweenSND: f_h == zero\n");
-				return(0);
-			}
+			assert(f_h != zero);
 		}
 		f_newh = BkfddXorRecur_Inner(dd, f_l, f_h);
 		if (f_newh == NULL) {
@@ -151,15 +192,9 @@ changeExpnBetweenSND(
 		cuddDeref(f_h);
 		cuddE(nodechain) = f_newh;
 		if (isShan(dec)) { // S => ND
-			if (f_newh == zero) {
-				(void) fprintf(dd->err, "changeExpnBetweenSND: f_newh == zero\n");
-				return(0);
-			}
+			assert(f_newh != zero);
 		} else { // ND => S
-			if (f_l == f_newh) {
-				(void) fprintf(dd->err, "changeExpnBetweenSND: f_l == f_newh\n");
-				return(0);
-			}
+			assert(f_l != f_newh);	
 		}
 		/* Re-compute hash value, and re-insert to subtable. */
 		posn = ddHash(f_l, f_newh, shift);
@@ -199,7 +234,8 @@ changeExpnBetweenSND(
 	BND <==> BPD, or CND <==> CPD.
 
 	1. Disable auto reordering and garbage collecting.
-	2. Move all nodes to a list, use old table.
+	2. Move all nodes to a list, create new table if needed,
+			otherwise use old table.
 	3. For any node N of given level: 
 		3.1	Apply Boolean opeartion to N's old successors,
 				and generate new successors.
@@ -219,10 +255,9 @@ changeExpnBetweenNDPD(
 	DdManager * dd,
 	int level)
 {
-	if (isShan(dd->expansion[level])) {
-		(void) fprintf(dd->err, "changeExpnBetweenNDPD: wrong expn\n");
-		return(0);
-	}
+	assert(level != (dd->size-1));
+	assert(!isShan(dd->expansion[level]));
+	assert(dd->dead == 0);
 	
 	/* Disable auto reordering and garbage collecting. */
 	int reorderSave = dd->autoDyn;
@@ -235,8 +270,11 @@ changeExpnBetweenNDPD(
 	nodechain = p = next = f_l = f_h = f_newl = tmp = NULL;
 	DdNodePtr *previousP = NULL;
 	unsigned int i, posn;
+	extern DD_OOMFP MMoutOfMemory;
+	DD_OOMFP saveHandler;
 
 	DdNodePtr *list = dd->subtables[level].nodelist;
+	int oldkeys = dd->subtables[level].keys;
 	unsigned int slots = dd->subtables[level].slots;
 	int shift = dd->subtables[level].shift;
 	DdNode *sentinel = &(dd->sentinel);
@@ -252,7 +290,51 @@ changeExpnBetweenNDPD(
 		} /* while there are elements in the collision chain */
 	} /* for each slot of the subtable */
 	DdNode *zero = Cudd_Not(DD_ONE(dd));
-	
+	if (((unsigned) oldkeys >= slots || (unsigned) slots == dd->initSlots) &&
+	(unsigned)oldkeys <= DD_MAX_SUBTABLE_DENSITY * slots) {
+	/* Use old table. Do nothing. */
+	} else {
+	/* Create new table. The number of keys unchanged. */
+		DdNodePtr *newlist = NULL;
+		unsigned int newslots = slots;
+		int newshift = shift;
+		while ((unsigned) oldkeys > DD_MAX_SUBTABLE_DENSITY * newslots) {
+			newshift--;
+			newslots <<= 1;
+		}
+		while ((unsigned) oldkeys < newslots &&
+		newslots > dd->initSlots) {
+			newshift++;
+			newslots >>= 1;
+		}
+		/* Try to allocate new table. Be ready to back off. */
+		saveHandler = MMoutOfMemory;
+		MMoutOfMemory = dd->outOfMemCallback;
+		newlist = ALLOC(DdNodePtr, newslots);
+		MMoutOfMemory = saveHandler;
+		if (newlist == NULL) {
+			(void) fprintf(dd->err, "changeExpnBetweenNDPD: create subtable lack of memory\n");
+			return(0);
+		} else {
+			dd->slots += ((int) newslots - slots);
+			dd->minDead = (unsigned)
+			(dd->gcFrac * (double) dd->slots);
+			dd->cacheSlack = (int)
+			ddMin(dd->maxCacheHard, DD_MAX_CACHE_TO_SLOTS_RATIO
+			* dd->slots) - 2 * (int) dd->cacheSlots;
+			dd->memused +=
+			((int) newslots - slots) * sizeof(DdNodePtr);
+			FREE(list);
+			slots =  newslots;
+			shift = newshift;
+			list = newlist;
+
+			dd->subtables[level].nodelist = list;
+			dd->subtables[level].slots = slots;
+			dd->subtables[level].shift = shift;
+			dd->subtables[level].maxKeys = slots * DD_MAX_SUBTABLE_DENSITY;
+		}
+	}
 	/* Initialize new subtable. */
 	for (i = 0; i < slots; i++) {
 		list[i] = sentinel;
@@ -262,10 +344,7 @@ changeExpnBetweenNDPD(
 		next = nodechain->next;
 		f_l = cuddT(nodechain);
 		f_h = cuddE(nodechain);
-		if (f_h == zero) {
-			(void) fprintf(dd->err, "changeExpnBetweenNDPD: f_h == zero\n");
-			return(0);
-		}
+		assert(f_h != zero);
 		/* f_newl = f_l XOR f_h, f_newh = f_h */
 		f_newl = BkfddXorRecur_Inner(dd, f_l, f_h);
 		if (f_newl == NULL) {
@@ -317,7 +396,8 @@ changeExpnBetweenNDPD(
 	at internal level.
 
 	1. Disable auto reordering and garbage collecting.
-	2. Move all nodes to a list, use old table.
+	2. Move all nodes to a list, create new table if needed,
+			otherwise use old table.
 	3. For any node N of given level: 
 		3.1	Apply Boolean opeartion to N's old successors,
 				and generate new successors.
@@ -337,10 +417,9 @@ changeExpnPDtoS(
 	DdManager * dd,
 	int level)
 {
-	if (!isPDavio(dd->expansion[level])) {
-		(void) fprintf(dd->err, "changeExpnPDtoS: wrong expn\n");
-		return(0);
-	}
+	assert(level != (dd->size-1));
+	assert(isPDavio(dd->expansion[level]));
+	assert(dd->dead == 0);
 	
 	/* Disable auto reordering and garbage collecting. */
 	int reorderSave = dd->autoDyn;
@@ -353,8 +432,11 @@ changeExpnPDtoS(
 	nodechain = p = next = f_l = f_h = f_newl = tmp = NULL;
 	DdNodePtr *previousP = NULL;
 	unsigned int i, posn;
+	extern DD_OOMFP MMoutOfMemory;
+	DD_OOMFP saveHandler;
 
 	DdNodePtr *list = dd->subtables[level].nodelist;
+	int oldkeys = dd->subtables[level].keys;
 	unsigned int slots = dd->subtables[level].slots;
 	int shift = dd->subtables[level].shift;
 	DdNode *sentinel = &(dd->sentinel);
@@ -370,7 +452,51 @@ changeExpnPDtoS(
 		} /* while there are elements in the collision chain */
 	} /* for each slot of the subtable */
 	DdNode *zero = Cudd_Not(DD_ONE(dd));
-	
+	if (((unsigned) oldkeys >= slots || (unsigned) slots == dd->initSlots) &&
+	(unsigned)oldkeys <= DD_MAX_SUBTABLE_DENSITY * slots) {
+	/* Use old table. Do nothing. */
+	} else {
+	/* Create new table. The number of keys unchanged. */
+		DdNodePtr *newlist = NULL;
+		unsigned int newslots = slots;
+		int newshift = shift;
+		while ((unsigned) oldkeys > DD_MAX_SUBTABLE_DENSITY * newslots) {
+			newshift--;
+			newslots <<= 1;
+		}
+		while ((unsigned) oldkeys < newslots &&
+		newslots > dd->initSlots) {
+			newshift++;
+			newslots >>= 1;
+		}
+		/* Try to allocate new table. Be ready to back off. */
+		saveHandler = MMoutOfMemory;
+		MMoutOfMemory = dd->outOfMemCallback;
+		newlist = ALLOC(DdNodePtr, newslots);
+		MMoutOfMemory = saveHandler;
+		if (newlist == NULL) {
+			(void) fprintf(dd->err, "changeExpnPDtoS: create subtable lack of memory\n");
+			return(0);
+		} else {
+			dd->slots += ((int) newslots - slots);
+			dd->minDead = (unsigned)
+			(dd->gcFrac * (double) dd->slots);
+			dd->cacheSlack = (int)
+			ddMin(dd->maxCacheHard, DD_MAX_CACHE_TO_SLOTS_RATIO
+			* dd->slots) - 2 * (int) dd->cacheSlots;
+			dd->memused +=
+			((int) newslots - slots) * sizeof(DdNodePtr);
+			FREE(list);
+			slots =  newslots;
+			shift = newshift;
+			list = newlist;
+
+			dd->subtables[level].nodelist = list;
+			dd->subtables[level].slots = slots;
+			dd->subtables[level].shift = shift;
+			dd->subtables[level].maxKeys = slots * DD_MAX_SUBTABLE_DENSITY;
+		}
+	}
 	/* Initialize new subtable. */
 	for (i = 0; i < slots; i++) {
 		list[i] = sentinel;
@@ -380,10 +506,7 @@ changeExpnPDtoS(
 		next = nodechain->next;
 		f_l = cuddT(nodechain);
 		f_h = cuddE(nodechain);
-		if (f_h == zero) {
-			(void) fprintf(dd->err, "changeExpnPDtoS: f_h == zero\n");
-			return(0);
-		}
+		assert(f_h != zero);
 		/* f_newl = f_l XOR f_h; f_newh = f_l. */
 		f_newl = BkfddXorRecur_Inner(dd, f_l, f_h);
 		if (f_newl == NULL) {
@@ -396,10 +519,7 @@ changeExpnPDtoS(
 		/* new low may vioalte "low-edge uncomplemented". */
 		cuddT(nodechain) = f_newl;
 		cuddE(nodechain) = f_l;
-		if (f_newl == f_l) {
-			(void) fprintf(dd->err, "changeExpnPDtoS: f_newl == f_l\n");
-			return(0);
-		}
+		assert(f_newl != f_l);
 		/* Re-compute hash value, and re-insert to subtable. */
 		posn = ddHash(f_newl, f_l, shift);
 		previousP = &(list[posn]);
@@ -436,7 +556,8 @@ changeExpnPDtoS(
 	at internal level.
 
 	1. Disable auto reordering and garbage collecting.
-	2. Move all nodes to a list, use old table.
+	2. Move all nodes to a list, create new table if needed,
+			otherwise use old table.
 	3. For any node N of given level: 
 		3.1	Apply Boolean opeartion to N's old successors,
 				and generate new successors.
@@ -456,10 +577,9 @@ changeExpnStoPD(
 	DdManager * dd,
 	int level)
 {
-	if (!isShan(dd->expansion[level])) {
-		(void) fprintf(dd->err, "changeExpnStoPD: wrong expn\n");
-		return(0);
-	}
+	assert(level != (dd->size-1));
+	assert(isShan(dd->expansion[level]));
+	assert(dd->dead == 0);
 	
 	/* Disable auto reordering and garbage collecting. */
 	int reorderSave = dd->autoDyn;
@@ -472,8 +592,11 @@ changeExpnStoPD(
 	nodechain = p = next = f_l = f_h = f_newh = tmp = NULL;
 	DdNodePtr *previousP = NULL;
 	unsigned int i, posn;
+	extern DD_OOMFP MMoutOfMemory;
+	DD_OOMFP saveHandler;
 
 	DdNodePtr *list = dd->subtables[level].nodelist;
+	int oldkeys = dd->subtables[level].keys;
 	unsigned int slots = dd->subtables[level].slots;
 	int shift = dd->subtables[level].shift;
 	DdNode *sentinel = &(dd->sentinel);
@@ -490,7 +613,51 @@ changeExpnStoPD(
 		} /* while there are elements in the collision chain */
 	} /* for each slot of the subtable */
 	DdNode *zero = Cudd_Not(DD_ONE(dd));
-	
+	if (((unsigned) oldkeys >= slots || (unsigned) slots == dd->initSlots) &&
+	(unsigned)oldkeys <= DD_MAX_SUBTABLE_DENSITY * slots) {
+	/* Use old table. Do nothing. */
+	} else {
+	/* Create new table. The number of keys unchanged. */
+		DdNodePtr *newlist = NULL;
+		unsigned int newslots = slots;
+		int newshift = shift;
+		while ((unsigned) oldkeys > DD_MAX_SUBTABLE_DENSITY * newslots) {
+			newshift--;
+			newslots <<= 1;
+		}
+		while ((unsigned) oldkeys < newslots &&
+		newslots > dd->initSlots) {
+			newshift++;
+			newslots >>= 1;
+		}
+		/* Try to allocate new table. Be ready to back off. */
+		saveHandler = MMoutOfMemory;
+		MMoutOfMemory = dd->outOfMemCallback;
+		newlist = ALLOC(DdNodePtr, newslots);
+		MMoutOfMemory = saveHandler;
+		if (newlist == NULL) {
+			(void) fprintf(dd->err, "changeExpnStoPD: create subtable lack of memory\n");
+			return(0);
+		} else {
+			dd->slots += ((int) newslots - slots);
+			dd->minDead = (unsigned)
+			(dd->gcFrac * (double) dd->slots);
+			dd->cacheSlack = (int)
+			ddMin(dd->maxCacheHard, DD_MAX_CACHE_TO_SLOTS_RATIO
+			* dd->slots) - 2 * (int) dd->cacheSlots;
+			dd->memused +=
+			((int) newslots - slots) * sizeof(DdNodePtr);
+			FREE(list);
+			slots =  newslots;
+			shift = newshift;
+			list = newlist;
+
+			dd->subtables[level].nodelist = list;
+			dd->subtables[level].slots = slots;
+			dd->subtables[level].shift = shift;
+			dd->subtables[level].maxKeys = slots * DD_MAX_SUBTABLE_DENSITY;
+		}
+	}
 	/* Initialize new subtable. */
 	for (i = 0; i < slots; i++) {
 		list[i] = sentinel;
@@ -500,10 +667,7 @@ changeExpnStoPD(
 		next = nodechain->next;
 		f_l = cuddT(nodechain);
 		f_h = cuddE(nodechain);
-		if (f_l == f_h) {
-			(void) fprintf(dd->err, "changeExpnStoPD: f_l == f_h\n");
-			return(0);
-		}
+		assert(f_l != f_h);
 		/* f_newl = f_h, f_newh = f_l XOR f_h */
 		f_newh = BkfddXorRecur_Inner(dd, f_l, f_h);
 		if (f_newh == NULL) {
@@ -516,10 +680,7 @@ changeExpnStoPD(
 		/* f_newl may complemented. */
 		cuddT(nodechain) = f_h;
 		cuddE(nodechain) = f_newh;
-		if (f_newh == zero) {
-			(void) fprintf(dd->err, "changeExpnStoPD: f_newh == zero\n");
-			return(0);
-		}
+		assert(f_newh != zero);
 		/* Re-compute hash value, and re-insert to subtable. */
 		posn = ddHash(f_h, f_newh, shift);
 		previousP = &(list[posn]);
@@ -606,16 +767,9 @@ int
 changeExpnBetweenBiCla(
 	DdManager * dd,
 	int level)
-{
-	if (level == (dd->size-1)) {
-		if(dd->expansion[level] == CS) 				{	dd->expansion[level] = BS; }
-		else if (dd->expansion[level] == BS) 	{ dd->expansion[level] = CS; }
-		else if (dd->expansion[level] == CND)	{ dd->expansion[level] = BND; }
-		else if (dd->expansion[level] == BND)	{ dd->expansion[level] = CND; }
-		else if (dd->expansion[level] == CPD)	{ dd->expansion[level] = BPD; }
-		else 																	{ dd->expansion[level] = CPD; }
-		return(1);
-	}
+{	
+	assert(level != (dd->size-1));
+	assert(dd->dead == 0);
 
 	/* Disable auto reordering and garbage collecting. */
 	int reorderSave = dd->autoDyn;
@@ -628,8 +782,11 @@ changeExpnBetweenBiCla(
 	nodechain = p = next = f_newl = f_newh = tmp = f_h_tmp = f_l = f_h = NULL;
 	DdNodePtr *previousP = NULL;
 	unsigned int i, posn;
+	extern DD_OOMFP MMoutOfMemory;
+	DD_OOMFP saveHandler;
 
 	DdNodePtr *list = dd->subtables[level].nodelist;
+	int oldkeys = dd->subtables[level].keys;
 	unsigned int slots = dd->subtables[level].slots;
 	int shift = dd->subtables[level].shift;
 	DdNode *sentinel = &(dd->sentinel);
@@ -646,7 +803,51 @@ changeExpnBetweenBiCla(
 		} /* while there are elements in the collision chain */
 	} /* for each slot of the subtable */
 	DdNode *zero = Cudd_Not(DD_ONE(dd));
+	if (((unsigned) oldkeys >= slots || (unsigned) slots == dd->initSlots) &&
+	(unsigned) oldkeys <= DD_MAX_SUBTABLE_DENSITY * slots) {
+	/* Use old table. Do nothing. */
+	} else {
+	/* Create new table. The number of keys unchanged. */
+		DdNodePtr *newlist;
+		unsigned int newslots = slots;
+		int newshift = shift;
+		while ((unsigned) oldkeys > DD_MAX_SUBTABLE_DENSITY * newslots) {
+			newshift--;
+			newslots <<= 1;
+		}
+		while ((unsigned) oldkeys < newslots &&
+		newslots > dd->initSlots) {
+			newshift++;
+			newslots >>= 1;
+		}
+		/* Try to allocate new table. Be ready to back off. */
+		saveHandler = MMoutOfMemory;
+		MMoutOfMemory = dd->outOfMemCallback;
+		newlist = ALLOC(DdNodePtr, newslots);
+		MMoutOfMemory = saveHandler;
+		if (newlist == NULL) {
+			(void) fprintf(dd->err, "changeExpnBetweenBiCla: create subtable lack of memory\n");
+			return(0);
+		} else {
+			dd->slots += ((int) newslots - slots);
+			dd->minDead = (unsigned)
+			(dd->gcFrac * (double) dd->slots);
+			dd->cacheSlack = (int)
+			ddMin(dd->maxCacheHard, DD_MAX_CACHE_TO_SLOTS_RATIO
+			* dd->slots) - 2 * (int) dd->cacheSlots;
+			dd->memused +=
+			((int) newslots - slots) * sizeof(DdNodePtr);
+			FREE(list);
+			slots =  newslots;
+			shift = newshift;
+			list = newlist;
 
+			dd->subtables[level].nodelist = list;
+			dd->subtables[level].slots = slots;
+			dd->subtables[level].shift = shift;
+			dd->subtables[level].maxKeys = slots * DD_MAX_SUBTABLE_DENSITY;
+		}
+	}
 	/* Initialize new(old) subtable. */
 	for (i = 0; i < slots; i++) {
 		list[i] = sentinel;
@@ -662,10 +863,7 @@ changeExpnBetweenBiCla(
 			next = nodechain->next;
 			f_l = cuddT(nodechain);
 			f_h = cuddE(nodechain);
-			if (f_l == f_h) {
-				(void) fprintf(dd->err, "changeExpnBetweenBiCla: f_l == f_h\n");
-				return(0);
-			}
+			assert(f_l != f_h);
 			f_newl = BkfddIteRecur_Inner(dd, y_var, f_l, f_h);
 			if (f_newl == NULL) {
 				/* Compute new low successor failed, out of memory. */
@@ -682,10 +880,7 @@ changeExpnBetweenBiCla(
 				return(0);
 			}
 			cuddRef(f_newh);
-			if (f_newl == f_newh) {
-				(void) fprintf(dd->err, "changeExpnBetweenBiCla: f_newl == f_newh\n");
-				return(0);
-			}
+			assert(f_newl != f_newh);
 			/* Deref old low and old high. */
 			cuddDeref(f_l);
 			cuddDeref(f_h);
@@ -714,10 +909,7 @@ changeExpnBetweenBiCla(
 			next = nodechain->next;
 			f_l = cuddT(nodechain);
 			f_h = cuddE(nodechain);
-			if (f_h == zero) {
-				(void) fprintf(dd->err, "changeExpnBetweenBiCla: f_h == zero\n");
-				return(0);
-			}
+			assert(f_h != zero);
 			f_h_tmp = BkfddAndRecur_Inner(dd, Cudd_Not(y_var), f_h);
 			if (f_h_tmp == NULL) {
 				(void) fprintf(dd->err, "changeExpnBetweenBiCla: compute xor lack of memory\n");
@@ -795,6 +987,7 @@ changeExpnPostProcess(
 
 	/* Clean cache. */
 	cuddCacheFlush(dd);
+	cuddLocalCacheClearAll(dd);
 	
 	/* GC subtable below current level, there is no dead nodes. */
 	for (i = level; i < dd->size; i++) {
@@ -819,7 +1012,6 @@ changeExpnPostProcess(
 			}
 			*previousP = sentinel;
 		}
-		dd->subtables[i].dead = 0;
 	}
 
 	/* Re-count isolated variables. 
@@ -832,6 +1024,6 @@ changeExpnPostProcess(
 			dd->isolated ++;
 		}
 	}
-	
+
 	return;
 } /* end of changeExpnPostProcess */

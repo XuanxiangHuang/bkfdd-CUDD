@@ -1,8 +1,0 @@
-ITC_b04.blif
-ITC_b05.blif
-ITC_b07.blif
-ITC_b11.blif
-ITC_b12.blif
-ITC_b15_1.blif
-ITC_b15.blif
-#
